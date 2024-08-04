@@ -6,14 +6,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import page.guest.HomePage;
+import page.guest.*;
 
-
-public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
+public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsSuccessful {
     WebDriver driver;
     String url;
-    HomePage homePage;
     SetUp setUp;
+    HomePage homePage;
+    RoomsPage roomsPage;
+    AboutPage aboutPage;
+    BlogsPage blogsPage;
+    ContanctPage contanctPage;
+    FaqsPage faqsPage;
+
 
     @BeforeMethod
     public void setUp() {
@@ -29,11 +34,21 @@ public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
         driver.manage().window().maximize();
         // Khởi tạo đối tượng HomePage
         homePage = new HomePage(driver);
+        roomsPage = new RoomsPage(driver);
+        aboutPage = new AboutPage(driver);
+        blogsPage = new BlogsPage(driver);
+        contanctPage = new ContanctPage(driver);
+        faqsPage = new FaqsPage(driver);
     }
 
     @Test
-    public void TC1() {
-        homePage.directionalMenu();
+    public void TC2() {
+        homePage.textBoxSearchHome();
+        roomsPage.textBoxSearchRooms();
+        aboutPage.textBoxSearchAbout();
+        blogsPage.textBoxSearchBlog();
+        contanctPage.textBoxSearchContact();
+        faqsPage.textBoxSearchFaqs();
     }
 
     @AfterMethod
