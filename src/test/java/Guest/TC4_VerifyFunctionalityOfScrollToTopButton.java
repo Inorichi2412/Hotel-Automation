@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import page.guest.*;
 
 public class TC4_VerifyFunctionalityOfScrollToTopButton {
@@ -18,7 +19,7 @@ public class TC4_VerifyFunctionalityOfScrollToTopButton {
     BlogsPage blogsPage;
     ContanctPage contanctPage;
     FaqsPage faqsPage;
-
+    SoftAssert softAssert;
 
     @BeforeMethod
     public void setUp() {
@@ -39,16 +40,54 @@ public class TC4_VerifyFunctionalityOfScrollToTopButton {
         blogsPage = new BlogsPage(driver);
         contanctPage = new ContanctPage(driver);
         faqsPage = new FaqsPage(driver);
+        softAssert = new SoftAssert();
     }
 
     @Test
     public void TC4() {
+        // Home
         homePage.clickScrollToTop();
+        // Expected titles
+        String expectedHomeTitle = "Best Hotel to stay";
+        // Navigate assert title
+        softAssert.assertEquals(homePage.directionalHome(),expectedHomeTitle,"Best Hotel to stay");
+
+        // Rooms
         roomsPage.clickScrollToTop();
+        // Expected titles
+        String expectedRoomsTitle = "Rooms";
+        // Navigate assert title
+        softAssert.assertEquals(roomsPage.directionalRooms(),expectedRoomsTitle,"Rooms");
+
+        // About Us
         aboutPage.clickScrollToTop();
+        // Expected titles
+        String expectedAboutTitle = "About Us";
+        // Navigate assert title
+        softAssert.assertEquals(aboutPage.directionalAbout(),expectedAboutTitle,"About Us");
+
+        // Our Blogs
         blogsPage.clickScrollToTop();
+        // Expected titles
+        String expectedBlogsTitle = "Our Blogs";
+        // Navigate assert title
+        softAssert.assertEquals(blogsPage.directionalBlog(),expectedBlogsTitle,"Our Blogs");
+
+        // Contact Us
         contanctPage.clickScrollToTop();
+        // Expected titles
+        String expectedContanctTitle = "Contact Us";
+        // Navigate assert title
+        softAssert.assertEquals(contanctPage.directionalContanct(),expectedContanctTitle,"Contact Us");
+
+        // FAQ
         faqsPage.clickScrollToTop();
+        // Expected titles
+        String expectedFaqsTitle = "FAQ";
+        // Navigate assert title
+        softAssert.assertEquals(faqsPage.directionalFAQ(),expectedFaqsTitle,"FAQ");
+
+        softAssert.assertAll();
     }
 
     @AfterMethod

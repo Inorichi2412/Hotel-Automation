@@ -13,6 +13,7 @@ public class RoomsPage {
     WebDriver driver;
 
     By buttonDirectionalRoomsSelector = By.xpath("//a[@href='/rooms']");
+    By tittleRoomsSelector = By.xpath("//h2[text()='Rooms']");
     By buttonTextBoxSearchSelector = By.xpath("//*[@id='searchForm']/span");
     By textBoxSearchSelector = By.name("bookingUID");
     By clickButtonSearchTBSelector = By.xpath("//input[@class='sb-search-submit']");
@@ -27,6 +28,13 @@ public class RoomsPage {
         this.driver = driver;
     }
 
+    public String directionalRooms() {
+        driver.findElement(buttonDirectionalRoomsSelector).click();
+        WebElement titleElement = driver.findElement(tittleRoomsSelector);
+        return titleElement.getText();
+    }
+
+    //TC2
     public void textBoxSearchRooms() {
         driver.findElement(buttonDirectionalRoomsSelector).click();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
@@ -36,6 +44,7 @@ public class RoomsPage {
         driver.findElement(clickButtonSearchTBSelector).click();
     }
 
+    //TC3
     public void textBoxSearchRoomsNoSuccess() {
         driver.findElement(buttonDirectionalRoomsSelector).click();
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
@@ -60,7 +69,6 @@ public class RoomsPage {
 
     //TC5
     public void clickButtonBreadcrumbHome() {
-        driver.findElement(buttonDirectionalRoomsSelector).click();
         driver.findElement(buttonBreadcrumbHomeSelector).click();
     }
 }

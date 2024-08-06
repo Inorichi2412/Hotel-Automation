@@ -13,6 +13,7 @@ public class ContanctPage {
     WebDriver driver;
 
     By buttonDirectionalContactUsSelector = By.xpath("//a[@href='/contact']");
+    By tittleContactUsSelector = By.xpath("//h2[text()='Contact Us']");
     By buttonTextBoxSearchSelector = By.xpath("//*[@id='searchForm']/span");
     By textBoxSearchSelector = By.name("bookingUID");
     By clickButtonSearchTBSelector = By.xpath("//input[@class='sb-search-submit']");
@@ -25,6 +26,13 @@ public class ContanctPage {
 
     public ContanctPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    //TC 1
+    public String directionalContanct() {
+        driver.findElement(buttonDirectionalContactUsSelector).click();
+        WebElement titleElement = driver.findElement(tittleContactUsSelector);
+        return titleElement.getText();
     }
 
     //TC2
@@ -62,7 +70,6 @@ public class ContanctPage {
 
     //TC5
     public void clickButtonBreadcrumbHome() {
-        driver.findElement(buttonDirectionalContactUsSelector).click();
         driver.findElement(buttonBreadcrumbHomeSelector).click();
     }
 }
