@@ -42,7 +42,7 @@ public class TC38_VerifyThatUsersCanFailToRegisterWithInvalidInformation {
         homePage.clickRegister();
 
         registerPage.register("","","","");
-        softAssert.assertFalse(registerPage.isRegisterFormDisplayed(),"Form still display");
+        softAssert.assertTrue(registerPage.isRegisterFormDisplayed(),"Form not display");
 
         registerPage.register("vyvanviet","vyvanviet@gmail.com","","");
         softAssert.assertFalse(registerPage.isRegisterFormDisplayed(),"Form still display");
