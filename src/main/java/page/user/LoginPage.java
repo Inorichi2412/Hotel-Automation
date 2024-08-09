@@ -8,6 +8,8 @@ public class LoginPage {
     By usernameInputSelector = By.xpath("//input[@name=\"email\"]");
     By passwordInputSelector=By.xpath("//input[@name=\"password\"]");
     By submitButtonSelector=By.xpath("//input[@value=\"Sign In\"]");
+    By loginErrorSelector=By.id("loginError");
+    By loginFormSelector=By.xpath("//form[@name=\"login-form\"]");
 
     public void clickEmailInput() {
         driver.findElement(usernameInputSelector).click();
@@ -35,6 +37,14 @@ public class LoginPage {
         clickPasswordInput();
         enterPassword(password);
         clickSubmitButton();
+    }
+
+    public boolean isLoginErrorDisplayed() {
+        return driver.findElement(loginErrorSelector).isDisplayed();
+    }
+
+    public boolean isLoginFormDisplayed() {
+        return driver.findElement(loginFormSelector).isDisplayed();
     }
 
     public LoginPage(WebDriver driver) {

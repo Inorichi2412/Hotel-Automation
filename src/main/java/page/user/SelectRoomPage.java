@@ -11,6 +11,9 @@ public class SelectRoomPage {
     By room2DetailSelector= By.xpath("(//div[@class=\"yemm_hotel_location clearfix\"]/a)[2]");
     By room3DetailSelector= By.xpath("(//div[@class=\"yemm_hotel_location clearfix\"]/a)[3]");
 
+    By itemDescriptionsSelector=By.xpath("//div[@class=\"pop_item_description\"]");
+
+
     public void moveToRoom1() {
         WebElement room1Detail=driver.findElement(room1DetailSelector);
         new Actions(driver).moveToElement(room1Detail).perform();
@@ -30,6 +33,10 @@ public class SelectRoomPage {
 
     public boolean isSelectRoomDisplayed() {
         return driver.findElement(room1DetailSelector).isDisplayed();
+    }
+
+    public boolean isItemDescriptionsDisplayed() {
+        return driver.findElement(itemDescriptionsSelector).isDisplayed();
     }
 
     public SelectRoomPage(WebDriver driver) {
