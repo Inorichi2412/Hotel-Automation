@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import page.guest.*;
 import utils.BookingDataGenerator;
+import utils.CreditCard;
 
 public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsSuccessful {
     WebDriver driver;
@@ -19,7 +20,9 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
     BlogsPage blogsPage;
     ContanctPage contanctPage;
     FaqsPage faqsPage;
+    CheckOutPage checkOutPage;
     BookingDataGenerator bookingDataGenerator;
+    private CreditCard creditCard;
 
 
     @BeforeMethod
@@ -41,6 +44,7 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         blogsPage = new BlogsPage(driver);
         contanctPage = new ContanctPage(driver);
         faqsPage = new FaqsPage(driver);
+        checkOutPage = new CheckOutPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
     }
 
@@ -63,6 +67,14 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         String address = bookingDataGenerator.generateAddress();
 
         homePage.actionSearchBooking(checkInDate, checkOutDate, adults, children);
+        roomsPage.buttonViewDetails();
+        roomsPage.buttonBookNowRooms();
+        roomsPage.regionAddInformation();
+        roomsPage.enterAddInformation(fullName, email, phone, address);
+        checkOutPage.regionPayment();
+       // CreditCard creditCard = new CreditCard("2222 3333 4444 5555", "JOHN HENRY", "12/25", "123");
+        checkOutPage.enterCreditCardDetails(creditCard);
+        checkOutPage.clickButtonPayNow();
     }
 
     @AfterMethod

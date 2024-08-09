@@ -92,7 +92,6 @@ public class HomePage {
     }
 
     //TC4
-    //TC4
     // Cuộn xuống cuối trang
     public void scrollToBottom() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
