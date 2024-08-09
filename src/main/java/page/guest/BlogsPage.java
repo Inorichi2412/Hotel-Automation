@@ -13,6 +13,7 @@ public class BlogsPage {
     WebDriver driver;
 
     By buttonDirectionalBlogsSelector = By.xpath("//a[@href='/blogs']");
+    By tittleOurBlogsSelector = By.xpath("//h2[text()='Our Blogs']");
     By buttonTextBoxSearchSelector = By.xpath("//*[@id='searchForm']/span");
     By textBoxSearchSelector = By.name("bookingUID");
     By clickButtonSearchTBSelector = By.xpath("//input[@class='sb-search-submit']");
@@ -25,6 +26,13 @@ public class BlogsPage {
 
     public BlogsPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    //TC 1
+    public String directionalBlog() {
+        driver.findElement(buttonDirectionalBlogsSelector).click();
+        WebElement titleElement = driver.findElement(tittleOurBlogsSelector);
+        return titleElement.getText();
     }
 
     //TC2
@@ -62,7 +70,6 @@ public class BlogsPage {
 
     //TC5
     public void clickButtonBreadcrumbHome() {
-        driver.findElement(buttonDirectionalBlogsSelector).click();
         driver.findElement(buttonBreadcrumbHomeSelector).click();
     }
 }

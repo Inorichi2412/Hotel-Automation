@@ -13,6 +13,7 @@ public class FaqsPage {
     WebDriver driver;
 
     By buttonDirectionalFaqsSelector = By.xpath("//a[@href='/faqs']");
+    By tittleFAQSelector = By.xpath("//h2[text()='FAQ']");
     By buttonTextBoxSearchSelector = By.xpath("//*[@id='searchForm']/span");
     By textBoxSearchSelector = By.name("bookingUID");
     By clickButtonSearchTBSelector = By.xpath("//input[@class='sb-search-submit']");
@@ -25,6 +26,13 @@ public class FaqsPage {
 
     public FaqsPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    //TC 1
+    public String directionalFAQ() {
+        driver.findElement(buttonDirectionalFaqsSelector).click();
+        WebElement titleElement = driver.findElement(tittleFAQSelector);
+        return titleElement.getText();
     }
 
     //TC2
@@ -61,7 +69,6 @@ public class FaqsPage {
     }
     //TC5
     public void clickButtonBreadcrumbHome() {
-        driver.findElement(buttonDirectionalFaqsSelector).click();
         driver.findElement(buttonBreadcrumbHomeSelector).click();
     }
 }

@@ -13,6 +13,7 @@ public class AboutPage {
     WebDriver driver;
 
     By buttonDirectionalAboutSelector = By.xpath("//a[@href='/about']");
+    By tittleAboutSelector = By.xpath("//h2[text()='About Us']");
     By buttonTextBoxSearchSelector = By.xpath("//*[@id='searchForm']/span");
     By textBoxSearchSelector = By.name("bookingUID");
     By clickButtonSearchTBSelector = By.xpath("//input[@class='sb-search-submit']");
@@ -25,6 +26,12 @@ public class AboutPage {
 
     public AboutPage(WebDriver driver) {
         this.driver = driver;
+    }
+
+    public String directionalAbout() {
+        driver.findElement(buttonDirectionalAboutSelector).click();
+        WebElement titleElement = driver.findElement(tittleAboutSelector);
+        return titleElement.getText();
     }
 
     //TC2
@@ -62,7 +69,6 @@ public class AboutPage {
 
     //TC5
     public void clickButtonBreadcrumbHome() {
-        driver.findElement(buttonDirectionalAboutSelector).click();
         driver.findElement(buttonBreadcrumbHomeSelector).click();
     }
 }
