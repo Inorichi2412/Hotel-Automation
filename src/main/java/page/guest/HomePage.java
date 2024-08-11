@@ -35,7 +35,7 @@ public class HomePage {
     }
 
     //TC1
-    public String directionalHome() {
+    public String getTitle() {
         driver.findElement(buttonDirectionalHomeSelector).click();
         WebElement titleElement = driver.findElement(tittleHomeSelector);
         return titleElement.getText();

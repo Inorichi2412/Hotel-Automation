@@ -56,8 +56,9 @@ public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
         String expectedContanctTitle = "Contact Us";
         String expectedFaqsTitle = "FAQ";
 
+        // fix mess
         // Navigate assert title
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        Assert.assertEquals(homePage.getTitle(), expectedHomeTitle,"Best Hotel to stay" );
         Assert.assertEquals(roomsPage.directionalRooms(), expectedRoomsTitle, "Rooms");
         Assert.assertEquals(aboutPage.directionalAbout(), expectedAboutTitle, "About Us");
         Assert.assertEquals(blogsPage.directionalBlog(), expectedBlogsTitle, "Our Blogs");

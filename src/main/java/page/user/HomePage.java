@@ -12,7 +12,7 @@ import java.time.Duration;
 public class HomePage {
     WebDriver driver;
     Actions actions;
-    Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+    Wait<WebDriver> wait;
 
     By loginSelector = By.xpath("//a[@href=\"#Login_tab\"][1]");
     By registerSelector =By.xpath("//a[@href=\"#Register_tab\"][1]");
@@ -83,11 +83,11 @@ public class HomePage {
     }
 
 
-    public void clickLogin() {
+    public void openLoginForm() {
         driver.findElement(loginSelector).click();
     }
 
-    public void clickRegister() {
+    public void openRegisterForm() {
         driver.findElement(registerSelector).click();
     }
 
@@ -127,6 +127,7 @@ public class HomePage {
     public HomePage(WebDriver driver) {
         this.driver = driver;
         this.actions=new Actions(driver);
+        this.wait=new WebDriverWait(driver,Duration.ofSeconds(10));
     }
 
 }

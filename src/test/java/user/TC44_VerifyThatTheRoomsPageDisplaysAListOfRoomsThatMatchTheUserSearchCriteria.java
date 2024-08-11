@@ -40,14 +40,12 @@ public class TC44_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUserSear
     public void VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUserSearchCriteria() {
 
         homePage.clickLogin();
-
         loginPage.login("vyvanviet","abc123");
 
         homePage.searchRoom("2024/08/09","2024/08/10","2","2");
         softAssert.assertTrue(selectRoomPage.isItemDescriptionsDisplayed(),"Don't have any available room");
 
         softAssert.assertAll();
-
 
     }
 

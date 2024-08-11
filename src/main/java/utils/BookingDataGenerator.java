@@ -31,6 +31,7 @@ public class BookingDataGenerator {
         return String.valueOf(adults);
     }
 
+    // chuyen ve int
     public String generateChildren() {
         int children = faker.number().numberBetween(0, 3);
         return String.valueOf(children);
