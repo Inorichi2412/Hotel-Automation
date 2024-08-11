@@ -46,6 +46,7 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         faqsPage = new FaqsPage(driver);
         checkOutPage = new CheckOutPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
+        creditCard = CreditCard.getSampleCreditCard();
     }
 
     @Test

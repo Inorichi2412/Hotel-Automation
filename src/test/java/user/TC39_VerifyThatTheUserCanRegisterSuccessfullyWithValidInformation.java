@@ -39,7 +39,7 @@ public class TC39_VerifyThatTheUserCanRegisterSuccessfullyWithValidInformation {
     @Test
     public void VerifyThatTheUserCanRegisterSuccessfullyWithValidInformation() {
 
-        homePage.clickRegister();
+        homePage.openRegisterForm();
 
         registerPage.register("","","","");
         softAssert.assertFalse(registerPage.isRegisterFormDisplayed(),"Form still display");

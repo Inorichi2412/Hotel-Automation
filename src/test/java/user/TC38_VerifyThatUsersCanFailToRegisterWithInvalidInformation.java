@@ -39,22 +39,28 @@ public class TC38_VerifyThatUsersCanFailToRegisterWithInvalidInformation {
     @Test
     public void VerifyThatUsersCanFailToRegisterWithInvalidInformation() {
 
-        homePage.clickRegister();
+        homePage.openRegisterForm();
 
         registerPage.register("","","","");
         softAssert.assertTrue(registerPage.isRegisterFormDisplayed(),"Form not display");
 
+        registerPage.clearRegisterForm();
         registerPage.register("vyvanviet","vyvanviet@gmail.com","","");
-        softAssert.assertFalse(registerPage.isRegisterFormDisplayed(),"Form still display");
+        softAssert.assertTrue(registerPage.isRegisterFormDisplayed(),"Form still display");
 
+        registerPage.clearRegisterForm();
         registerPage.register("","","abc123","abc123");
-        softAssert.assertFalse(registerPage.isRegisterFormDisplayed(),"Form still display");
+        softAssert.assertTrue(registerPage.isRegisterFormDisplayed(),"Form still display");
 
+        registerPage.clearRegisterForm();
         registerPage.register("vyvanviet","vyvanviet","abc123","abc123");
-        softAssert.assertFalse(registerPage.isRegisterFormDisplayed(),"Form still display");
+        softAssert.assertTrue(registerPage.isRegisterFormDisplayed(),"Form still display");
 
+
+        registerPage.clearRegisterForm();
         registerPage.register("vyvanviet","vyvanvietttt@gmail.com","abc123","abc123");
         softAssert.assertTrue(registerPage.isRegisterErrorDisplayed(),"Username already used");
+
 
         registerPage.register("vyvanvietttt","vyvanviet@gmail.com","abc123","abc123");
         softAssert.assertTrue(registerPage.isRegisterErrorDisplayed(),"Email already used");

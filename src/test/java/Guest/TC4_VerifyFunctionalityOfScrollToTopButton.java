@@ -50,7 +50,7 @@ public class TC4_VerifyFunctionalityOfScrollToTopButton {
         // Expected titles
         String expectedHomeTitle = "Best Hotel to stay";
         // Navigate assert title
-        softAssert.assertEquals(homePage.directionalHome(),expectedHomeTitle,"Best Hotel to stay");
+        softAssert.assertEquals(homePage.getTitle(),expectedHomeTitle,"Best Hotel to stay");
 
         // Rooms
         roomsPage.clickScrollToTop();

@@ -54,31 +54,31 @@ public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
         String expectedRoomsTitle = "Rooms";
         Assert.assertEquals(roomsPage.directionalRooms(), expectedRoomsTitle, "Rooms");
         roomsPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        Assert.assertEquals(homePage.getTitle(), expectedHomeTitle,"Best Hotel to stay" );
 
         //  breadcrum About Us
         String expectedAboutTitle = "About Us";
         Assert.assertEquals(aboutPage.directionalAbout(), expectedAboutTitle, "About Us");
         aboutPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        Assert.assertEquals(homePage.getTitle(), expectedHomeTitle,"Best Hotel to stay" );
 
         //  breadcrum Our Blogs
         String expectedBlogsTitle = "Our Blogs";
         Assert.assertEquals(blogsPage.directionalBlog(), expectedBlogsTitle, "Our Blogs");
         blogsPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        Assert.assertEquals(homePage.getTitle(), expectedHomeTitle,"Best Hotel to stay" );
 
         //  breadcrum Contact Us
         String expectedContanctTitle = "Contact Us";
         Assert.assertEquals(contanctPage.directionalContanct(), expectedContanctTitle, "Contact Us");
         contanctPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        Assert.assertEquals(homePage.getTitle(), expectedHomeTitle,"Best Hotel to stay" );
 
         //  breadcrum FAQ
         String expectedFaqsTitle = "FAQ";
         Assert.assertEquals(faqsPage.directionalFAQ(), expectedFaqsTitle, "FAQ");
         faqsPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        Assert.assertEquals(homePage.getTitle(), expectedHomeTitle,"Best Hotel to stay" );
 
         softAssert.assertAll();
     }

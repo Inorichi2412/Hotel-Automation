@@ -42,21 +42,21 @@ public class TC41_VerifyThatUsersCanCheckTheNumberOfHotelsForEachLocationByHover
         softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
                 "Still not display number of available rooms");
 
-//        homePage.hoverLocation2();
-//        softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
-//                "Still not display number of available rooms");
-//
-//        homePage.hoverLocation3();
-//        softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
-//                "Still not display number of available rooms");
-//
-//        homePage.hoverLocation4();
-//        softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
-//                "Still not display number of available rooms");
-//
-//        homePage.hoverLocation5();
-//        softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
-//                "Still not display number of available rooms");
+        homePage.hoverLocation2();
+        softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
+                "Still not display number of available rooms");
+
+        homePage.hoverLocation3();
+        softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
+                "Still not display number of available rooms");
+
+        homePage.hoverLocation4();
+        softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
+                "Still not display number of available rooms");
+
+        homePage.hoverLocation5();
+        softAssert.assertTrue(homePage.isBadgeSuccessDisplayed(),
+                "Still not display number of available rooms");
 
         softAssert.assertAll();
 
