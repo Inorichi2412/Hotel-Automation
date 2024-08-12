@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.user.HomePage;
 import page.user.LoginPage;
-import page.user.RegisterPage;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -37,7 +36,7 @@ public class TC42_VerifyThatTheUserLoginFailedWithInvalidInformation {
     @Test
     public void VerifyThatTheUserLoginFailedWithInvalidInformation() {
 
-        homePage.clickLogin();
+        homePage.openLoginForm();
         loginPage.login("","");
         softAssert.assertTrue(loginPage.isLoginErrorDisplayed(),"Error message appear");
 

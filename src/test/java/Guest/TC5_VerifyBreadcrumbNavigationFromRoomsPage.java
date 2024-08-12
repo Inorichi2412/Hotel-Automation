@@ -67,6 +67,7 @@ public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
         faqsPage.navigateToHomePage();
         verifyBreadcrumbNavigation(faqsPage);
 
+
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
     }
