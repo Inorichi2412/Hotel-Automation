@@ -13,7 +13,7 @@ import utils.ConfigReader;
 
 import java.time.Duration;
 
-public class TC47_VerifyThatUsersCanNavigateToDifferentPagesSuccessfullyByClickingOnTabsOnTheMenu {
+public class TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickingOnTheSiteLogo {
     WebDriver driver;
     ConfigReader configReader;
     HomePage homePage;
@@ -38,31 +38,34 @@ public class TC47_VerifyThatUsersCanNavigateToDifferentPagesSuccessfullyByClicki
     }
 
     @Test
-    public void VerifyThatUsersCanNavigateToDifferentPagesSuccessfullyByClickingOnTabsOnTheMenu () {
+    public void VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickingOnTheSiteLogo() {
 
         homePage.openLoginForm();
         loginPage.login("vyvanviet","abc123");
 
+        navigationBarAndBreadCrumbPage.clickHome();
         navigationBarAndBreadCrumbPage.clickLogo();
         softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickHome();
+        navigationBarAndBreadCrumbPage.clickRooms();
+        navigationBarAndBreadCrumbPage.clickLogo();
         softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickRooms();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH2Header(),"Rooms","Wrong H2 header");
-
         navigationBarAndBreadCrumbPage.clickAbout();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH2Header(),"About Us","Wrong H2 header");
+        navigationBarAndBreadCrumbPage.clickLogo();
+        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
 
         navigationBarAndBreadCrumbPage.clickBlogs();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH2Header(),"Our Blogs","Wrong H2 header");
+        navigationBarAndBreadCrumbPage.clickLogo();
+        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
 
         navigationBarAndBreadCrumbPage.clickContact();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH2Header(),"Contact Us","Wrong H2 header");
+        navigationBarAndBreadCrumbPage.clickLogo();
+        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
 
         navigationBarAndBreadCrumbPage.clickFaqs();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH2Header(),"FAQ","Wrong H2 header");
+        navigationBarAndBreadCrumbPage.clickLogo();
+        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
 
         softAssert.assertAll();
 
