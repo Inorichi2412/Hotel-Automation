@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 
 public class BookingDataGenerator {
     private Faker faker;
@@ -15,55 +14,61 @@ public class BookingDataGenerator {
         dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     }
 
+    // Sinh ngày nhận phòng
     public String generateCheckInDate() {
         LocalDate checkInDate = LocalDate.now().plusDays(faker.number().numberBetween(1, 30));
         return checkInDate.format(dateFormatter);
     }
 
+    // Sinh ngày trả phòng dựa trên ngày nhận phòng
     public String generateCheckOutDate(String checkInDateStr) {
         LocalDate checkInDate = LocalDate.parse(checkInDateStr, dateFormatter);
         LocalDate checkOutDate = checkInDate.plusDays(faker.number().numberBetween(1, 14));
         return checkOutDate.format(dateFormatter);
     }
 
-    public String generateAdults() {
-        int adults = faker.number().numberBetween(1, 4);
-        return String.valueOf(adults);
+    // Sinh số lượng người lớn
+    public int generateAdults() {
+        return faker.number().numberBetween(1, 4);
     }
 
-    public String generateChildren() {
-        int children = faker.number().numberBetween(0, 3);
-        return String.valueOf(children);
+    // Sinh số lượng trẻ em
+    public int generateChildren() {
+        return faker.number().numberBetween(0, 3);
     }
 
+    // Sinh tên đầy đủ
     public String generateFullName() {
         return faker.name().fullName();
     }
 
+    // Sinh địa chỉ email
     public String generateEmail() {
         return faker.internet().emailAddress();
     }
 
+    // Sinh số điện thoại
     public String generatePhone() {
         return faker.phoneNumber().phoneNumber();
     }
 
+    // Sinh địa chỉ
     public String generateAddress() {
         return faker.address().fullAddress();
     }
 
     public static void main(String[] args) {
         BookingDataGenerator generator = new BookingDataGenerator();
-        // thông tin search
+        // Thông tin tìm kiếm
         String checkInDate = generator.generateCheckInDate();
         String checkOutDate = generator.generateCheckOutDate(checkInDate);
-        String adults = generator.generateAdults();
-        String children = generator.generateChildren();
+        int adults = generator.generateAdults();
+        int children = generator.generateChildren();
         System.out.println("Check In: " + checkInDate);
         System.out.println("Check Out: " + checkOutDate);
         System.out.println("Adults: " + adults);
         System.out.println("Children: " + children);
-        // thông tin guest
+        // Thông tin guest
         String fullName = generator.generateFullName();
         String email = generator.generateEmail();
         String phone = generator.generatePhone();

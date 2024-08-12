@@ -59,8 +59,4 @@ public class CreditCard {
         return new CreditCard("2222 3333 4444 5555", "JOHN HENRY", "12/25", "123");
     }
 
-//    public static void main(String[] args) {
-//        CreditCard creditCard = new CreditCard("2222 3333 4444 5555", "JOHN HENRY", "12/25", "123");
-//        System.out.println(creditCard);
-//    }
 }

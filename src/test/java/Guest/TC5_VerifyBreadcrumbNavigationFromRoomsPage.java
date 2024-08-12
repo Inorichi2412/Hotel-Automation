@@ -3,7 +3,6 @@ package Guest;
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,68 +17,57 @@ public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
     RoomsPage roomsPage;
     AboutPage aboutPage;
     BlogsPage blogsPage;
-    ContanctPage contanctPage;
+    ContactPage contactPage;
     FaqsPage faqsPage;
     SoftAssert softAssert;
 
+    // Tiêu đề mong đợi của trang Home
+    String expectedHomeTitle = "Best Hotel to stay";
 
     @BeforeMethod
     public void setUp() {
-        //Khởi tạo đối tượng ChromeDriver
         driver = new ChromeDriver();
-        //Khởi tạo đối tượng setUp
         setUp = new SetUp();
-        //Lấy URL từ config
         url = setUp.getUrl();
-        // Điều hướng đến URL lấy từ file cấu hình
         driver.get(url);
-        // Tối ưu hóa cửa sổ trình duyệt
         driver.manage().window().maximize();
-        // Khởi tạo đối tượng
         homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
         aboutPage = new AboutPage(driver);
         blogsPage = new BlogsPage(driver);
-        contanctPage = new ContanctPage(driver);
+        contactPage = new ContactPage(driver);
         faqsPage = new FaqsPage(driver);
         softAssert = new SoftAssert();
     }
 
+    // Phương thức để kiểm tra breadcrumb navigation
+    public void verifyBreadcrumbNavigation(BasePage page) {
+        // Click breadcrumb Home
+        page.clickButtonBreadcrumbHome();
+        // Xác minh rằng tiêu đề Home là chính xác
+        String actualHomeTitle = homePage.getHomePageTitle();
+        softAssert.assertEquals(actualHomeTitle, expectedHomeTitle, "Failed to navigate back to Home Page");
+    }
+
     @Test
     public void TC5() {
-        //Navigate assert title Home
-        String expectedHomeTitle = "Best Hotel to stay";
+        // Xác minh breadcrumb navigation cho từng trang
+        roomsPage.navigateToHomePage();
+        verifyBreadcrumbNavigation(roomsPage);
 
-        //  breadcrum Room
-        String expectedRoomsTitle = "Rooms";
-        Assert.assertEquals(roomsPage.directionalRooms(), expectedRoomsTitle, "Rooms");
-        roomsPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        aboutPage.navigateToHomePage();
+        verifyBreadcrumbNavigation(aboutPage);
 
-        //  breadcrum About Us
-        String expectedAboutTitle = "About Us";
-        Assert.assertEquals(aboutPage.directionalAbout(), expectedAboutTitle, "About Us");
-        aboutPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        blogsPage.navigateToHomePage();
+        verifyBreadcrumbNavigation(blogsPage);
 
-        //  breadcrum Our Blogs
-        String expectedBlogsTitle = "Our Blogs";
-        Assert.assertEquals(blogsPage.directionalBlog(), expectedBlogsTitle, "Our Blogs");
-        blogsPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        contactPage.navigateToHomePage();
+        verifyBreadcrumbNavigation(contactPage);
 
-        //  breadcrum Contact Us
-        String expectedContanctTitle = "Contact Us";
-        Assert.assertEquals(contanctPage.directionalContanct(), expectedContanctTitle, "Contact Us");
-        contanctPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
+        faqsPage.navigateToHomePage();
+        verifyBreadcrumbNavigation(faqsPage);
 
-        //  breadcrum FAQ
-        String expectedFaqsTitle = "FAQ";
-        Assert.assertEquals(faqsPage.directionalFAQ(), expectedFaqsTitle, "FAQ");
-        faqsPage.clickButtonBreadcrumbHome();
-        Assert.assertEquals(homePage.directionalHome(), expectedHomeTitle,"Best Hotel to stay" );
-
+        // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
     }
 
