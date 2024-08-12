@@ -1,74 +1,42 @@
 package page.guest;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
-import java.time.Duration;
+public class FaqsPage extends BasePage {
 
-public class FaqsPage {
-    WebDriver driver;
-
+    // Selector cho nút điều hướng đến trang FAQs
     By buttonDirectionalFaqsSelector = By.xpath("//a[@href='/faqs']");
-    By tittleFAQSelector = By.xpath("//h2[text()='FAQ']");
-    By buttonTextBoxSearchSelector = By.xpath("//*[@id='searchForm']/span");
-    By textBoxSearchSelector = By.name("bookingUID");
-    By clickButtonSearchTBSelector = By.xpath("//input[@class='sb-search-submit']");
+    // Tiêu đề của trang FAQs
+    String pageTitle = "FAQ";
 
-    // button scroptotop
-    By buttonScropToTopSelector = By.xpath("//*[@id='scrollToTop']/a/i");
-
-    //
-    By buttonBreadcrumbHomeSelector = By.xpath("//a[@href='/']");
-
+    // Constructor của lớp FaqsPage
     public FaqsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    //TC 1
-    public String directionalFAQ() {
-        driver.findElement(buttonDirectionalFaqsSelector).click();
-        WebElement titleElement = driver.findElement(tittleFAQSelector);
-        return titleElement.getText();
+    // Phương thức kiểm tra tiêu đề của trang FAQs sau khi điều hướng
+    public String getFaqsPageTitle() {
+        WebElement faqsButton = driver.findElement(buttonDirectionalFaqsSelector); // Tìm phần tử nút
+        // Điều hướng và lấy tiêu đề trang
+        return directional(faqsButton, pageTitle);
     }
 
-    //TC2
-    public void textBoxSearchFaqs() {
-        driver.findElement(buttonDirectionalFaqsSelector).click();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        wait.until(d->d.findElement(buttonTextBoxSearchSelector).isDisplayed());
-        driver.findElement(buttonTextBoxSearchSelector).click();
-        driver.findElement(textBoxSearchSelector).sendKeys("3434-388208980");
-        driver.findElement(clickButtonSearchTBSelector).click();
+    // Phương thức để điều hướng đến trang FAQs và xác nhận tiêu đề sau khi cuộn lên đầu
+    public void verifyFaqsPageTitleAfterScroll() {
+        WebElement faqsButton = driver.findElement(buttonDirectionalFaqsSelector);
+        faqsButton.click();
+        clickScrollToTop();  // Cuộn lên đầu trang
+        String actualTitle = getPageTitle(pageTitle);  // Lấy tiêu đề trang
+        Assert.assertEquals(actualTitle, pageTitle, "Failed to scroll to top and view correct title on FAQs Page");
     }
 
-    //TC3
-    public void textBoxSearchFaqsNoSuccess() {
-        driver.findElement(buttonDirectionalFaqsSelector).click();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        wait.until(d->d.findElement(buttonTextBoxSearchSelector).isDisplayed());
-        driver.findElement(buttonTextBoxSearchSelector).click();
-        driver.findElement(textBoxSearchSelector).sendKeys("3434-388208970");
-        driver.findElement(clickButtonSearchTBSelector).click();
-    }
-
-    //TC4
-    // Cuộn xuống cuối trang
-    public void scrollToBottom() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-    }
-    public void clickScrollToTop() {
-        driver.findElement(buttonDirectionalFaqsSelector).click();
-        scrollToBottom();
-        WebElement scrollToTopButton = driver.findElement(buttonScropToTopSelector);
-        scrollToTopButton.click();
-    }
-    //TC5
-    public void clickButtonBreadcrumbHome() {
-        driver.findElement(buttonBreadcrumbHomeSelector).click();
+    // Phương thức để nhấn vào button Breadcrumb Home (sử dụng từ BasePage)
+    public void navigateToHomePage() {
+        WebElement faqsButton = driver.findElement(buttonDirectionalFaqsSelector);
+        faqsButton.click();
+        clickButtonBreadcrumbHome();
     }
 }

@@ -17,75 +17,45 @@ public class TC4_VerifyFunctionalityOfScrollToTopButton {
     RoomsPage roomsPage;
     AboutPage aboutPage;
     BlogsPage blogsPage;
-    ContanctPage contanctPage;
+    ContactPage contactPage;
     FaqsPage faqsPage;
     SoftAssert softAssert;
 
     @BeforeMethod
     public void setUp() {
-        //Khởi tạo đối tượng ChromeDriver
         driver = new ChromeDriver();
-        //Khởi tạo đối tượng setUp
         setUp = new SetUp();
-        //Lấy URL từ config
         url = setUp.getUrl();
-        // Điều hướng đến URL lấy từ file cấu hình
         driver.get(url);
-        // Tối ưu hóa cửa sổ trình duyệt
         driver.manage().window().maximize();
-        // Khởi tạo đối tượng HomePage
         homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
         aboutPage = new AboutPage(driver);
         blogsPage = new BlogsPage(driver);
-        contanctPage = new ContanctPage(driver);
+        contactPage = new ContactPage(driver);
         faqsPage = new FaqsPage(driver);
         softAssert = new SoftAssert();
     }
 
     @Test
     public void TC4() {
-        // Home
-        homePage.clickScrollToTop();
-        // Expected titles
-        String expectedHomeTitle = "Best Hotel to stay";
-        // Navigate assert title
-        softAssert.assertEquals(homePage.getTitle(),expectedHomeTitle,"Best Hotel to stay");
+        // Kiểm tra nút Scroll to Top và tiêu đề trang trên HomePage
+        homePage.verifyHomePageTitleAfterScroll();
 
-        // Rooms
-        roomsPage.clickScrollToTop();
-        // Expected titles
-        String expectedRoomsTitle = "Rooms";
-        // Navigate assert title
-        softAssert.assertEquals(roomsPage.directionalRooms(),expectedRoomsTitle,"Rooms");
+        // Kiểm tra nút Scroll to Top và tiêu đề trang trên RoomsPage
+        roomsPage.verifyRoomPageTitleAfterScroll();
 
-        // About Us
-        aboutPage.clickScrollToTop();
-        // Expected titles
-        String expectedAboutTitle = "About Us";
-        // Navigate assert title
-        softAssert.assertEquals(aboutPage.directionalAbout(),expectedAboutTitle,"About Us");
+        // Kiểm tra nút Scroll to Top và tiêu đề trang trên AboutPage
+        aboutPage.verifyAboutPageTitleAfterScroll();
 
-        // Our Blogs
-        blogsPage.clickScrollToTop();
-        // Expected titles
-        String expectedBlogsTitle = "Our Blogs";
-        // Navigate assert title
-        softAssert.assertEquals(blogsPage.directionalBlog(),expectedBlogsTitle,"Our Blogs");
+        // Kiểm tra nút Scroll to Top và tiêu đề trang trên BlogsPage
+        blogsPage.verifyBlogsPageTitleAfterScroll();
 
-        // Contact Us
-        contanctPage.clickScrollToTop();
-        // Expected titles
-        String expectedContanctTitle = "Contact Us";
-        // Navigate assert title
-        softAssert.assertEquals(contanctPage.directionalContanct(),expectedContanctTitle,"Contact Us");
+        // Kiểm tra nút Scroll to Top và tiêu đề trang trên ContactPage
+        contactPage.verifyContactPageTitleAfterScroll();
 
-        // FAQ
-        faqsPage.clickScrollToTop();
-        // Expected titles
-        String expectedFaqsTitle = "FAQ";
-        // Navigate assert title
-        softAssert.assertEquals(faqsPage.directionalFAQ(),expectedFaqsTitle,"FAQ");
+        // Kiểm tra nút Scroll to Top và tiêu đề trang trên FaqsPage
+        faqsPage.verifyFaqsPageTitleAfterScroll();
 
         softAssert.assertAll();
     }

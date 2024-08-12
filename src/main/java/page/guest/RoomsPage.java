@@ -1,160 +1,119 @@
 package page.guest;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
-import java.time.Duration;
-import java.util.List;
 
-public class RoomsPage {
-    WebDriver driver;
+public class RoomsPage extends BasePage {
 
+    // Selector cho nút điều hướng đến trang Rooms
     By buttonDirectionalRoomsSelector = By.xpath("//a[@href='/rooms']");
-    By tittleRoomsSelector = By.xpath("//h2[text()='Rooms']");
-    By buttonTextBoxSearchSelector = By.xpath("//*[@id='searchForm']/span");
-    By buttonViewDetailsSelector = By.xpath("//a[@class='btn btn-success float-right']");
-    By buttonBookNowSelector = By.xpath("//input[@value='Book Now']");
-    By textBoxSearchSelector = By.name("bookingUID");
-    By clickButtonSearchTBSelector = By.xpath("//input[@class='sb-search-submit']");
+    // Tiêu đề của trang Rooms
+    String pageTitle = "Rooms";
+
+    //selector search
+    By viewDetailsButtonSelector = By.xpath("//a[@class='btn btn-success float-right']");
+    By bookNowButtonSelector  = By.xpath("//input[@value='Book Now']");
+    By addYourInfoFormSelector = By.xpath("//h4[text()='Add Your Informations :-']");
+    By textBoxFullNameSelector = By.id("name");
+    By textBoxEmailSelector = By.id("email");
+    By textBoxPhoneSelector = By.id("phone");
+    By textBoxAddressSelector = By.id("address");
+    By checkBoxIAgreeSelector = By.xpath("//Strong[text()='Terms and Conditions']");
     By clickButtonSubmitRoomDetailsSelector =  By.xpath("//*[@id='user']/div/div[1]/div[6]/input");
 
-    // button scroptotop
-    By buttonScropToTopSelector = By.xpath("//*[@id='scrollToTop']/a/i");
-
-    //
-    By buttonBreadcrumbHomeSelector = By.xpath("//a[@href='/']");
-
-    // Add Your Informations
-    By addYourInformationSelector = By.xpath("//h4[text()='Add Your Informations :-']");
-    By textBoxFullNameSelector = By.name("name");
-    By textBoxEmailSelector = By.id("email");
-    By textBoxPhoneSelector = By.name("phone");
-    By textBoxAddressSelector = By.name("address");
-    By checkBoxIAgreeSelector = By.xpath("//Strong[text()='Terms and Conditions']");
-
+    // Constructor của lớp RoomsPage
     public RoomsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    public String directionalRooms() {
-        driver.findElement(buttonDirectionalRoomsSelector).click();
-        WebElement titleElement = driver.findElement(tittleRoomsSelector);
-        return titleElement.getText();
+    // Phương thức kiểm tra tiêu đề của trang room sau khi điều hướng
+    public String getRoomsPageTitle() {
+        WebElement roomButton = driver.findElement(buttonDirectionalRoomsSelector);
+        // Điều hướng và lấy tiêu đề trang
+        return directional(roomButton, pageTitle);
+    }
+
+    // Phương thức để điều hướng đến trang Rooms và xác nhận tiêu đề sau khi cuộn lên đầu
+    public void verifyRoomPageTitleAfterScroll() {
+        WebElement roomButton = driver.findElement(buttonDirectionalRoomsSelector);
+        roomButton.click();
+        clickScrollToTop();  // Cuộn lên đầu trang
+        String actualTitle = getPageTitle(pageTitle);  // Lấy tiêu đề trang
+        Assert.assertEquals(actualTitle, pageTitle, "Failed to scroll to top and view correct title on Rooms Page");
+    }
+
+    // Phương thức để nhấn vào button Breadcrumb Home (sử dụng từ BasePage)
+    public void navigateToHomePage() {
+        WebElement roomButton = driver.findElement(buttonDirectionalRoomsSelector);
+        roomButton.click();
     }
 
     //TC2
-    // Cuộn đến một phần tử cụ thể trên trang
-    public void scrollToElement(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
+    // Phương thức cuộn tới phần tử và nhấn nút View Details
+    public void scrollToElementAndClickViewDetails() {
+        // Cuộn đến phần tử nút "Scroll to Top"
+        WebElement scrollToTopButton = driver.findElement(buttonScrollToTopSelector);
+        driverUtils.scrollToElement(scrollToTopButton);
+        // Sau khi cuộn lên đầu trang, nhấn vào nút "View Details"
+        driver.findElement(viewDetailsButtonSelector).click();
     }
 
-    // click button viewdetail tại trang room
-    public void buttonViewDetails() {
-        WebElement ScropToTopButton = driver.findElement(buttonScropToTopSelector);
-        scrollToElement(ScropToTopButton);
-        driver.findElement(buttonViewDetailsSelector).click();
+    // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
+    public void scrollToAndClickBookNowInRoomDetails() {
+        WebElement scrollToTopButton = driver.findElement(buttonScrollToTopSelector);
+        driverUtils.scrollToElement(scrollToTopButton);
+        driver.findElement(bookNowButtonSelector).click();
     }
 
-    // click button BookNow tại trang room detail
-    public void buttonBookNowRooms() {
-        WebElement ScropToTopButton = driver.findElement(buttonScropToTopSelector);
-        scrollToElement(ScropToTopButton);
-        driver.findElement(buttonBookNowSelector).click();
+    // Phương thức cuộn đến phần thông tin bổ sung trên trang
+    public void scrollToAddInformationForm() {
+        // Tìm phần tử của biểu mẫu thông tin bổ sung
+        WebElement addInformationForm = driver.findElement(addYourInfoFormSelector);
+        // Cuộn đến phần tử để đảm bảo nó nằm trong vùng nhìn thấy
+        driverUtils.scrollToElement(addInformationForm);
     }
 
-    // xử lí add information
-    public void regionAddInformation() {
-        WebElement regionAddInformation = driver.findElement(addYourInformationSelector);
-        scrollToElement(regionAddInformation);
-        try {
-            Thread.sleep(5000); // wait for 5 seconds
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
+    // Nhập tên đầy đủ
     public void enterFullName(String fullName) {
         driver.findElement(textBoxFullNameSelector).sendKeys(fullName);
     }
 
+    // Nhập địa chỉ email
     public void enterEmail(String email) {
         driver.findElement(textBoxEmailSelector).sendKeys(email);
     }
 
-    public void enterPhone(String phone) {
+    // Nhập số điện thoại
+    public void enterPhoneNumber(String phone) {
         driver.findElement(textBoxPhoneSelector).sendKeys(phone);
     }
 
+    // Nhập địa chỉ
     public void enterAddress(String address) {
         driver.findElement(textBoxAddressSelector).sendKeys(address);
     }
 
+    // Kiểm tra và chọn
     public void checkAndSelectIAgree() {
         WebElement checkBox = driver.findElement(checkBoxIAgreeSelector);
         if (!checkBox.isSelected()) {
             checkBox.click();
         }
     }
-    public void enterAddInformation (String fullName, String email, String phone, String address) {
+
+    // Nhập thông tin bổ sung và gửi
+    public void fillAndSubmitAdditionalInformation(String fullName, String email, String phone, String address) {
         enterFullName(fullName);
         enterEmail(email);
-        enterPhone(phone);
+        enterPhoneNumber(phone);
         enterAddress(address);
         checkAndSelectIAgree();
         driver.findElement(clickButtonSubmitRoomDetailsSelector).click();
     }
 
+    // Phương thức cụ thể của RoomsPage để nhập mã xác nhận và tìm kiếm
 
-//    public void buttonViewDetails() {
-//        List<WebElement> viewDetailsButtons = driver.findElements(buttonViewDetailsSelector);
-//        if (!viewDetailsButtons.isEmpty()) {
-//            WebElement firstViewDetailsButton = viewDetailsButtons.get(0);
-//            scrollToElement(firstViewDetailsButton);
-//            // Nhấp vào sử dụng JavaScriptExecutor để tránh ElementClickInterceptedException
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].click();", firstViewDetailsButton);
-//        } else {
-//            throw new NoSuchElementException("No elements found with the given selector");
-//        }
-//    }
-
-
-    public void textBoxSearchRooms() {
-        driver.findElement(buttonDirectionalRoomsSelector).click();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        wait.until(d->d.findElement(buttonTextBoxSearchSelector).isDisplayed());
-        driver.findElement(buttonTextBoxSearchSelector).click();
-        driver.findElement(textBoxSearchSelector).sendKeys("3434-388208980");
-        driver.findElement(clickButtonSearchTBSelector).click();
-    }
-
-    //TC3
-    public void textBoxSearchRoomsNoSuccess() {
-        driver.findElement(buttonDirectionalRoomsSelector).click();
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        wait.until(d->d.findElement(buttonTextBoxSearchSelector).isDisplayed());
-        driver.findElement(buttonTextBoxSearchSelector).click();
-        driver.findElement(textBoxSearchSelector).sendKeys("3434-388208970");
-        driver.findElement(clickButtonSearchTBSelector).click();
-    }
-
-    //TC4
-    // Cuộn xuống cuối trang
-    public void scrollToBottom() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-    }
-    public void clickScrollToTop() {
-        driver.findElement(buttonDirectionalRoomsSelector).click();
-        scrollToBottom();
-        WebElement scrollToTopButton = driver.findElement(buttonScropToTopSelector);
-        scrollToTopButton.click();
-    }
-
-    //TC5
-    public void clickButtonBreadcrumbHome() {
-        driver.findElement(buttonBreadcrumbHomeSelector).click();
-    }
 }
