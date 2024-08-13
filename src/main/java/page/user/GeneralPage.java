@@ -2,9 +2,14 @@ package page.user;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class NavigationBarAndBreadCrumbPage {
+import java.time.Duration;
+
+public class GeneralPage {
     WebDriver driver;
+    Wait<WebDriver> wait;
 
     By logoLinkSelector=By.xpath("(//a[@href=\"/\"])[1]");
     By homeLinkSelector=By.xpath("(//a[@href=\"/\"])[2]");
@@ -19,31 +24,31 @@ public class NavigationBarAndBreadCrumbPage {
 
     By homeBreadCrumbSelector=By.xpath("//li[@class=\"breadcrumb-item\"]/a");
 
-    public void clickLogo() {
+    public void openLogoPage() {
         driver.findElement(logoLinkSelector).click();
     }
 
-    public void clickHome() {
+    public void openHomePage() {
         driver.findElement(homeLinkSelector).click();
     }
 
-    public void clickRooms() {
+    public void openRoomsPage() {
         driver.findElement(roomsLinkSelector).click();
     }
 
-    public void clickAbout() {
+    public void openAboutPage() {
         driver.findElement(aboutLinkSelector).click();
     }
 
-    public void clickBlogs() {
+    public void openBlogsPage() {
         driver.findElement(blogsLinkSelector).click();
     }
 
-    public void clickContact() {
+    public void openContactPage() {
         driver.findElement(contactLinkSelector).click();
     }
 
-    public void clickFaqs() {
+    public void openFAQsPage() {
         driver.findElement(faqsLinkSelector).click();
     }
 
@@ -51,15 +56,12 @@ public class NavigationBarAndBreadCrumbPage {
         driver.findElement(homeBreadCrumbSelector).click();
     }
 
-    public String getH1Header(){
-        return driver.findElement(h1HeaderSelector).getText();
-    }
-
-    public String getH2Header(){
+    public String getTitle(){
         return driver.findElement(h2HeaderSelector).getText();
     }
 
-    public NavigationBarAndBreadCrumbPage(WebDriver driver) {
+    public GeneralPage(WebDriver driver) {
         this.driver = driver;
+        this.wait=new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 }

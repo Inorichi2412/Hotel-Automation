@@ -8,15 +8,17 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
-public class HomePage {
-    WebDriver driver;
+public class HomePage extends GeneralPage {
     Actions actions;
     Wait<WebDriver> wait;
 
     By loginSelector = By.xpath("//a[@href=\"#Login_tab\"][1]");
     By registerSelector =By.xpath("//a[@href=\"#Register_tab\"][1]");
     By roomsPageSelector=By.xpath("//a[@href='/rooms']");
+
+    By h1HeaderSelector=By.xpath("//h1");
 
     By badgeSuccessSelector=By.xpath("//label[@class=\"badge-success\"]");
     By location1Selector=By.xpath("(//div[@class=\"yemm_desti_inner\"])[1]");
@@ -30,6 +32,20 @@ public class HomePage {
     By adultInputSelector=By.xpath("//input[@name=\"adult\"]");
     By childrenInputSelector =By.xpath("//input[@name=\"children\"]");
     By searchButtonSelector=By.xpath("//input[@value=\"Search\"]");
+
+    public HomePage(WebDriver driver) {
+        super(driver);
+    }
+
+    @Override
+    public String getTitle() {
+        List<WebElement> elements = driver.findElements(h1HeaderSelector);
+        if (!elements.isEmpty()) {
+            return elements.get(0).getText();
+        } else {
+            return "Header not found"; // Hoặc trả về giá trị mặc định khác
+        }
+    }
 
 
     public void clickCheckIn() {
@@ -122,12 +138,6 @@ public class HomePage {
     public boolean isBadgeSuccessDisplayed() {
         wait.until(driver->driver.findElement(badgeSuccessSelector).isDisplayed());
         return driver.findElement(badgeSuccessSelector).isDisplayed();
-    }
-
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-        this.actions=new Actions(driver);
-        this.wait=new WebDriverWait(driver,Duration.ofSeconds(10));
     }
 
 }

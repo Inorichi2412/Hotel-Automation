@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.user.HomePage;
 import page.user.LoginPage;
-import page.user.NavigationBarAndBreadCrumbPage;
+import page.user.GeneralPage;
 import page.user.RoomsPage;
 import utils.ConfigReader;
 
@@ -20,7 +20,7 @@ public class TC50_VerifyThatTheRoomListIsDisplayedInTheRoomsPage {
     HomePage homePage;
     LoginPage loginPage;
     RoomsPage roomsPage;
-    NavigationBarAndBreadCrumbPage navigationBarAndBreadCrumbPage;
+    GeneralPage generalPage;
 
     SoftAssert softAssert;
 
@@ -32,7 +32,7 @@ public class TC50_VerifyThatTheRoomListIsDisplayedInTheRoomsPage {
         loginPage=new LoginPage(driver);
         roomsPage=new RoomsPage(driver);
 
-        navigationBarAndBreadCrumbPage =new NavigationBarAndBreadCrumbPage(driver);
+        generalPage =new GeneralPage(driver);
 
         softAssert=new SoftAssert();
 
@@ -47,7 +47,7 @@ public class TC50_VerifyThatTheRoomListIsDisplayedInTheRoomsPage {
         homePage.openLoginForm();
         loginPage.login("vyvanviet","abc123");
 
-        navigationBarAndBreadCrumbPage.clickRooms();
+        generalPage.openRoomsPage();
         softAssert.assertTrue(roomsPage.isHaveAvailableRoomsDisplayed(),"Don't have any available rooms");
 
         softAssert.assertAll();

@@ -6,9 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.user.HomePage;
-import page.user.LoginPage;
-import page.user.NavigationBarAndBreadCrumbPage;
+import page.user.*;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -16,9 +14,14 @@ import java.time.Duration;
 public class TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcrumbs {
     WebDriver driver;
     ConfigReader configReader;
+    GeneralPage generalPage;
     HomePage homePage;
     LoginPage loginPage;
-    NavigationBarAndBreadCrumbPage navigationBarAndBreadCrumbPage;
+    page.user.RoomsPage roomsPage;
+    AboutPage aboutPage;
+    BlogsPage blogsPage;
+    ContactUsPage contactUsPage;
+    FAQsPage faQsPage;
 
     SoftAssert softAssert;
 
@@ -26,9 +29,15 @@ public class TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcr
     public void SetUp() {
         driver=new ChromeDriver();
         configReader=new ConfigReader();
+
+        generalPage=new GeneralPage(driver);
         homePage=new HomePage(driver);
         loginPage=new LoginPage(driver);
-        navigationBarAndBreadCrumbPage =new NavigationBarAndBreadCrumbPage(driver);
+        roomsPage=new RoomsPage(driver);
+        aboutPage=new AboutPage(driver);
+        blogsPage=new BlogsPage(driver);
+        contactUsPage=new ContactUsPage(driver);
+        faQsPage=new FAQsPage(driver);
 
         softAssert=new SoftAssert();
 
@@ -43,25 +52,25 @@ public class TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcr
         homePage.openLoginForm();
         loginPage.login("vyvanviet","abc123");
 
-        navigationBarAndBreadCrumbPage.clickRooms();
-        navigationBarAndBreadCrumbPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openRoomsPage();
+        roomsPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickAbout();
-        navigationBarAndBreadCrumbPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openAboutPage();
+        aboutPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickBlogs();
-        navigationBarAndBreadCrumbPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openBlogsPage();
+        blogsPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickContact();
-        navigationBarAndBreadCrumbPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openContactPage();
+        contactUsPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickFaqs();
-        navigationBarAndBreadCrumbPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openFAQsPage();
+        faQsPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         softAssert.assertAll();
 

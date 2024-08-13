@@ -6,9 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.user.HomePage;
-import page.user.LoginPage;
-import page.user.NavigationBarAndBreadCrumbPage;
+import page.user.*;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -16,9 +14,15 @@ import java.time.Duration;
 public class TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickingOnTheSiteLogo {
     WebDriver driver;
     ConfigReader configReader;
+
+    GeneralPage generalPage;
     HomePage homePage;
     LoginPage loginPage;
-    NavigationBarAndBreadCrumbPage navigationBarAndBreadCrumbPage;
+    page.user.RoomsPage roomsPage;
+    AboutPage aboutPage;
+    BlogsPage blogsPage;
+    ContactUsPage contactUsPage;
+    FAQsPage faQsPage;
 
     SoftAssert softAssert;
 
@@ -26,9 +30,15 @@ public class TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickin
     public void SetUp() {
         driver=new ChromeDriver();
         configReader=new ConfigReader();
+
+        generalPage=new GeneralPage(driver);
         homePage=new HomePage(driver);
         loginPage=new LoginPage(driver);
-        navigationBarAndBreadCrumbPage =new NavigationBarAndBreadCrumbPage(driver);
+        roomsPage=new RoomsPage(driver);
+        aboutPage=new AboutPage(driver);
+        blogsPage=new BlogsPage(driver);
+        contactUsPage=new ContactUsPage(driver);
+        faQsPage=new FAQsPage(driver);
 
         softAssert=new SoftAssert();
 
@@ -43,29 +53,29 @@ public class TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickin
         homePage.openLoginForm();
         loginPage.login("vyvanviet","abc123");
 
-        navigationBarAndBreadCrumbPage.clickHome();
-        navigationBarAndBreadCrumbPage.clickLogo();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openHomePage();
+        homePage.openLogoPage();
+        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickRooms();
-        navigationBarAndBreadCrumbPage.clickLogo();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openRoomsPage();
+        roomsPage.openLogoPage();
+        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickAbout();
-        navigationBarAndBreadCrumbPage.clickLogo();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openAboutPage();
+        aboutPage.openLogoPage();
+        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickBlogs();
-        navigationBarAndBreadCrumbPage.clickLogo();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openBlogsPage();
+        blogsPage.openLogoPage();
+        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickContact();
-        navigationBarAndBreadCrumbPage.clickLogo();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openContactPage();
+        contactUsPage.openLogoPage();
+        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
-        navigationBarAndBreadCrumbPage.clickFaqs();
-        navigationBarAndBreadCrumbPage.clickLogo();
-        softAssert.assertEquals(navigationBarAndBreadCrumbPage.getH1Header(),"Best Hotel to stay","Wrong H1 header");
+        generalPage.openFAQsPage();
+        faQsPage.openLogoPage();
+        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         softAssert.assertAll();
 
