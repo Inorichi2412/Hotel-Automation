@@ -3,39 +3,49 @@ package page.guest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class BlogsPage extends BasePage {
 
     // Selector cho nút điều hướng đến trang Blogs
-    By buttonDirectionalBlogsSelector = By.xpath("//a[@href='/blogs']");
-    // Tiêu đề của trang Blogs
-    String pageTitle = "Our Blogs";
+    By blogsPageLink = By.xpath("//a[@href='/blogs']");
+    // Tiêu đề của trang Rooms
+    By blogPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
 
     // Constructor của lớp BlogsPage
     public BlogsPage(WebDriver driver) {
         super(driver);
     }
 
-    // Phương thức kiểm tra tiêu đề của trang Blogs sau khi điều hướng
-    public String getBlogsPageTitle() {
-        WebElement blogsButton = driver.findElement(buttonDirectionalBlogsSelector); // Tìm phần tử nút
-        // Điều hướng và lấy tiêu đề trang
-        return directional(blogsButton, pageTitle);
+    // Phương thức điều hướng đến trang Blogs
+    public void navigateToBlogsPage() {
+        driver.findElement(blogsPageLink).click();
     }
 
-    // Phương thức để điều hướng đến trang Blogs và xác nhận tiêu đề sau khi cuộn lên đầu
-    public void verifyBlogsPageTitleAfterScroll() {
-        WebElement blogsButton = driver.findElement(buttonDirectionalBlogsSelector);
-        blogsButton.click();
-        clickScrollToTop();  // Cuộn lên đầu trang
-        String actualTitle = getPageTitle(pageTitle);  // Lấy tiêu đề trang
-        Assert.assertEquals(actualTitle, pageTitle, "Failed to scroll to top and view correct title on Blogs Page");
+    // Phương thức lấy title
+    public String getBlogsPageTitleText() {
+        driver.findElement(blogPageTitleSelector).click();
+        return getPageTitleText();
     }
 
-    // Phương thức để nhấn vào button Breadcrumb Home (sử dụng từ BasePage)
-    public void navigateToHomePage() {
-        WebElement blogsButton = driver.findElement(buttonDirectionalBlogsSelector);
-        blogsButton.click();
+    // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
+    @Override
+    public void clickScrollToTop() {
+        //cuộn lên hoặc nhấn nút "Scroll to Top"
+        super.clickScrollToTop();
+        // khi thấy title cua trang
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(e -> e.findElement(blogPageTitleSelector).isDisplayed());
+    }
+
+    // Phương thức Breadcrumb
+    @Override
+    public void navigateToHomePageFromBreadcrumb() {
+        //Breadcrumb về Home Page
+        super.navigateToHomePageFromBreadcrumb();
     }
 }

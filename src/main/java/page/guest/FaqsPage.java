@@ -3,40 +3,49 @@ package page.guest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import java.time.Duration;
 
 public class FaqsPage extends BasePage {
 
     // Selector cho nút điều hướng đến trang FAQs
-    By buttonDirectionalFaqsSelector = By.xpath("//a[@href='/faqs']");
-    // Tiêu đề của trang FAQs
-    String pageTitle = "FAQ";
+    By faqsPageLink = By.xpath("//a[@href='/faqs']");
+    // Tiêu đề của trang Rooms
+    By faqsPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
 
     // Constructor của lớp FaqsPage
     public FaqsPage(WebDriver driver) {
         super(driver);
     }
 
-    // Phương thức kiểm tra tiêu đề của trang FAQs sau khi điều hướng
-    public String getFaqsPageTitle() {
-        WebElement faqsButton = driver.findElement(buttonDirectionalFaqsSelector); // Tìm phần tử nút
-        // Điều hướng và lấy tiêu đề trang
-        return directional(faqsButton, pageTitle);
+    // Phương thức điều hướng đến trang Faqs
+    public void navigateToFaqsPage() {
+        driver.findElement(faqsPageLink).click();
     }
 
-    // Phương thức để điều hướng đến trang FAQs và xác nhận tiêu đề sau khi cuộn lên đầu
-    public void verifyFaqsPageTitleAfterScroll() {
-        WebElement faqsButton = driver.findElement(buttonDirectionalFaqsSelector);
-        faqsButton.click();
-        clickScrollToTop();  // Cuộn lên đầu trang
-        String actualTitle = getPageTitle(pageTitle);  // Lấy tiêu đề trang
-        Assert.assertEquals(actualTitle, pageTitle, "Failed to scroll to top and view correct title on FAQs Page");
+    // Phương thức lấy title
+    public String getFaqsPageTitleText() {
+        driver.findElement(faqsPageTitleSelector).click();
+        return getPageTitleText();
     }
 
-    // Phương thức để nhấn vào button Breadcrumb Home (sử dụng từ BasePage)
-    public void navigateToHomePage() {
-        WebElement faqsButton = driver.findElement(buttonDirectionalFaqsSelector);
-        faqsButton.click();
-        clickButtonBreadcrumbHome();
+    // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
+    @Override
+    public void clickScrollToTop() {
+        //cuộn lên hoặc nhấn nút "Scroll to Top"
+        super.clickScrollToTop();
+        // khi thấy title cua trang
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(e -> e.findElement(faqsPageTitleSelector).isDisplayed());
+    }
+
+    // Phương thức Breadcrumb
+    @Override
+    public void navigateToHomePageFromBreadcrumb() {
+        //Breadcrumb về Home Page
+        super.navigateToHomePageFromBreadcrumb();
     }
 }

@@ -15,8 +15,10 @@ public class HomePage extends BasePage {
     //Khai báo một đối tượng DriverUtils
     DriverUtils driverUtils;
 
+    // Selector cho nút điều hướng đến trang Rooms
+    By homePageLink = By.xpath("//a[@href='/']");
     // Selector cho tiêu đề của trang chính
-    By titleHomeSelector = By.xpath("//h1[text()='Best Hotel to stay']");
+    By pageHomeTitleSelector = By.xpath("/html/body/section[1]/div/div/div/div/h1");
 
     // Selector cho các trường trong phần tìm kiếm
     By checkinSelector = By.name("arrival");
@@ -34,19 +36,26 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    //TC1
-    // Phương thức để điều hướng và kiểm tra tiêu đề của trang chính
-    public String getHomePageTitle() {
-        WebElement titleElement = driver.findElement(titleHomeSelector);
+    // Phương thức điều hướng đến trang Rooms
+    public void navigateToHomePage() {
+        driver.findElement(homePageLink).click();
+    }
+
+    // phương thưc lấy title
+    @Override
+    public String getPageTitleText() {
+        WebElement titleElement = driver.findElement(pageHomeTitleSelector);
         return titleElement.getText();
     }
 
-    //TC4
-    // Phương thức để kiểm tra tiêu đề của trang Home sau khi cuộn lên đầu
-    public void verifyHomePageTitleAfterScroll() {
-        clickScrollToTop();  // Cuộn lên đầu trang
-        String actualTitle = getHomePageTitle();  // Lấy tiêu đề trang
-        Assert.assertEquals(actualTitle, "Best Hotel to stay", "Failed to scroll to top and view correct title on Home Page");
+    // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
+    @Override
+    public void clickScrollToTop() {
+        //cuộn lên hoặc nhấn nút "Scroll to Top"
+        super.clickScrollToTop();
+        // khi thấy title cua trang
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(e -> e.findElement(pageHomeTitleSelector).isDisplayed());
     }
 
     //TC2
@@ -89,6 +98,4 @@ public class HomePage extends BasePage {
         inputChildren(children);
         clickSearchButton();
     }
-
-    // Phương thức cl
 }

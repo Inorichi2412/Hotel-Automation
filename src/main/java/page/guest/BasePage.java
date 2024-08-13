@@ -14,11 +14,18 @@ public class BasePage {
     DriverUtils driverUtils;
     final Duration waitDuration = Duration.ofSeconds(10);
 
+    // selector title
+    By pageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
+
     // Selector cho button scroll
     By buttonScrollToTopSelector = By.id("scrollToTop");
+    By bookingInfoSelector = By.xpath("//h4[@class='form_title4']");
 
     // Selector cho homePage
     By buttonBreadcrumbHomeSelector = By.xpath("//a[@href='/']");
+
+    // Selector cho chức năng search textbox
+    By searchIconSelector= By.xpath("//span[@class='sb-icon-search']");
 
     // Selector id booking đã xác nhận
     By clickSearchInputBoxSelector  = By.xpath("//*[@id='searchForm']/span");
@@ -34,23 +41,16 @@ public class BasePage {
         this.driverUtils = new DriverUtils(driver);
     }
 
-    // Phương thức để xây dựng selector cho tiêu đề dựa trên tên trang
-    public By getTitleSelector(String pageTitle) {
-        return By.xpath("//h2[text()='" + pageTitle + "']");
+    // Phương thức điều hướng đến các trang
+    public void navigateToPage(String pageName) {
+        By menuSelector = By.xpath("//a[@href='"+ pageName +"']");
+        driver.findElement(menuSelector).click();
     }
 
-    // Phương thức điều hướng và lấy tiêu đề trang
-    public String directional(WebElement button, String pageTitle) {
-        // Nhấn vào nút
-        button.click();
-        // Khởi tạo WebDriverWait
-        WebDriverWait wait = new WebDriverWait(driver, waitDuration);
-        // Tạo selector cho tiêu đề trang dựa trên tên trang
-        By titleSelector = getTitleSelector(pageTitle);
-        // Chờ đến khi phần tử tiêu đề có thể nhìn thấy được
-        WebElement titleElement = wait.until(ExpectedConditions.visibilityOfElementLocated(titleSelector));
-        // Trả về văn bản của tiêu đề
-        return titleElement.getText();
+    // Phương thức lấy title
+    public String getPageTitleText() {
+        WebElement pageTitleElement = driver.findElement(pageTitleSelector);
+        return pageTitleElement.getText();
     }
 
     // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
@@ -58,24 +58,24 @@ public class BasePage {
         // Cuộn xuống dưới cùng
         driverUtils.scrollToBottom();
         // Nhấn nút "Scroll to Top"
-        WebElement scrollToTopButton = driver.findElement(buttonScrollToTopSelector);
-        scrollToTopButton.click();
+        driver.findElement(buttonScrollToTopSelector).click();
     }
 
-    // Phương thức để lấy tiêu đề của trang dựa trên pageTitle
-    public String getPageTitle(String pageTitle) {
-        WebDriverWait wait = new WebDriverWait(driver, waitDuration);
-        WebElement titleElement = wait.until(ExpectedConditions.visibilityOfElementLocated(getTitleSelector(pageTitle)));
-        return titleElement.getText();
-    }
-
-    //TC5
     // Phương thức để nhấn vào button Breadcrumb Home
-    public void clickButtonBreadcrumbHome() {
-        WebElement breadcrumbHomeButton = driver.findElement(buttonBreadcrumbHomeSelector);
-        breadcrumbHomeButton.click();
+    public void navigateToHomePageFromBreadcrumb() {
+        driver.findElement(buttonBreadcrumbHomeSelector).click();
     }
 
-    //TC2
+    // phương thức cuộn đến đối tượng cụ thể
+    public void clickScrollToElement() {
+        // Tìm phần tử cần cuộn đến
+        WebElement element = driver.findElement(bookingInfoSelector);
+        // Cuộn đến phần tử
+        driverUtils.scrollToElement(element);
+    }
 
+    // Phương thức chức năng nhập ID booking vào một ô textbox và nhấp vào nút tìm kiếm
+    public void enterBookingIdAndSearch() {
+        driver.findElement(searchIconSelector).click();
+    }
 }

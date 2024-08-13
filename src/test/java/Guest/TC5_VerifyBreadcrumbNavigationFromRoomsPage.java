@@ -40,33 +40,33 @@ public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
         softAssert = new SoftAssert();
     }
 
-    // Phương thức để kiểm tra breadcrumb navigation
-    public void verifyBreadcrumbNavigation(BasePage page) {
-        // Click breadcrumb Home
-        page.clickButtonBreadcrumbHome();
-        // Xác minh rằng tiêu đề Home là chính xác
-        String actualHomeTitle = homePage.getHomePageTitle();
-        softAssert.assertEquals(actualHomeTitle, expectedHomeTitle, "Failed to navigate back to Home Page");
-    }
-
     @Test
     public void TC5() {
-        // Xác minh breadcrumb navigation cho từng trang
-        roomsPage.navigateToHomePage();
-        verifyBreadcrumbNavigation(roomsPage);
 
-        aboutPage.navigateToHomePage();
-        verifyBreadcrumbNavigation(aboutPage);
+        // Kiểm tra tiêu đề trang Rooms
+        roomsPage.navigateToRoomsPage();
+        roomsPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
-        blogsPage.navigateToHomePage();
-        verifyBreadcrumbNavigation(blogsPage);
+        // Kiểm tra tiêu đề trang About
+        aboutPage.navigateToAboutPage();
+        aboutPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
-        contactPage.navigateToHomePage();
-        verifyBreadcrumbNavigation(contactPage);
+        // Kiểm tra tiêu đề trang Blogs
+        blogsPage.navigateToBlogsPage();
+        blogsPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
-        faqsPage.navigateToHomePage();
-        verifyBreadcrumbNavigation(faqsPage);
+        // Kiểm tra tiêu đề trang Contact
+        contactPage.navigateToContactPage();
+        contactPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
+        // Kiểm tra tiêu đề trang FAQs
+        faqsPage.navigateToFaqsPage();
+        faqsPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
