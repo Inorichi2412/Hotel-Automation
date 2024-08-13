@@ -3,15 +3,23 @@ package page.guest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 
 public class RoomsPage extends BasePage {
 
+    ConfirmPage confirmPage;
+
     // Selector cho nút điều hướng đến trang Rooms
-    By buttonDirectionalRoomsSelector = By.xpath("//a[@href='/rooms']");
+    By roomsPageLink = By.xpath("//a[@href='/rooms']");
     // Tiêu đề của trang Rooms
-    String pageTitle = "Rooms";
+    By roomsPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
+    // selector search
+    By bookingIdTextboxSelector = By.id("search");
+    By searchButtonSelector = By.xpath("//*[@id='searchForm']/input[2]");
 
     //selector search
     By viewDetailsButtonSelector = By.xpath("//a[@class='btn btn-success float-right']");
@@ -27,28 +35,35 @@ public class RoomsPage extends BasePage {
     // Constructor của lớp RoomsPage
     public RoomsPage(WebDriver driver) {
         super(driver);
+        // khởi tao đối tượng
+        this.confirmPage = new ConfirmPage(driver);
     }
 
-    // Phương thức kiểm tra tiêu đề của trang room sau khi điều hướng
-    public String getRoomsPageTitle() {
-        WebElement roomButton = driver.findElement(buttonDirectionalRoomsSelector);
-        // Điều hướng và lấy tiêu đề trang
-        return directional(roomButton, pageTitle);
+    // Phương thức điều hướng đến trang Rooms
+    public void navigateToRoomsPage() {
+        driver.findElement(roomsPageLink).click();
+    }
+    // Phương thức lấy title
+    public String getRoomsPageTitleText() {
+        driver.findElement(roomsPageTitleSelector).click();
+        return getPageTitleText();
     }
 
-    // Phương thức để điều hướng đến trang Rooms và xác nhận tiêu đề sau khi cuộn lên đầu
-    public void verifyRoomPageTitleAfterScroll() {
-        WebElement roomButton = driver.findElement(buttonDirectionalRoomsSelector);
-        roomButton.click();
-        clickScrollToTop();  // Cuộn lên đầu trang
-        String actualTitle = getPageTitle(pageTitle);  // Lấy tiêu đề trang
-        Assert.assertEquals(actualTitle, pageTitle, "Failed to scroll to top and view correct title on Rooms Page");
+    // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
+    @Override
+    public void clickScrollToTop() {
+        //cuộn lên hoặc nhấn nút "Scroll to Top"
+        super.clickScrollToTop();
+        // khi thấy title cua trang
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(e -> e.findElement(roomsPageTitleSelector).isDisplayed());
     }
 
-    // Phương thức để nhấn vào button Breadcrumb Home (sử dụng từ BasePage)
-    public void navigateToHomePage() {
-        WebElement roomButton = driver.findElement(buttonDirectionalRoomsSelector);
-        roomButton.click();
+    // Phương thức Breadcrumb
+    @Override
+    public void navigateToHomePageFromBreadcrumb() {
+        //Breadcrumb về Home Page
+        super.navigateToHomePageFromBreadcrumb();
     }
 
     //TC2
@@ -114,6 +129,35 @@ public class RoomsPage extends BasePage {
         driver.findElement(clickButtonSubmitRoomDetailsSelector).click();
     }
 
-    // Phương thức cụ thể của RoomsPage để nhập mã xác nhận và tìm kiếm
+    // Phương thức để lấy ID xác nhận đặt phòng từ RoomsPage
+    public String retrieveBookingConfirmationId() {
+        return confirmPage.getBookingConfirmationId();
+    }
 
+    // Phương thức để lấy tên phòng từ RoomsPage
+    public String retrieveRoomName() {
+        return confirmPage.getRoomName();
+    }
+
+    // Phương thức để lấy thông tin phòng từ RoomsPage
+    public String retrieveRoomInfo() {
+        return confirmPage.getRoomInfo();
+    }
+
+    // Phương thức chức năng nhập ID booking vào một ô textbox và nhấp vào nút tìm kiếm
+    public void enterBookingIdAndSearch() {
+        super.enterBookingIdAndSearch();
+        try {
+            Thread.sleep(5000); // Chờ 5 giây
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // Lấy Booking ID từ ConfirmPage
+        String bookingId = retrieveBookingConfirmationId();
+        // Xóa nội dung cũ nếu có
+        driver.findElement(bookingIdTextboxSelector).clear();
+        // Gửi Booking ID vào textbox
+        driver.findElement(bookingIdTextboxSelector).sendKeys(bookingId);
+        driver.findElement(searchButtonSelector).click();
+    }
 }

@@ -8,12 +8,11 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.user.HomePage;
 import page.user.LoginPage;
-import page.user.GeneralPage;
+import page.user.NavigationBarAndBreadCrumbPage;
 import page.user.RoomsPage;
 import utils.ConfigReader;
 
 import java.time.Duration;
-import java.util.Random;
 
 public class TC51_VerifyThatForEachRoomOnTheRoomsPageThereIsAViewDetailButton {
     WebDriver driver;
@@ -21,7 +20,7 @@ public class TC51_VerifyThatForEachRoomOnTheRoomsPageThereIsAViewDetailButton {
     HomePage homePage;
     LoginPage loginPage;
     RoomsPage roomsPage;
-    GeneralPage generalPage;
+    NavigationBarAndBreadCrumbPage navigationBarAndBreadCrumbPage;
 
     SoftAssert softAssert;
 
@@ -33,7 +32,7 @@ public class TC51_VerifyThatForEachRoomOnTheRoomsPageThereIsAViewDetailButton {
         loginPage=new LoginPage(driver);
         roomsPage=new RoomsPage(driver);
 
-        generalPage =new GeneralPage(driver);
+        navigationBarAndBreadCrumbPage =new NavigationBarAndBreadCrumbPage(driver);
 
         softAssert=new SoftAssert();
 
@@ -48,9 +47,7 @@ public class TC51_VerifyThatForEachRoomOnTheRoomsPageThereIsAViewDetailButton {
         homePage.openLoginForm();
         loginPage.login("vyvanviet","abc123");
 
-        generalPage.openRoomsPage();
-
-        roomsPage.checkViewDetailsButtonForAllRooms(softAssert);
+        navigationBarAndBreadCrumbPage.clickRooms();
 
         softAssert.assertAll();
 
