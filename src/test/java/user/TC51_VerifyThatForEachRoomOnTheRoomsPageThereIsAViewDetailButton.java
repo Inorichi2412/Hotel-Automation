@@ -13,6 +13,7 @@ import page.user.RoomsPage;
 import utils.ConfigReader;
 
 import java.time.Duration;
+import java.util.Random;
 
 public class TC51_VerifyThatForEachRoomOnTheRoomsPageThereIsAViewDetailButton {
     WebDriver driver;
@@ -48,6 +49,10 @@ public class TC51_VerifyThatForEachRoomOnTheRoomsPageThereIsAViewDetailButton {
         loginPage.login("vyvanviet","abc123");
 
         navigationBarAndBreadCrumbPage.clickRooms();
+        Random random=new Random();
+        int roomIndex=random.nextInt(10)+1;
+        System.out.println(roomIndex);
+        softAssert.assertTrue(roomsPage.isViewDetailsButtonDisplayedForRoom(roomIndex),"View detail not available for this room");
 
         softAssert.assertAll();
 
