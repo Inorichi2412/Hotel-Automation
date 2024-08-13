@@ -23,7 +23,7 @@ public class BookingDataGenerator {
     // Sinh ngày trả phòng dựa trên ngày nhận phòng
     public String generateCheckOutDate(String checkInDateStr) {
         LocalDate checkInDate = LocalDate.parse(checkInDateStr, dateFormatter);
-        LocalDate checkOutDate = checkInDate.plusDays(faker.number().numberBetween(1, 14));
+        LocalDate checkOutDate = checkInDate.plusDays(faker.number().numberBetween(1, 2));
         return checkOutDate.format(dateFormatter);
     }
 
@@ -49,7 +49,15 @@ public class BookingDataGenerator {
 
     // Sinh số điện thoại
     public String generatePhone() {
-        return faker.phoneNumber().phoneNumber();
+        // Tạo số điện thoại ngẫu nhiên
+        String randomPhoneNumber = faker.phoneNumber().phoneNumber();
+        // Loại bỏ ký tự không phải số
+        String phoneNumber = randomPhoneNumber.replaceAll("[^0-9]", "");
+        if (phoneNumber.length() > 10) {
+            // Lấy 10 chữ số cuối
+            phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
+        }
+        return "0" + phoneNumber; // Thêm mã vùng Việt Nam (0) vào đầu
     }
 
     // Sinh địa chỉ

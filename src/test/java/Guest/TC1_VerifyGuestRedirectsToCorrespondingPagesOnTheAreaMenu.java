@@ -1,14 +1,13 @@
 package Guest;
 
 import Config.SetUp;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import page.guest.*;
 
 public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
@@ -19,6 +18,8 @@ public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
     BlogsPage blogsPage;
     ContactPage contactPage;
     FaqsPage faqsPage;
+    BasePage basePage;
+    SoftAssert softAssert;
     SetUp setUp;
 
     @BeforeMethod
@@ -34,38 +35,39 @@ public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
         blogsPage = new BlogsPage(driver);
         contactPage = new ContactPage(driver);
         faqsPage = new FaqsPage(driver);
-    }
-
-    // Phương thức để kiểm tra tiêu đề trang
-    private void verifyPageTitle(String expectedTitle, String actualTitle) {
-        Assert.assertEquals(actualTitle, expectedTitle, "Failed to navigate to " + expectedTitle + " Page");
+        basePage = new BasePage(driver);
+        softAssert = new SoftAssert();
     }
 
     @Test
     public void TC1() {
+
         // Kiểm tra tiêu đề trang Home
-        String homeTitle = homePage.getHomePageTitle();
-        Assert.assertEquals(homeTitle, "Best Hotel to stay", "Failed to verify Home Page title");
+        homePage.navigateToHomePage();
+        Assert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang Rooms
-        String roomsTitle = roomsPage.getRoomsPageTitle();
-        verifyPageTitle("Rooms", roomsTitle);
+        roomsPage.navigateToRoomsPage();
+        Assert.assertEquals(roomsPage.getPageTitleText(), "Rooms", "The Rooms page title does not match!");
 
         // Kiểm tra tiêu đề trang About
-        String aboutTitle = aboutPage.getAboutPageTitle();
-        verifyPageTitle("About Us", aboutTitle);
+        aboutPage.navigateToAboutPage();
+        Assert.assertEquals(aboutPage.getPageTitleText(), "About Us", "The About page title does not match!");
 
         // Kiểm tra tiêu đề trang Blogs
-        String blogsTitle = blogsPage.getBlogsPageTitle();
-        verifyPageTitle("Our Blogs", blogsTitle);
+        blogsPage.navigateToBlogsPage();
+        Assert.assertEquals(blogsPage.getPageTitleText(), "Our Blogs", "The Blogs page title does not match!");
 
         // Kiểm tra tiêu đề trang Contact
-        String contactTitle = contactPage.getContactPageTitle();
-        verifyPageTitle("Contact Us", contactTitle);
+        contactPage.navigateToContactPage();
+        Assert.assertEquals(contactPage.getPageTitleText(), "Contact Us", "The Contact page title does not match!");
 
         // Kiểm tra tiêu đề trang FAQs
-        String faqsTitle = faqsPage.getFaqsPageTitle();
-        verifyPageTitle("FAQ", faqsTitle);
+        faqsPage.navigateToFaqsPage();
+        Assert.assertEquals(faqsPage.getPageTitleText(), "FAQ", "The FAQs page title does not match!");
+
+        // Kiểm tra tất cả các xác nhận
+        softAssert.assertAll();
     }
 
     @AfterMethod

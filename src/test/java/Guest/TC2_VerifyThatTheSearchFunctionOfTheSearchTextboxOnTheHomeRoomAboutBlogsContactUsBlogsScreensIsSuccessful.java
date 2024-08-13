@@ -62,18 +62,12 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         bookingDataGenerator = new BookingDataGenerator();
         // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
         creditCard = CreditCard.getSampleCreditCard();
-    }
-
-    // Phương thức chuẩn bị dữ liệu cho việc đặt phòng
-    public void prepareBookingData() {
+        // information search
         checkInDate = bookingDataGenerator.generateCheckInDate();
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
         adults = bookingDataGenerator.generateAdults();
         children = bookingDataGenerator.generateChildren();
-    }
-
-    // Phương thức chuẩn bị dữ liệu cho thông tin khách
-    public void prepareGuestData() {
+        // information guest
         fullName = bookingDataGenerator.generateFullName();
         email = bookingDataGenerator.generateEmail();
         phone = bookingDataGenerator.generatePhone();
@@ -82,37 +76,39 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
 
     @Test
     public void TC2() {
-        // Gọi phương thức chuẩn bị dữ liệu
-        prepareBookingData();
-        prepareGuestData();
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchForBooking(checkInDate, checkOutDate, adults, children);
+
         // phương thức cuộn tới phần tử và nhấn nút View Details
         roomsPage.scrollToElementAndClickViewDetails();
+
         // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
         roomsPage.scrollToAndClickBookNowInRoomDetails();
+
         // Phương thức cuộn tới vung AddInformationForm
         roomsPage.scrollToAddInformationForm();
+
         // Phương thức nhập thông tin bổ sung và gửi
-        roomsPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
+          roomsPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
+//        roomsPage.fillAndSubmitAdditionalInformation("hoangvu", "hoangvu@gmail.com ", "0705959123", "vn");
+
         //Phương thức cuộn tới phần chọn phương thức thanh toán
         checkOutPage.scrollToPaymentMethodSection();
+
         //Phương thức nhập thông tin thẻ tín dụng
         checkOutPage.enterCreditCardDetails(creditCard);
-        try {
-            Thread.sleep(5000); // Chờ 2 giây
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        checkOutPage.enterCreditCardDetails("2222333344449999", "MABU", "1232", "123");
+
         // Phương thức enter "Pay Now"
         checkOutPage.clickButtonPayNow();
-        try {
-            Thread.sleep(5000); // Chờ 2 giây
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         // Phương thức hiển thị thông tin booking
-       // confirmPage.displayBookingInformation();
+         confirmPage.clickScrollToElement();
+
+        //
+        roomsPage.navigateToRoomsPage();
+        roomsPage.enterBookingIdAndSearch();
+
     }
 
     @AfterMethod
