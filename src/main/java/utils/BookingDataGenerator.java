@@ -23,7 +23,7 @@ public class BookingDataGenerator {
     // Sinh ngày trả phòng dựa trên ngày nhận phòng
     public String generateCheckOutDate(String checkInDateStr) {
         LocalDate checkInDate = LocalDate.parse(checkInDateStr, dateFormatter);
-        LocalDate checkOutDate = checkInDate.plusDays(faker.number().numberBetween(1, 14));
+        LocalDate checkOutDate = checkInDate.plusDays(faker.number().numberBetween(1, 2));
         return checkOutDate.format(dateFormatter);
     }
 

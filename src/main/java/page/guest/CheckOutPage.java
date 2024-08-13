@@ -43,6 +43,7 @@ public class CheckOutPage {
         driver.findElement(textBoxCardNumberSelector).sendKeys(creditCard.getCardNumber());
         driver.findElement(textBoxNameOnCardSelector).sendKeys(creditCard.getNameOnCard());
         driver.findElement(textBoxExpiryDateSelector).sendKeys(creditCard.getExpiryDate());
+        driver.findElement(textBoxCvvNumberSelector).clear();
         driver.findElement(textBoxCvvNumberSelector).sendKeys(creditCard.getCvvNumber());
     }
 
