@@ -3,6 +3,7 @@ package page.guest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -144,20 +145,7 @@ public class RoomsPage extends BasePage {
         return confirmPage.getRoomInfo();
     }
 
-    // Phương thức chức năng nhập ID booking vào một ô textbox và nhấp vào nút tìm kiếm
     public void enterBookingIdAndSearch() {
         super.enterBookingIdAndSearch();
-        try {
-            Thread.sleep(5000); // Chờ 5 giây
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // Lấy Booking ID từ ConfirmPage
-        String bookingId = retrieveBookingConfirmationId();
-        // Xóa nội dung cũ nếu có
-        driver.findElement(bookingIdTextboxSelector).clear();
-        // Gửi Booking ID vào textbox
-        driver.findElement(bookingIdTextboxSelector).sendKeys(bookingId);
-        driver.findElement(searchButtonSelector).click();
     }
 }

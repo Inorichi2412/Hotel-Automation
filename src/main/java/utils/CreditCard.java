@@ -56,7 +56,6 @@ public class CreditCard {
     }
 
     public static CreditCard getSampleCreditCard() {
-        return new CreditCard("2222 3333 4444 9999", "MABU", "12/32", "123");
+        return new CreditCard("2222 3333 4444 5555", "JOHN HENRY", "12/25", "123");
     }
-
 }

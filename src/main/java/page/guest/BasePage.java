@@ -12,6 +12,9 @@ import java.time.Duration;
 public class BasePage {
     WebDriver driver;
     DriverUtils driverUtils;
+
+    ConfirmPage confirmPage;
+    String bookId;
     final Duration waitDuration = Duration.ofSeconds(10);
 
     // selector title
@@ -26,19 +29,22 @@ public class BasePage {
 
     // Selector cho chức năng search textbox
     By searchIconSelector= By.xpath("//span[@class='sb-icon-search']");
-
-    // Selector id booking đã xác nhận
-    By clickSearchInputBoxSelector  = By.xpath("//*[@id='searchForm']/span");
-    By searchInputBoxSelector  = By.xpath("//*[@id='searchForm']/input[2]");
+    By bookingIdTextboxSelector = By.id("search");
+    By searchButtonSelector = By.xpath("//*[@id='searchForm']/input[2]");
 
     // Selector thông tin phòng booking
-    By bookingConfirmationIdSelector = By.xpath("//span[@class='green_text1 float-right']");
+    By bookingConfirmationIdSelector = By.xpath("//span[starts-with(@class, 'green_text1') and contains(text(), 'Id:')]");
+    By roomNameSelector = By.xpath("/html/body/section[2]/div/div[2]/div[2]/div/div[1]/div[1]/div[2]/h5");
+    By roomInfoSelector = By.xpath("//span[@class='float-left']");
+
 
     // Constructor của lớp BasePage
     public BasePage(WebDriver driver) {
         this.driver = driver;
         // Khởi tạo đối tượng DriverUtils
         this.driverUtils = new DriverUtils(driver);
+        // Khởi tạo đối tượng ConfirmPage
+        this.confirmPage = new ConfirmPage(driver);
     }
 
     // Phương thức điều hướng đến các trang
@@ -66,16 +72,23 @@ public class BasePage {
         driver.findElement(buttonBreadcrumbHomeSelector).click();
     }
 
-    // phương thức cuộn đến đối tượng cụ thể
-    public void clickScrollToElement() {
-        // Tìm phần tử cần cuộn đến
-        WebElement element = driver.findElement(bookingInfoSelector);
-        // Cuộn đến phần tử
-        driverUtils.scrollToElement(element);
+    // Phương thức click vào textbox
+    public void openSearchTextbox() {
+        driver.findElement(searchIconSelector).click();
     }
 
-    // Phương thức chức năng nhập ID booking vào một ô textbox và nhấp vào nút tìm kiếm
+    // Phương thức lấy ID xác nhận đặt phòng từ ConfirmPage
+    public String getBookingConfirmationId() {
+        // Gọi phương thức từ ConfirmPage để lấy ID xác nhận
+        return confirmPage.getBookingConfirmationId();
+    }
+
     public void enterBookingIdAndSearch() {
-        driver.findElement(searchIconSelector).click();
+        openSearchTextbox();
+        String bookId = getBookingConfirmationId();
+        WebElement bookingIdTextbox = driver.findElement(bookingIdTextboxSelector);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElementValue(bookingIdTextboxSelector, "")));
+        bookingIdTextbox.sendKeys(bookId);
     }
 }
