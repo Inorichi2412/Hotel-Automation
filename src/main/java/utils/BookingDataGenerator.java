@@ -29,12 +29,12 @@ public class BookingDataGenerator {
 
     // Sinh số lượng người lớn
     public int generateAdults() {
-        return faker.number().numberBetween(1, 4);
+        return faker.number().numberBetween(1, 2);
     }
 
     // Sinh số lượng trẻ em
     public int generateChildren() {
-        return faker.number().numberBetween(0, 3);
+        return faker.number().numberBetween(1, 2);
     }
 
     // Sinh tên đầy đủ

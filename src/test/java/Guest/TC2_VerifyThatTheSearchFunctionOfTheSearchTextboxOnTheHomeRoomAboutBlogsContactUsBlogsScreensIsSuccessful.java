@@ -3,6 +3,7 @@ package Guest;
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -103,11 +104,11 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         checkOutPage.clickButtonPayNow();
 
         // Phương thức hiển thị thông tin booking
-         confirmPage.clickScrollToElement();
+         confirmPage.dispalyInforBookingc();
 
         //
-        roomsPage.navigateToRoomsPage();
-        roomsPage.enterBookingIdAndSearch();
+         roomsPage.navigateToRoomsPage();
+         roomsPage.enterBookingIdAndSearch();
 
     }
 
