@@ -19,10 +19,6 @@ public class RoomsPage extends BasePage {
     // Tiêu đề của trang Rooms
     By roomsPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
 
-    // selector search
-    By bookingIdTextboxSelector = By.name("bookingUID");
-    By searchButtonSelector = By.xpath("//*[@id='searchForm']/input[2]");
-
     //selector information
     By viewDetailsButtonSelector = By.xpath("//a[@class='btn btn-success float-right']");
     By addYourInfoFormSelector = By.xpath("//h4[text()='Add Your Informations :-']");
@@ -36,11 +32,16 @@ public class RoomsPage extends BasePage {
     // selector ton tai phòng
     By itemDescriptionsSelector = By.xpath("//div[@class='pop_item_description']");
 
+    // Selector name room
+     By getConferenceRoomNameSelector = By.xpath("//section[2]//h5[1]");
+    //By getConferenceRoomNameSelector = By.xpath("/html/body/section[2]/div/div/div/div/div[2]/div/h5");
+
     // Constructor của lớp RoomsPage
     public RoomsPage(WebDriver driver) {
         super(driver);
         // Khởi tạo ConfirmPage với cùng một driver
         this.confirmPage = new ConfirmPage(driver);
+        this.driver = driver;
     }
 
     // Phương thức điều hướng đến trang Rooms
@@ -124,5 +125,11 @@ public class RoomsPage extends BasePage {
     // Phương thưc kiểm tra xem phần tử có đang được hiển thị trên trang không.
     public boolean isItemDescriptionsDisplayed() {
         return driver.findElement(itemDescriptionsSelector).isDisplayed();
+    }
+
+    // Phương thức get tên phòng
+    public String getConferenceRoomName() {
+        WebElement conferenceRoomName =  driver.findElement(getConferenceRoomNameSelector);
+        return  conferenceRoomName.getText();
     }
 }
