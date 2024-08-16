@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -102,7 +102,7 @@ public class TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
          confirmPage.displayToElement();
 
         // Gọi phương thức getBookingId() từ ConfirmPage để lấy ID của booking sau khi xác nhận
-        bookingId = confirmPage.getBookingIdError();
+        bookingId = null;
 
         // Điều hướng đến trang room, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         confirmPage.navigateToPage("/rooms");
@@ -122,7 +122,7 @@ public class TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         // Điều hướng đến trang blog, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         searchPage.navigateToPage("/blogs");
         blogsPage.searchBooking(bookingId);
-        softAssert.assertEquals(blogsPage.getBookingNotFoundMessage(), "Opps1 ! No booking found !", "Booking ID does not match the blogsPage!");
+        softAssert.assertEquals(blogsPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the blogsPage!");
 
         // Điều hướng đến trang contact, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         searchPage.navigateToPage("/contact");

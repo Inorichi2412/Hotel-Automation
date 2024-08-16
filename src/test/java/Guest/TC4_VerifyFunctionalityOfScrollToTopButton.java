@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.guest.*;
+import utils.DriverUtils;
 
 public class TC4_VerifyFunctionalityOfScrollToTopButton {
     WebDriver driver;
