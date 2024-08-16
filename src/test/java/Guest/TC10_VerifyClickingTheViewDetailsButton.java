@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.guest.HomePage;
+import page.guest.RoomDetailsPage;
 import page.guest.RoomsPage;
 import utils.BookingDataGenerator;
 
@@ -17,6 +18,7 @@ public class TC10_VerifyClickingTheViewDetailsButton {
     SetUp setUp;
     HomePage homePage;
     RoomsPage roomsPage;
+    RoomDetailsPage roomDetailsPage;
     BookingDataGenerator bookingDataGenerator;
     SoftAssert softAssert;
 
@@ -25,7 +27,7 @@ public class TC10_VerifyClickingTheViewDetailsButton {
     String checkOutDate;
     int adults;
     int children;
-
+    String roomName;
 
     @BeforeMethod
     public void setUp() {
@@ -42,6 +44,7 @@ public class TC10_VerifyClickingTheViewDetailsButton {
         // Khởi tạo đối tượng
         homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
+        roomDetailsPage = new RoomDetailsPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // information search
@@ -52,15 +55,19 @@ public class TC10_VerifyClickingTheViewDetailsButton {
     }
 
     @Test
-    public void TC2() {
+    public void TC10() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchForBooking(checkInDate, checkOutDate, adults, children);
 
+        //  Phương thức get tên phòng
+        roomName = roomsPage.getConferenceRoomName();
         // phương thức cuộn tới phần tử và nhấn nút View Details
         roomsPage.openDetailsView();
 
-        //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
-        softAssert.assertTrue(roomsPage.isItemDescriptionsDisplayed(),"Don't have any available room");
+        //  Kiểm tra di chuyển đúng màn hình, và đúng tên phòng
+        softAssert.assertEquals(roomDetailsPage.getPageTitleText(), "Room Details", "The Room Details page title does not match!");
+        softAssert.assertEquals(roomName,roomDetailsPage.getConferenceRoomDetailsName(),"Room information does not exist");
+
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
     }

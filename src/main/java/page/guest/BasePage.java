@@ -93,4 +93,5 @@ public class BasePage {
         WebElement pageMessageElement = driver.findElement(getBookingIdnotFoundMessage);
         return pageMessageElement.getText();
     }
+
 }

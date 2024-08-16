@@ -51,7 +51,7 @@ public class TC6_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUseSearch
     }
 
     @Test
-    public void TC2() {
+    public void TC6() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchForBooking(checkInDate, checkOutDate, adults, children);
         //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
