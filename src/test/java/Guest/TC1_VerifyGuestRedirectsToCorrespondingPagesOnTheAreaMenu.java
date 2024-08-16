@@ -48,23 +48,23 @@ public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
 
         // Kiểm tra tiêu đề trang Rooms
         roomsPage.navigateToRoomsPage();
-        Assert.assertEquals(roomsPage.getPageTitleText(), "Rooms", "The Rooms page title does not match!");
+        softAssert.assertEquals(roomsPage.getPageTitleText(), "Rooms", "The Rooms page title does not match!");
 
         // Kiểm tra tiêu đề trang About
         aboutPage.navigateToAboutPage();
-        Assert.assertEquals(aboutPage.getPageTitleText(), "About Us", "The About page title does not match!");
+        softAssert.assertEquals(aboutPage.getPageTitleText(), "About Us", "The About page title does not match!");
 
         // Kiểm tra tiêu đề trang Blogs
         blogsPage.navigateToBlogsPage();
-        Assert.assertEquals(blogsPage.getPageTitleText(), "Our Blogs", "The Blogs page title does not match!");
+        softAssert.assertEquals(blogsPage.getPageTitleText(), "Our Blogs", "The Blogs page title does not match!");
 
         // Kiểm tra tiêu đề trang Contact
         contactPage.navigateToContactPage();
-        Assert.assertEquals(contactPage.getPageTitleText(), "Contact Us", "The Contact page title does not match!");
+        softAssert.assertEquals(contactPage.getPageTitleText(), "Contact Us", "The Contact page title does not match!");
 
         // Kiểm tra tiêu đề trang FAQs
         faqsPage.navigateToFaqsPage();
-        Assert.assertEquals(faqsPage.getPageTitleText(), "FAQ", "The FAQs page title does not match!");
+        softAssert.assertEquals(faqsPage.getPageTitleText(), "FAQ", "The FAQs page title does not match!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

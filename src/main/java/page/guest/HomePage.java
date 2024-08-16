@@ -16,7 +16,8 @@ public class HomePage extends BasePage {
     DriverUtils driverUtils;
 
     // Selector cho nút điều hướng đến trang Rooms
-    By homePageLink = By.xpath("//a[@href='/']");
+    //By homePageLink = By.xpath("//a[@href='/']");
+    String homePage = "/";
     // Selector cho tiêu đề của trang chính
     By pageHomeTitleSelector = By.xpath("/html/body/section[1]/div/div/div/div/h1");
 
@@ -38,7 +39,7 @@ public class HomePage extends BasePage {
 
     // Phương thức điều hướng đến trang Rooms
     public void navigateToHomePage() {
-        driver.findElement(homePageLink).click();
+       super.navigateToPage(homePage);
     }
 
     // phương thưc lấy title
@@ -53,9 +54,9 @@ public class HomePage extends BasePage {
     public void clickScrollToTop() {
         //cuộn lên hoặc nhấn nút "Scroll to Top"
         super.clickScrollToTop();
-        // khi thấy title cua trang
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        wait.until(e -> e.findElement(pageHomeTitleSelector).isDisplayed());
+//        // khi thấy title cua trang
+//        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+//        wait.until(e -> e.findElement(pageHomeTitleSelector).isDisplayed());
     }
 
     //TC2

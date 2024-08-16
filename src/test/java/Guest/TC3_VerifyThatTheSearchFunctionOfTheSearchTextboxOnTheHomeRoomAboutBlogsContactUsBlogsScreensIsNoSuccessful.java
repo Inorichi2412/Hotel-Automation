@@ -11,7 +11,7 @@ import page.guest.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
-public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsSuccessful {
+public class TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsNoSuccessful {
     WebDriver driver;
     String url;
     SetUp setUp;
@@ -40,7 +40,6 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
     String phone;
     String address;
     String bookingId;
-    String resultBookingId;
 
     @BeforeMethod
     public void setUp() {
@@ -83,7 +82,7 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
     }
 
     @Test
-    public void TC2() {
+    public void TC3() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchForBooking(checkInDate, checkOutDate, adults, children);
 
@@ -103,40 +102,37 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
          confirmPage.displayToElement();
 
         // Gọi phương thức getBookingId() từ ConfirmPage để lấy ID của booking sau khi xác nhận
-        bookingId = confirmPage.getBookingId();
-
-        // Gọi phương thức getBookingId() từ SearchPage để lấy ID của booking sau khi tìm kiếm
-        resultBookingId = searchPage.getBookingId();
+        bookingId = confirmPage.getBookingIdError();
 
         // Điều hướng đến trang room, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         confirmPage.navigateToPage("/rooms");
         roomsPage.searchBooking(bookingId);
-        softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the roomsPage!");
+        softAssert.assertEquals(roomsPage.getBookingNotFoundMessage(),"Opps ! No booking found !", "Booking ID does not match the roomsPage!");
 
         // Điều hướng đến trang home, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         searchPage.navigateToPage("/");
         homePage.searchBooking(bookingId);
-        softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the homePage!");
+        softAssert.assertEquals(homePage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the homePage!");
 
         // Điều hướng đến trang about, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         searchPage.navigateToPage("/about");
         aboutPage.searchBooking(bookingId);
-        softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the aboutPage!");
+        softAssert.assertEquals(aboutPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the aboutPage!");
 
         // Điều hướng đến trang blog, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         searchPage.navigateToPage("/blogs");
         blogsPage.searchBooking(bookingId);
-        softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the blogsPage!");
+        softAssert.assertEquals(blogsPage.getBookingNotFoundMessage(), "Opps1 ! No booking found !", "Booking ID does not match the blogsPage!");
 
         // Điều hướng đến trang contact, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         searchPage.navigateToPage("/contact");
         contactPage.searchBooking(bookingId);
-        softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the contactPage!");
+        softAssert.assertEquals(contactPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the contactPage!");
 
         // Điều hướng đến trang contact, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
         searchPage.navigateToPage("/faqs");
         faqsPage.searchBooking(bookingId);
-        softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the faqsPage!");
+        softAssert.assertEquals(faqsPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the faqsPage!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

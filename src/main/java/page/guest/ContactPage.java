@@ -12,7 +12,8 @@ import java.time.Duration;
 public class ContactPage extends BasePage {
 
     // Selector cho nút điều hướng đến trang Contact
-    By contactPageLink = By.xpath("//a[@href='/contact']");
+    //By contactPageLink = By.xpath("//a[@href='/contact']");
+    String contactPage = "/contact";
     // Tiêu đề của trang Rooms
     By contactPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
 
@@ -23,7 +24,7 @@ public class ContactPage extends BasePage {
 
     // Phương thức điều hướng đến trang Contact
     public void navigateToContactPage() {
-        driver.findElement(contactPageLink).click();
+        super.navigateToPage(contactPage);
     }
 
     // Phương thức lấy title

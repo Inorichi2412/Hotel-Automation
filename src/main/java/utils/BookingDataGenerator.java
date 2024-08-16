@@ -16,25 +16,35 @@ public class BookingDataGenerator {
 
     // Sinh ngày nhận phòng
     public String generateCheckInDate() {
-        LocalDate checkInDate = LocalDate.now().plusDays(faker.number().numberBetween(1, 30));
+        LocalDate checkInDate = LocalDate.now().plusDays(faker.number().numberBetween(1, 30)).plusYears(2);
         return checkInDate.format(dateFormatter);
     }
 
     // Sinh ngày trả phòng dựa trên ngày nhận phòng
     public String generateCheckOutDate(String checkInDateStr) {
-        LocalDate checkInDate = LocalDate.parse(checkInDateStr, dateFormatter);
-        LocalDate checkOutDate = checkInDate.plusDays(faker.number().numberBetween(1, 2));
+        LocalDate checkInDate = LocalDate.parse(checkInDateStr, dateFormatter).plusYears(0);
+        LocalDate checkOutDate = checkInDate.plusDays(faker.number().numberBetween(2, 4));
         return checkOutDate.format(dateFormatter);
     }
 
     // Sinh số lượng người lớn
     public int generateAdults() {
-        return faker.number().numberBetween(1, 2);
+        return faker.number().numberBetween(1, 4);
     }
 
     // Sinh số lượng trẻ em
     public int generateChildren() {
         return faker.number().numberBetween(1, 2);
+    }
+
+    // Sinh số lượng người lớn (adults) lớn hơn 5000
+    public int generateLargeNumberOfAdults() {
+        return faker.number().numberBetween(5001, 10000);
+    }
+
+    // Sinh số lượng trẻ em (children) lớn hơn 5000
+    public int generateLargeNumberOfChildren() {
+        return faker.number().numberBetween(5001, 10000);
     }
 
     // Sinh tên đầy đủ
@@ -57,7 +67,7 @@ public class BookingDataGenerator {
             // Lấy 10 chữ số cuối
             phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
         }
-        return "0" + phoneNumber; // Thêm mã vùng Việt Nam (0) vào đầu
+        return "0" + phoneNumber;
     }
 
     // Sinh địa chỉ
