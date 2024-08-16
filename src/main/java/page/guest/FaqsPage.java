@@ -12,7 +12,8 @@ import java.time.Duration;
 public class FaqsPage extends BasePage {
 
     // Selector cho nút điều hướng đến trang FAQs
-    By faqsPageLink = By.xpath("//a[@href='/faqs']");
+   // By faqsPageLink = By.xpath("//a[@href='/faqs']");
+    String faqsPage = "/faqs";
     // Tiêu đề của trang Rooms
     By faqsPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
 
@@ -23,7 +24,7 @@ public class FaqsPage extends BasePage {
 
     // Phương thức điều hướng đến trang Faqs
     public void navigateToFaqsPage() {
-        driver.findElement(faqsPageLink).click();
+        super.navigateToPage(faqsPage);
     }
 
     // Phương thức lấy title

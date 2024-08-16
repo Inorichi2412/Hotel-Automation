@@ -40,20 +40,14 @@ public class CheckOutPage {
 
     // Nhập thông tin thẻ tín dụng
     public void enterCreditCardDetails(CreditCard creditCard) {
+        scrollToPaymentMethodSection();
         driver.findElement(textBoxCardNumberSelector).sendKeys(creditCard.getCardNumber());
         driver.findElement(textBoxNameOnCardSelector).sendKeys(creditCard.getNameOnCard());
         driver.findElement(textBoxExpiryDateSelector).sendKeys(creditCard.getExpiryDate());
         driver.findElement(textBoxCvvNumberSelector).clear();
         driver.findElement(textBoxCvvNumberSelector).sendKeys(creditCard.getCvvNumber());
+        clickButtonPayNow();
     }
-
-//    public void enterCreditCardDetails(String cardNumber, String nameOnCard, String expiryDate, String cvvNumber) {
-//        driver.findElement(textBoxCardNumberSelector).sendKeys(cardNumber);
-//        driver.findElement(textBoxNameOnCardSelector).sendKeys(nameOnCard);
-//        driver.findElement(textBoxExpiryDateSelector).sendKeys(expiryDate);
-//        driver.findElement(textBoxCvvNumberSelector).clear();
-//        driver.findElement(textBoxCvvNumberSelector).sendKeys(cvvNumber);
-//    }
 
     // Nhấn nút "Pay Now"
     public void clickButtonPayNow() {

@@ -12,7 +12,8 @@ import java.time.Duration;
 public class AboutPage extends BasePage {
 
     // Selector cho nút điều hướng đến trang Rooms
-    By aboutPageLink = By.xpath("//a[@href='/about']");
+    //By aboutPageLink = By.xpath("//a[@href='/about']");
+    String aboutPage = "/about";
     // Tiêu đề của trang Rooms
     By aboutPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
 
@@ -23,7 +24,7 @@ public class AboutPage extends BasePage {
 
     // Phương thức điều hướng đến trang About
     public void navigateToAboutPage() {
-        driver.findElement(aboutPageLink).click();
+        super.navigateToPage(aboutPage);
     }
 
     // Phương thức lấy title
