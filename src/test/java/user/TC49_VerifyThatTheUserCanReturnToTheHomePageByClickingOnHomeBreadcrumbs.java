@@ -6,7 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.user.*;
+import page.UserAndGuest.*;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -17,7 +17,7 @@ public class TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcr
     GeneralPage generalPage;
     HomePage homePage;
     LoginPage loginPage;
-    page.user.RoomsPage roomsPage;
+    page.UserAndGuest.RoomsPage roomsPage;
     AboutPage aboutPage;
     BlogsPage blogsPage;
     ContactUsPage contactUsPage;
