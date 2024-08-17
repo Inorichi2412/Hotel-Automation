@@ -1,7 +1,0 @@
-noi dung error message phai trung khop
-
-tao beformethod vs registerform
-
-tao them selector cho available rooms
-
-verify them NavebarProfileDrop da hien thi

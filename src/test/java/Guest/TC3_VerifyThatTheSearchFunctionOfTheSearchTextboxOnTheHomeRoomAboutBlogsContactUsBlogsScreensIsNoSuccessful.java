@@ -1,4 +1,4 @@
-package guest;
+package Guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.guest.*;
+import page.UserAndGuest.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
@@ -19,13 +19,13 @@ public class TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
     RoomsPage roomsPage;
     AboutPage aboutPage;
     BlogsPage blogsPage;
-    ContactPage contactPage;
-    FaqsPage faqsPage;
+    ContactUsPage contactUsPage;
+    FAQsPage faQsPage;
     CheckOutPage checkOutPage;
-    BasePage basePage;
+    GeneralPage generalPage;
     ConfirmPage confirmPage;
     RoomDetailsPage roomDetailsPage;
-    SearchPage searchPage;
+    SearchRoomsPage searchRoomsPage;
     BookingDataGenerator bookingDataGenerator;
     CreditCard creditCard;
     SoftAssert softAssert;
@@ -40,6 +40,7 @@ public class TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
     String phone;
     String address;
     String bookingId;
+    String resultBookingId;
 
     @BeforeMethod
     public void setUp() {
@@ -58,13 +59,13 @@ public class TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         roomsPage = new RoomsPage(driver);
         aboutPage = new AboutPage(driver);
         blogsPage = new BlogsPage(driver);
-        contactPage = new ContactPage(driver);
-        faqsPage = new FaqsPage(driver);
+        contactUsPage = new ContactUsPage(driver);
+        faQsPage = new FAQsPage(driver);
         checkOutPage = new CheckOutPage(driver);
-        basePage = new BasePage(driver);
+        generalPage = new GeneralPage(driver);
         confirmPage = new ConfirmPage(driver);
         roomDetailsPage = new RoomDetailsPage(driver);
-        searchPage = new SearchPage(driver);
+        searchRoomsPage = new SearchRoomsPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
@@ -79,60 +80,36 @@ public class TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         email = bookingDataGenerator.generateEmail();
         phone = bookingDataGenerator.generatePhone();
         address = bookingDataGenerator.generateAddress();
+        // Booking ID random
+        bookingId = bookingDataGenerator.generateBookingId();
     }
 
     @Test
     public void TC3() {
-        //Sử dụng dữ liệu đặt phòng để tìm kiếm
-        homePage.searchForBooking(checkInDate, checkOutDate, adults, children);
-
-        // phương thức cuộn tới phần tử và nhấn nút View Details
-        roomsPage.openDetailsView();
-
-        // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
-        roomDetailsPage.openBookNowInRoomDetails();
-
-        // Phương thức nhập thông tin bổ sung và gửi
-        roomsPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
-
-        //Phương thức nhập thông tin thẻ tín dụng và enter "Pay Now"
-        checkOutPage.enterCreditCardDetails(creditCard);
-
-        // Phương thức hiển thị thông tin booking
-         confirmPage.displayToElement();
-
-        // Gọi phương thức getBookingId() từ ConfirmPage để lấy ID của booking sau khi xác nhận
-        bookingId = null;
-
-        // Điều hướng đến trang room, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        confirmPage.navigateToPage("/rooms");
-        roomsPage.searchBooking(bookingId);
+        // Điều hướng đến trang , tìm kiếm bookingID và kiểm tra booking id co không
+        roomsPage.navigateToRoomsPage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(roomsPage.getBookingNotFoundMessage(),"Opps ! No booking found !", "Booking ID does not match the roomsPage!");
 
-        // Điều hướng đến trang home, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/");
-        homePage.searchBooking(bookingId);
+        homePage.navigateToHomePage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(homePage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the homePage!");
 
-        // Điều hướng đến trang about, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/about");
-        aboutPage.searchBooking(bookingId);
+        aboutPage.navigateToAboutPage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(aboutPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the aboutPage!");
 
-        // Điều hướng đến trang blog, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/blogs");
-        blogsPage.searchBooking(bookingId);
+        blogsPage.navigateToBlogsPage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(blogsPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the blogsPage!");
 
-        // Điều hướng đến trang contact, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/contact");
-        contactPage.searchBooking(bookingId);
-        softAssert.assertEquals(contactPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the contactPage!");
+        contactUsPage.navigateToContactPage();
+        searchRoomsPage.searchBooking(bookingId);
+        softAssert.assertEquals(contactUsPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the contactPage!");
 
-        // Điều hướng đến trang contact, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/faqs");
-        faqsPage.searchBooking(bookingId);
-        softAssert.assertEquals(faqsPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the faqsPage!");
+        faQsPage.navigateToFaqsPage();
+        searchRoomsPage.searchBooking(bookingId);
+        softAssert.assertEquals(faQsPage.getBookingNotFoundMessage(), "Opps ! No booking found !", "Booking ID does not match the faqsPage!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

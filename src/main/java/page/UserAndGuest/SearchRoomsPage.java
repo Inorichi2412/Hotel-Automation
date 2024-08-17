@@ -2,15 +2,23 @@ package page.UserAndGuest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-public class SearchRoomsPage {
+public class SearchRoomsPage extends GeneralPage {
     WebDriver driver;
+
+    public SearchRoomsPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+    }
+
+    String pageName = "/rooms";
 
     By checkInInputSelector=By.id("check-in");
     By checkOutInputSelector=By.id("check-out");
-    By adultInputSelector=By.xpath("//input[@name=\"adult\"]");
-    By childrenInputSelector =By.xpath("//input[@name=\"children\"]");
-    By searchButtonSelector=By.xpath("//input[@value=\"Search\"]");
+    By adultInputSelector=By.xpath("//input[@name='adult']");
+    By childrenInputSelector =By.xpath("//input[@name='children']");
+    By searchButtonSelector=By.xpath("//input[@value='Search']");
 
     public void clickCheckIn() {
         driver.findElement(checkInInputSelector).click();
@@ -62,7 +70,19 @@ public class SearchRoomsPage {
         clickSearchButton();
     }
 
-    public SearchRoomsPage(WebDriver driver) {
-        this.driver = driver;
+    // Phương thức get booking id
+    public String getBookingId() {
+        // Tìm phần tử chứa ID đặt phòng
+        WebElement bookingIdElement = driver.findElement(bookingConfirmationIdSelector);
+        // Lấy văn bản từ phần tử
+        String bookingIdText = bookingIdElement.getText();
+        // Kiểm tra chiều dài của văn bản và lấy 14 ký tự cuối
+        if (bookingIdText.length() >= 14) {
+            return bookingIdText.substring(bookingIdText.length() - 14);
+        } else {
+            // Nếu văn bản ngắn hơn 14 ký tự, trả về toàn bộ văn bản
+            return bookingIdText;
+        }
     }
+
 }

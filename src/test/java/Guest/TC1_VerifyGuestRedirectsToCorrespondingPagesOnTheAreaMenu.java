@@ -8,7 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.guest.*;
+import page.UserAndGuest.*;
 
 public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
     WebDriver driver;
@@ -16,9 +16,9 @@ public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
     RoomsPage roomsPage;
     AboutPage aboutPage;
     BlogsPage blogsPage;
-    ContactPage contactPage;
-    FaqsPage faqsPage;
-    BasePage basePage;
+    ContactUsPage contactUsPage;
+    FAQsPage faqsPage;
+    GeneralPage generalPage;
     SoftAssert softAssert;
     SetUp setUp;
 
@@ -33,9 +33,9 @@ public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
         roomsPage = new RoomsPage(driver);
         aboutPage = new AboutPage(driver);
         blogsPage = new BlogsPage(driver);
-        contactPage = new ContactPage(driver);
-        faqsPage = new FaqsPage(driver);
-        basePage = new BasePage(driver);
+        contactUsPage = new ContactUsPage(driver);
+        faqsPage = new FAQsPage(driver);
+        generalPage = new GeneralPage(driver);
         softAssert = new SoftAssert();
     }
 
@@ -59,8 +59,8 @@ public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
         softAssert.assertEquals(blogsPage.getPageTitleText(), "Our Blogs", "The Blogs page title does not match!");
 
         // Kiểm tra tiêu đề trang Contact
-        contactPage.navigateToContactPage();
-        softAssert.assertEquals(contactPage.getPageTitleText(), "Contact Us", "The Contact page title does not match!");
+        contactUsPage.navigateToContactPage();
+        softAssert.assertEquals(contactUsPage.getPageTitleText(), "Contact Us", "The Contact page title does not match!");
 
         // Kiểm tra tiêu đề trang FAQs
         faqsPage.navigateToFaqsPage();

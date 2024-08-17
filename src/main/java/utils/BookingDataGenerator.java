@@ -4,14 +4,17 @@ import com.github.javafaker.Faker;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 public class BookingDataGenerator {
     private Faker faker;
     private DateTimeFormatter dateFormatter;
+    private Random random;
 
     public BookingDataGenerator() {
         faker = new Faker();
         dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        random = new Random();
     }
 
     // Sinh ngày nhận phòng
@@ -68,6 +71,21 @@ public class BookingDataGenerator {
             phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
         }
         return "0" + phoneNumber;
+    }
+
+    // Sinh Booking ID với format XXXX-XXXXXXXXX
+    public String generateBookingId() {
+        return generateRandomString(4) + "-" + generateRandomString(9);
+    }
+
+    // Hàm hỗ trợ sinh chuỗi ngẫu nhiên với độ dài được chỉ định
+    private String generateRandomString(int length) {
+        String characters = "0123456789";
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            result.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return result.toString();
     }
 
     // Sinh địa chỉ

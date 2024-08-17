@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.guest.*;
+import page.UserAndGuest.*;
 import utils.BookingDataGenerator;
 
 public class TC6_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUseSearchCriteria {
@@ -53,7 +53,7 @@ public class TC6_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUseSearch
     @Test
     public void TC6() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
-        homePage.searchForBooking(checkInDate, checkOutDate, adults, children);
+        homePage.searchRoom(checkInDate, checkOutDate, adults, children);
         //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
         softAssert.assertTrue(roomsPage.isItemDescriptionsDisplayed(),"Don't have any available room");
         // Kiểm tra tất cả các xác nhận

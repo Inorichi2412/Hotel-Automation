@@ -1,4 +1,4 @@
-package guest;
+package Guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.guest.*;
+import page.UserAndGuest.*;
 
 public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
     WebDriver driver;
@@ -17,8 +17,8 @@ public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
     RoomsPage roomsPage;
     AboutPage aboutPage;
     BlogsPage blogsPage;
-    ContactPage contactPage;
-    FaqsPage faqsPage;
+    ContactUsPage contactUsPage;
+    FAQsPage faQsPage;
     SoftAssert softAssert;
 
     // Tiêu đề mong đợi của trang Home
@@ -35,8 +35,8 @@ public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
         roomsPage = new RoomsPage(driver);
         aboutPage = new AboutPage(driver);
         blogsPage = new BlogsPage(driver);
-        contactPage = new ContactPage(driver);
-        faqsPage = new FaqsPage(driver);
+        contactUsPage = new ContactUsPage(driver);
+        faQsPage = new FAQsPage(driver);
         softAssert = new SoftAssert();
     }
 
@@ -59,13 +59,13 @@ public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
         softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang Contact
-        contactPage.navigateToContactPage();
-        contactPage.navigateToHomePageFromBreadcrumb();
+        contactUsPage.navigateToContactPage();
+        contactUsPage.navigateToHomePageFromBreadcrumb();
         softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang FAQs
-        faqsPage.navigateToFaqsPage();
-        faqsPage.navigateToHomePageFromBreadcrumb();
+        faQsPage.navigateToFaqsPage();
+        faQsPage.navigateToHomePageFromBreadcrumb();
         softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tất cả các xác nhận
