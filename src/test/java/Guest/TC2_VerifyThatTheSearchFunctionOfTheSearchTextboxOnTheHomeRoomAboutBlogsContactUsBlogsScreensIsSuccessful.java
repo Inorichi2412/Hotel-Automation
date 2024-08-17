@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.guest.*;
+import page.UserAndGuest.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
@@ -19,13 +19,13 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
     RoomsPage roomsPage;
     AboutPage aboutPage;
     BlogsPage blogsPage;
-    ContactPage contactPage;
-    FaqsPage faqsPage;
+    ContactUsPage contactUsPage;
+    FAQsPage faQsPage;
     CheckOutPage checkOutPage;
-    BasePage basePage;
+    GeneralPage generalPage;
     ConfirmPage confirmPage;
     RoomDetailsPage roomDetailsPage;
-    SearchPage searchPage;
+    SearchRoomsPage searchRoomsPage;
     BookingDataGenerator bookingDataGenerator;
     CreditCard creditCard;
     SoftAssert softAssert;
@@ -59,13 +59,13 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         roomsPage = new RoomsPage(driver);
         aboutPage = new AboutPage(driver);
         blogsPage = new BlogsPage(driver);
-        contactPage = new ContactPage(driver);
-        faqsPage = new FaqsPage(driver);
+        contactUsPage = new ContactUsPage(driver);
+        faQsPage = new FAQsPage(driver);
         checkOutPage = new CheckOutPage(driver);
-        basePage = new BasePage(driver);
+        generalPage = new GeneralPage(driver);
         confirmPage = new ConfirmPage(driver);
         roomDetailsPage = new RoomDetailsPage(driver);
-        searchPage = new SearchPage(driver);
+        searchRoomsPage = new SearchRoomsPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
@@ -85,13 +85,13 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
     @Test
     public void TC2() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
-        homePage.searchForBooking(checkInDate, checkOutDate, adults, children);
+        homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
         // phương thức cuộn tới phần tử và nhấn nút View Details
         roomsPage.openDetailsView();
 
         // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
-        roomDetailsPage.openBookNowInRoomDetails();
+        roomDetailsPage.openBookNow();
 
         // Phương thức nhập thông tin bổ sung và gửi
         roomsPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
@@ -99,43 +99,36 @@ public class TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAbout
         //Phương thức nhập thông tin thẻ tín dụng và enter "Pay Now"
         checkOutPage.enterCreditCardDetails(creditCard);
 
-        // Phương thức hiển thị thông tin booking
-         confirmPage.displayToElement();
-
         // Gọi phương thức getBookingId() từ ConfirmPage để lấy ID của booking sau khi xác nhận
         bookingId = confirmPage.getBookingId();
 
         // Gọi phương thức getBookingId() từ SearchPage để lấy ID của booking sau khi tìm kiếm
-        resultBookingId = searchPage.getBookingId();
+        resultBookingId = searchRoomsPage.getBookingId();
 
-        // Điều hướng đến trang room, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        confirmPage.navigateToPage("/rooms");
-        roomsPage.searchBooking(bookingId);
+        // Điều hướng đến trang , tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
+        homePage.navigateToHomePage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the roomsPage!");
 
-        // Điều hướng đến trang home, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/");
-        homePage.searchBooking(bookingId);
+        roomsPage.navigateToRoomsPage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the homePage!");
 
-        // Điều hướng đến trang about, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/about");
-        aboutPage.searchBooking(bookingId);
+        aboutPage.navigateToAboutPage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the aboutPage!");
 
-        // Điều hướng đến trang blog, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/blogs");
-        blogsPage.searchBooking(bookingId);
+        blogsPage.navigateToBlogsPage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the blogsPage!");
 
-        // Điều hướng đến trang contact, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/contact");
-        contactPage.searchBooking(bookingId);
+        contactUsPage.navigateToContactPage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the contactPage!");
 
         // Điều hướng đến trang contact, tìm kiếm bookingID và so sánh ConfirmPage và SearchPage.
-        searchPage.navigateToPage("/faqs");
-        faqsPage.searchBooking(bookingId);
+        faQsPage.navigateToFaqsPage();
+        searchRoomsPage.searchBooking(bookingId);
         softAssert.assertEquals(bookingId, resultBookingId, "Booking ID does not match the faqsPage!");
 
         // Kiểm tra tất cả các xác nhận

@@ -5,7 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class HomePage extends GeneralPage {
@@ -31,8 +33,37 @@ public class HomePage extends GeneralPage {
     By childrenInputSelector =By.xpath("//input[@name=\"children\"]");
     By searchButtonSelector=By.xpath("//input[@value=\"Search\"]");
 
+    // Selector cho nút điều hướng đến trang Rooms
+    String homePage = "/";
+    // Selector cho tiêu đề của trang chính
+    By pageHomeTitleSelector = By.xpath("/html/body/section[1]/div/div/div/div/h1");
+
+    // Selector cho các trường trong phần tìm kiếm
+    By checkinSelector = By.name("arrival");
+    By checkoutSelector = By.name("depature");
+    By adultSelector = By.name("adult");
+    By childrenSelector = By.name("children");
+    By buttonSearchSelector = By.xpath("//input[@class='btn btn-success btn-block']");
+    By showRoomSelector = By.xpath("//h2[@class='page_title white-text']");
+    // Selector id booking đã xác nhận
+    By bookingConfirmationIdSelector = By.xpath("//span[@class='green_text1 float-right']");
+
+    // Constructor của lớp HomePage
     public HomePage(WebDriver driver) {
         super(driver);
+    }
+
+
+    // Phương thức điều hướng đến trang Rooms
+    public void navigateToHomePage() {
+        super.navigateToPage(homePage);
+    }
+
+    // phương thưc lấy title
+    @Override
+    public String getPageTitleText() {
+        WebElement titleElement = driver.findElement(pageHomeTitleSelector);
+        return titleElement.getText();
     }
 
     @Override
@@ -72,24 +103,28 @@ public class HomePage extends GeneralPage {
         driver.findElement(checkOutInputSelector).sendKeys(checkOutTime);
     }
 
-    public void enterAdultNumber(String adult) {
+    public void enterAdultNumber(int adults) {
         clickAdult();
         driver.findElement(adultInputSelector).clear();
-        driver.findElement(adultInputSelector).sendKeys(adult);
+        // Chuyển đổi giá trị int thành String trước khi nhập
+        String adultsText = String.valueOf(adults);
+        driver.findElement(adultSelector).sendKeys(adultsText);
     }
 
-    public void enterChildrenNumber(String children) {
+    public void enterChildrenNumber(int children) {
         clickChildren();
         driver.findElement(childrenInputSelector).clear();
-        driver.findElement(childrenInputSelector).sendKeys(children);
+        // Chuyển đổi giá trị int thành String trước khi nhập
+        String childrenText = String.valueOf(children);
+        driver.findElement(childrenSelector).sendKeys(childrenText);
     }
 
     public void clickSearchButton() {
         driver.findElement(searchButtonSelector).click();
     }
 
-    public void searchRoom(String checkin,String checkOut, String adult,String children) {
-        enterCheckInTime(checkin);
+    public void searchRoom(String checkIn, String checkOut, int adult, int children) {
+        enterCheckInTime(checkIn);
         enterCheckOutTime(checkOut);
         enterAdultNumber(adult);
         enterChildrenNumber(children);
@@ -138,4 +173,14 @@ public class HomePage extends GeneralPage {
         return driver.findElement(badgeSuccessSelector).isDisplayed();
     }
 
+    // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
+   @Override
+    public void displayButtonScrollToTop() {
+        super.scrollToBottomElement();
+        //cuộn lên hoặc nhấn nút "Scroll to Top"
+        super.clickScrollToTop();
+        // khi thấy title cua trang
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(e -> e.findElement(pageHomeTitleSelector).isDisplayed());
+    }
 }

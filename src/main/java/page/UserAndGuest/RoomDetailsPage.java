@@ -2,9 +2,17 @@ package page.UserAndGuest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
-public class RoomDetailsPage {
+public class RoomDetailsPage extends GeneralPage {
     WebDriver driver;
+
+    public RoomDetailsPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+    }
+
+    // Selector
     By priceSelector= By.xpath("//div[@class='yemm_top_price']/strong");
     By checkInInputSelector=By.id("check-in");
     By checkOutInputSelector=By.id("check-out");
@@ -16,7 +24,6 @@ public class RoomDetailsPage {
 
     public String getPrice() {
         return driver.findElement(priceSelector).getText();
-
     }
 
     public void clickCheckIn() {
@@ -65,7 +72,10 @@ public class RoomDetailsPage {
         return driver.findElement(roomNameHeaderSelector).getText();
     }
 
-    public RoomDetailsPage(WebDriver driver) {
-        this.driver = driver;
+    // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
+    public void openBookNow() {
+        WebElement scrollToTopButton = driver.findElement(buttonScrollToTopSelector);
+        driverUtils.scrollToElement(scrollToTopButton);
+        driver.findElement(bookNowButtonSelector).click();
     }
 }

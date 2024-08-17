@@ -14,18 +14,24 @@ public class GeneralPage {
     Wait<WebDriver> wait;
     DriverUtils driverUtils;
 
-    By logoLinkSelector=By.xpath("(//a[@href=\"/\"])[1]");
-    By homeLinkSelector=By.xpath("(//a[@href=\"/\"])[2]");
-    By roomsLinkSelector= By.xpath("//a[@href=\"/rooms\"]");
-    By aboutLinkSelector=By.xpath("//a[@href=\"/about\"]");
-    By blogsLinkSelector=By.xpath("//a[@href=\"/blogs\"]");
-    By contactLinkSelector=By.xpath("//a[@href=\"/contact\"]");
-    By faqsLinkSelector=By.xpath("//a[@href=\"/faqs\"]");
+    public GeneralPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.driverUtils = new DriverUtils(driver);
+    }
+
+    By logoLinkSelector=By.xpath("(//a[@href='/'])[1]");
+    By homeLinkSelector=By.xpath("(//a[@href='/'])[2]");
+    By roomsLinkSelector= By.xpath("//a[@href='/rooms']");
+    By aboutLinkSelector=By.xpath("//a[@href='/about']");
+    By blogsLinkSelector=By.xpath("//a[@href='/blogs']");
+    By contactLinkSelector=By.xpath("//a[@href='/contact']");
+    By faqsLinkSelector=By.xpath("//a[@href='/faqs']");
 
     By h1HeaderSelector=By.xpath("//h1");
-    By h2HeaderSelector=By.xpath("//h2[@class=\"page_title white-text\"]");
+    By h2HeaderSelector=By.xpath("//h2[@class='page_title white-text']");
 
-    By homeBreadCrumbSelector=By.xpath("//li[@class=\"breadcrumb-item\"]/a");
+    By homeBreadCrumbSelector=By.xpath("//li[@class='breadcrumb-item']/a");
 
     // selector title
     By pageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
@@ -85,11 +91,7 @@ public class GeneralPage {
         return driver.findElement(h2HeaderSelector).getText();
     }
 
-    public GeneralPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait=new WebDriverWait(driver, Duration.ofSeconds(10));
-        this.driverUtils = new DriverUtils(driver);
-    }
+
 
     final Duration waitDuration = Duration.ofSeconds(10);
 
@@ -105,12 +107,16 @@ public class GeneralPage {
         return pageTitleElement.getText();
     }
 
-    // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
+    // Phương thức nhấn nút "Scroll to Top"
     public void clickScrollToTop() {
-        // Cuộn xuống dưới cùng
-        driverUtils.scrollToBottom();
         // Nhấn nút "Scroll to Top"
         driver.findElement(buttonScrollToTopSelector).click();
+    }
+
+    // Phương thức để cuộn xuống dưới cùng
+    public void scrollToBottomElement() {
+        // Cuộn xuống dưới cùng
+        driverUtils.scrollToBottom();
     }
 
     // Phương thức để nhấn vào button Breadcrumb Home
@@ -141,8 +147,19 @@ public class GeneralPage {
 
     // Phương thức get message khi bookingId không tồn tại
     public String getBookingNotFoundMessage() {
+        scrollToBottomElement();
         clickScrollToTop();
         WebElement pageMessageElement = driver.findElement(getBookingIdnotFoundMessage);
         return pageMessageElement.getText();
+    }
+
+    // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
+    public void displayButtonScrollToTop() {
+        scrollToBottomElement();
+        //cuộn lên hoặc nhấn nút "Scroll to Top"
+        clickScrollToTop();
+        // khi thấy title cua trang
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(e -> e.findElement(pageTitleSelector).isDisplayed());
     }
 }

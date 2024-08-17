@@ -2,15 +2,25 @@ package page.UserAndGuest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import utils.CreditCard;
+import utils.DriverUtils;
 
-public class CheckOutPage {
+public class CheckOutPage extends GeneralPage {
     WebDriver driver;
 
-    By cardNumberInputSelector=By.id("cardNumber");
-    By nameOnCardInputSelector=By.id("ownerName");
-    By expiryDateInputSelector=By.xpath("//input[@name=\"expiry\"]");
-    By ccvNumberInputSelector=By.id("cvvcode");
-    By payNowButtonSelector=By.xpath("(//input[@value=\"Pay Now\"])[1]");
+    public CheckOutPage(WebDriver driver) {
+       super(driver);
+       this.driver = driver;
+    }
+
+    // Selector
+    By regionChooseAPaymentSelector = By.xpath("//h4[text()='Choose a Payment Method :-']");
+    By cardNumberInputSelector = By.id("cardNumber");
+    By nameOnCardInputSelector = By.id("ownerName");
+    By expiryDateInputSelector = By.name("expiry");
+    By ccvNumberInputSelector = By.id("cvvcode");
+    By payNowButtonSelector = By.xpath("(//input[@value='Pay Now'])[1]");
 
     public void enterCardNumber(String cardNumber) {
         driver.findElement(cardNumberInputSelector).click();
@@ -43,7 +53,27 @@ public class CheckOutPage {
         enterCcvNumber(cvvNumber);
     }
 
-    public CheckOutPage(WebDriver driver) {
-        this.driver = driver;
+    // Cuộn tới phần chọn phương thức thanh toán
+    public void scrollToPaymentMethodSection() {
+        WebElement regionChooseAPayment = driver.findElement(regionChooseAPaymentSelector);
+        driverUtils.scrollToElement(regionChooseAPayment);
     }
+
+    // Nhập thông tin thẻ tín dụng
+    public void enterCreditCardDetails(CreditCard creditCard) {
+        scrollToPaymentMethodSection();
+        driver.findElement(cardNumberInputSelector).sendKeys(creditCard.getCardNumber());
+        driver.findElement(nameOnCardInputSelector).sendKeys(creditCard.getNameOnCard());
+        driver.findElement(expiryDateInputSelector).sendKeys(creditCard.getExpiryDate());
+        driver.findElement(ccvNumberInputSelector).clear();
+        driver.findElement(ccvNumberInputSelector).sendKeys(creditCard.getCvvNumber());
+        clickButtonPayNow();
+    }
+
+    // Nhấn nút "Pay Now"
+    public void clickButtonPayNow() {
+        driver.findElement(payNowButtonSelector).click();
+    }
+
+
 }

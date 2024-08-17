@@ -30,16 +30,6 @@ public class BlogsPage extends GeneralPage{
         return getPageTitleText();
     }
 
-    // Phương thức để cuộn xuống dưới cùng và nhấn nút "Scroll to Top"
-    @Override
-    public void clickScrollToTop() {
-        //cuộn lên hoặc nhấn nút "Scroll to Top"
-        super.clickScrollToTop();
-        // khi thấy title cua trang
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        wait.until(e -> e.findElement(blogPageTitleSelector).isDisplayed());
-    }
-
     // Phương thức Breadcrumb
     @Override
     public void navigateToHomePageFromBreadcrumb() {
