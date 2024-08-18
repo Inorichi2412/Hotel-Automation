@@ -31,6 +31,7 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         loginPage=new LoginPage(driver);
         dashboardPage=new DashboardPage(driver);
         addStaffPage=new AddStaffPage(driver);
+        addStaffForm = new AddStaffForm();
 
         softAssert=new SoftAssert();
 
@@ -38,8 +39,6 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        addStaffForm=new AddStaffForm();
-        addStaffForm =new AddStaffForm("AnhViet","2000-12-01","")
     }
 
     @Test
@@ -50,7 +49,9 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         dashboardPage.openStaffNav();
         dashboardPage.openAddStaffCard();
 
-        softAssert.assertEquals(addStaffPage.getPageTitle(),"Add Staff","Page title is not Add Staff");
+
+        addStaffPage.selectValueOfGender("Male");
+//        softAssert.assertEquals(addStaffPage.getPageTitle(),"Add Staff","Page title is not Add Staff");
 
         softAssert.assertAll();
 

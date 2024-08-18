@@ -14,7 +14,7 @@ public class AddStaffForm {
     Select select;
     WebDriver driver;
 
-    By genderInputSelector =By.xpath("//input[@name=\"gender\"]");
+
 
     private String fullName;
     private String birthDate;
@@ -26,10 +26,8 @@ public class AddStaffForm {
     private String confirmPassword;
     private String address;
 
-    public void chooseGender(String genderName) {
-        WebElement gender=driver.findElement(genderInputSelector);
-        select=new Select(gender);
-        select.selectByVisibleText(genderName);
+    public AddStaffForm(String gender) {
+        this.gender = gender;
     }
 
     public AddStaffForm() {
