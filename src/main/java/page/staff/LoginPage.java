@@ -11,12 +11,12 @@ public class LoginPage {
     By loginErrorSelector=By.xpath("//p");
     By loginFormSelector =By.xpath("//form[@class=\"login100-form validate-form\"]");
 
-    public void clickUsernameInput() {
-        driver.findElement(usernameInputSelector).click();
+    public void clearUsernameInput() {
+        driver.findElement(usernameInputSelector).clear();
     }
 
-    public void clickPasswordInput() {
-        driver.findElement(passwordInputSelector).click();
+    public void clearPasswordInput() {
+        driver.findElement(passwordInputSelector).clear();
     }
 
     public void clickLoginButton() {
@@ -24,17 +24,17 @@ public class LoginPage {
     }
 
     public void enterUsername(String username) {
+        clearUsernameInput();
         driver.findElement(usernameInputSelector).sendKeys(username);
     }
 
     public void enterPassword(String password) {
+        clearPasswordInput();
         driver.findElement(passwordInputSelector).sendKeys(password);
     }
 
     public void login(String username, String password) {
-        clickUsernameInput();
         enterUsername(username);
-        clickPasswordInput();
         enterPassword(password);
         clickLoginButton();
     }

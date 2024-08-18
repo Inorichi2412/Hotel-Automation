@@ -13,6 +13,17 @@ public class GeneralStaffPage {
 
     By pageTitleSelector= By.xpath("//div[@class=\"page-title\"]");
 
+    By staffNavSelector = By.xpath("//span[@class='title' and text()='Staff']");
+    By addStaffCardSelector=By.xpath("//span[@class='title' and text()='Add Staff']");
+
+    public void openStaffNav() {
+        driver.findElement(staffNavSelector).click();
+    }
+
+    public void openAddStaffCard() {
+        driver.findElement(addStaffCardSelector).click();
+    }
+
     public GeneralStaffPage(WebDriver driver) {
         this.driver = driver;
         this.wait=new WebDriverWait(driver, Duration.ofSeconds(10));
