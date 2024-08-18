@@ -3,9 +3,12 @@ package page.UserAndGuest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import utils.DriverUtils;
 
 public class RoomDetailsPage extends GeneralPage {
     WebDriver driver;
+    String locationMenu = "link3";
+    String reviewMenu = "link4";
 
     public RoomDetailsPage(WebDriver driver) {
         super(driver);
@@ -18,9 +21,13 @@ public class RoomDetailsPage extends GeneralPage {
     By checkOutInputSelector=By.id("check-out");
     By adultInputSelector=By.id("adult");
     By childrenInputSelector =By.id("children");
-    By bookNowButtonSelector=By.xpath("//input[@value=\"Book Now\"]");
+    By bookNowButtonSelector=By.xpath("//input[@value='Book Now']");
+    By roomNameHeaderSelector=By.xpath("//h3[@class='float-left m-0']");
 
-    By roomNameHeaderSelector=By.xpath("//h3[@class=\"float-left m-0\"]");
+    // Selector menu roomsDetailsPage
+    By displayTitleLocationSelector = By.xpath("//h3[@class='dic_title']");
+    By displayTitleReviewSelector = By.xpath("//h4[@class='dic_title float-left']");
+    By isMessageRoomsSelector = By.xpath("//h2[@class='mmb-blc-title']");
 
     public String getPrice() {
         return driver.findElement(priceSelector).getText();
@@ -50,9 +57,11 @@ public class RoomDetailsPage extends GeneralPage {
         driver.findElement(checkOutInputSelector).sendKeys(checkOutTime);
     }
 
-    public void enterAdultNumber(String adult) {
+    public void enterAdultNumber(int adults) {
         driver.findElement(adultInputSelector).clear();
-        driver.findElement(adultInputSelector).sendKeys(adult);
+        // Chuyển đổi giá trị int thành String trước khi nhập
+        String adultsText = String.valueOf(adults);
+        driver.findElement(adultInputSelector).sendKeys(adultsText);
     }
 
     public void enterChildrenNumber(String children) {
@@ -75,7 +84,41 @@ public class RoomDetailsPage extends GeneralPage {
     // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
     public void openBookNow() {
         WebElement scrollToTopButton = driver.findElement(buttonScrollToTopSelector);
-        driverUtils.scrollToElement(scrollToTopButton);
+        DriverUtils.scrollToElement(driver, scrollToTopButton);
         driver.findElement(bookNowButtonSelector).click();
     }
+
+    public void openInvalidBookNow(int adult) {
+        WebElement scrollToTopButton = driver.findElement(buttonScrollToTopSelector);
+        DriverUtils.scrollToElement(driver, scrollToTopButton);
+        enterAdultNumber(adult);
+        driver.findElement(bookNowButtonSelector).click();
+    }
+
+    public String isMessageRooms() {
+        WebElement scrollToTopButton = driver.findElement(buttonScrollToTopSelector);
+        DriverUtils.scrollToElement(driver, scrollToTopButton);
+        return driver.findElement(isMessageRoomsSelector).getText();
+    }
+
+    // Phương thức điều hướng tại menu roomDetailsPage
+    public void navigateToSpecificMenu(String menuName) {
+        if (menuName.equalsIgnoreCase("location")) {
+            navigateToMenu(locationMenu);
+        } else if (menuName.equalsIgnoreCase("review")) {
+            navigateToMenu(reviewMenu);
+        } else {
+            throw new IllegalArgumentException("Menu name is not valid: " + menuName);
+        }
+    }
+
+    // get title location và reivew
+    public String getTitleLoacation() {
+        return driver.findElement(displayTitleLocationSelector).getText();
+    }
+
+    public String getTitleReview() {
+        return driver.findElement(displayTitleLocationSelector).getText();
+    }
+
 }

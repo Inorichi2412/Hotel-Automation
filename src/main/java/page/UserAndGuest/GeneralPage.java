@@ -12,12 +12,11 @@ import java.time.Duration;
 public class GeneralPage {
     WebDriver driver;
     Wait<WebDriver> wait;
-    DriverUtils driverUtils;
+    final Duration waitDuration = Duration.ofSeconds(10);
 
     public GeneralPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        this.driverUtils = new DriverUtils(driver);
     }
 
     By logoLinkSelector=By.xpath("(//a[@href='/'])[1]");
@@ -54,6 +53,9 @@ public class GeneralPage {
     // Selector getmessage not found bookingid
     By getBookingIdnotFoundMessage =  By.xpath("//h1[@class='mmb-blc-title']");
 
+    // Selector menu cua roomsDetails
+    By isLocationSelector = By.xpath("//*[@id='link3']");
+    By menuRoomDetailsPage = By.xpath("//div[@class='col-lg-9 col-md-12']");
 
     public void openLogoPage() {
         driver.findElement(logoLinkSelector).click();
@@ -91,10 +93,6 @@ public class GeneralPage {
         return driver.findElement(h2HeaderSelector).getText();
     }
 
-
-
-    final Duration waitDuration = Duration.ofSeconds(10);
-
     // Phương thức điều hướng đến các trang
     public void navigateToPage(String pageName) {
         By menuSelector = By.xpath("//a[@href='"+ pageName +"']");
@@ -116,7 +114,7 @@ public class GeneralPage {
     // Phương thức để cuộn xuống dưới cùng
     public void scrollToBottomElement() {
         // Cuộn xuống dưới cùng
-        driverUtils.scrollToBottom();
+        DriverUtils.scrollToBottom(driver);
     }
 
     // Phương thức để nhấn vào button Breadcrumb Home
@@ -128,8 +126,8 @@ public class GeneralPage {
     public void displayToElement() {
         // Tìm phần tử cần cuộn đến
         WebElement element = driver.findElement(bookingInfoSelector);
-        // Cuộn đến phần tử
-        driverUtils.scrollToElement(element);
+        // Cuộn đến phần tử sử dụng phương thức tĩnh từ DriverUtils
+        DriverUtils.scrollToElement(driver, element);
     }
 
     // Phương thức click vào textbox
@@ -161,5 +159,15 @@ public class GeneralPage {
         // khi thấy title cua trang
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
         wait.until(e -> e.findElement(pageTitleSelector).isDisplayed());
+    }
+
+    // Phương thức điều hướng tại menu roomDetailsPage
+    public void navigateToMenu(String menuName) {
+        // Tìm phần tử cần cuộn đến
+        WebElement element = driver.findElement(menuRoomDetailsPage);
+        // Cuộn đến phần tử sử dụng phương thức tĩnh từ DriverUtils
+        DriverUtils.scrollToElement(driver, element);
+        By menuSelector = By.xpath("//*[@id='"+ menuName +"']");
+        driver.findElement(menuSelector).click();
     }
 }
