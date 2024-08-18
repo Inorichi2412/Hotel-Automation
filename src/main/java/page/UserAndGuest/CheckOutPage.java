@@ -56,7 +56,7 @@ public class CheckOutPage extends GeneralPage {
     // Cuộn tới phần chọn phương thức thanh toán
     public void scrollToPaymentMethodSection() {
         WebElement regionChooseAPayment = driver.findElement(regionChooseAPaymentSelector);
-        driverUtils.scrollToElement(regionChooseAPayment);
+        DriverUtils.scrollToElement(driver, regionChooseAPayment);
     }
 
     // Nhập thông tin thẻ tín dụng

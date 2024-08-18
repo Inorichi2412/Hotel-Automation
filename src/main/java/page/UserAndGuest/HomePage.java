@@ -45,8 +45,6 @@ public class HomePage extends GeneralPage {
     By childrenSelector = By.name("children");
     By buttonSearchSelector = By.xpath("//input[@class='btn btn-success btn-block']");
     By showRoomSelector = By.xpath("//h2[@class='page_title white-text']");
-    // Selector id booking đã xác nhận
-    By bookingConfirmationIdSelector = By.xpath("//span[@class='green_text1 float-right']");
 
     // Constructor của lớp HomePage
     public HomePage(WebDriver driver) {

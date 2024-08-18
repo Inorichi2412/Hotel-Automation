@@ -42,7 +42,7 @@ public class TC45_VerifyThatTheRoomsPageDisplaysAnEmptyListWhenTheUserSearcInfor
         homePage.openLoginForm();
         loginPage.login("vyvanviet","abc123");
 
-        homePage.searchRoom("2024/08/09","2024/08/10","200","200");
+        homePage.searchRoom("2024/08/09","2024/08/10",200,200);
         softAssert.assertFalse(selectRoomPage.isItemDescriptionsDisplayed(),"Have available room");
 
         softAssert.assertAll();

@@ -6,21 +6,14 @@ import org.openqa.selenium.WebElement;
 
 public class DriverUtils {
 
-    private WebDriver driver;
-
-    // Constructor của lớp DriverUtils
-    public DriverUtils(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    // Phương thức để cuộn xuống cuối trang
-    public void scrollToBottom() {
+    // Phương thức để cuộn xuống cuối trang (static)
+    public static void scrollToBottom(WebDriver driver) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }
 
-    // Cuộn đến một phần tử cụ thể trên trang
-    public void scrollToElement(WebElement element) {
+    // Phương thức để cuộn đến một phần tử cụ thể trên trang (static)
+    public static void scrollToElement(WebDriver driver, WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
