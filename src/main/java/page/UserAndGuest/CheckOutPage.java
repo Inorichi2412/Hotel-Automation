@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import utils.CreditCard;
 import utils.DriverUtils;
 
+import static utils.DriverUtils.scrollToElement;
+
 public class CheckOutPage extends GeneralPage {
     WebDriver driver;
 
@@ -21,6 +23,22 @@ public class CheckOutPage extends GeneralPage {
     By expiryDateInputSelector = By.name("expiry");
     By ccvNumberInputSelector = By.id("cvvcode");
     By payNowButtonSelector = By.xpath("(//input[@value='Pay Now'])[1]");
+
+    // selector display Credit card
+    By cardNumberDisplaySelector = By.xpath("//*[@id='cardForm']/div[2]/label");
+    By nameOnCardDisplaySelector = By.xpath("//*[@id='cardForm']/div[3]/label");
+    By expiryDateDisplaySelector = By.xpath("//*[@id='cardForm']/div[4]/label");
+    By ccvNumberDisplaySelector =By.xpath("//*[@id='cardForm']/div[5]/label");
+    By messageNoteSelector = By.xpath("//*[@id='cardForm']/div[6]/p");
+
+    // Selector display debit card
+
+    // Selector message error
+    By messageErrorSelector = By.xpath("//div[@class='dic_msg clear']");
+
+    // selector debit card
+    By clickDebitCardSelector = By.id("pills-dabit-tab");
+
 
     public void enterCardNumber(String cardNumber) {
         driver.findElement(cardNumberInputSelector).click();
@@ -75,5 +93,38 @@ public class CheckOutPage extends GeneralPage {
         driver.findElement(payNowButtonSelector).click();
     }
 
+    // Phương thức show thông tin credir card
+    public String displayCardNumber () {
+        return driver.findElement(cardNumberDisplaySelector).getText();
+    }
 
+    public String displayNameOnCard () {
+        return driver.findElement(nameOnCardDisplaySelector).getText();
+    }
+
+    public String displayExpiryDate () {
+        return driver.findElement(expiryDateDisplaySelector).getText();
+    }
+
+    public String displayCvvNumber() {
+        return driver.findElement(ccvNumberDisplaySelector).getText();
+    }
+
+    public String displayMessageNote() {
+        return driver.findElement(messageNoteSelector).getText();
+    }
+
+    public void displayInformationCredirCard() {
+        // Cuộn đến phần tử nút "Scroll to Top"
+        WebElement scrollToTopButton = driver.findElement(buttonScrollToTopSelector);
+        scrollToElement(driver, scrollToTopButton);
+    }
+
+    public String getMessageError() {
+        return driver.findElement(messageErrorSelector).getText();
+    }
+
+    public void openDebitCard() {
+        driver.findElement(clickDebitCardSelector).click();
+    }
 }

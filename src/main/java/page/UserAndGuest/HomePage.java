@@ -43,8 +43,6 @@ public class HomePage extends GeneralPage {
     By checkoutSelector = By.name("depature");
     By adultSelector = By.name("adult");
     By childrenSelector = By.name("children");
-    By buttonSearchSelector = By.xpath("//input[@class='btn btn-success btn-block']");
-    By showRoomSelector = By.xpath("//h2[@class='page_title white-text']");
 
     // Constructor của lớp HomePage
     public HomePage(WebDriver driver) {
