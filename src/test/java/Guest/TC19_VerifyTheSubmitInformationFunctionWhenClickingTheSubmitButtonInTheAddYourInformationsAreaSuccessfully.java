@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.UserAndGuest.*;
+import page.common.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
@@ -87,7 +87,7 @@ public class TC19_VerifyTheSubmitInformationFunctionWhenClickingTheSubmitButtonI
         bookNowPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
 
         // Xác nhận di chuyển đến CheckoutPage
-        softAssert.assertEquals(checkOutPage.getMessageError(),"Checkout","The Checkout page title does not match!");
+        softAssert.assertEquals(checkOutPage.getPageTitleText(),"Checkout","The Checkout page title does not match!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.UserAndGuest.*;
+import page.common.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
@@ -88,7 +88,11 @@ public class TC24_VerifyTheDisplayOfTheDebitCardArea {
         // thông tin debit card
         checkOutPage.openDebitCard();
 
-
+        softAssert.assertEquals(checkOutPage.getCardNumberDebitLabel(), "Card Number", "Card Number Not Display");
+        softAssert.assertEquals(checkOutPage.getNameOnCardDebitLabel(),"Name on Card","Name on Card Not Display");
+        softAssert.assertEquals(checkOutPage.getExpiryDateDebitLabel(),"Expiry Date","Expiry Date Not Display");
+        softAssert.assertEquals(checkOutPage.getCvvNumberDebitLabel(),"CVV Number" ,"CVV Number Not Display");
+        softAssert.assertEquals(checkOutPage.getMessageNoteDebit(),"Note: In the next step you will be redirected to your bank's website to verify yourself." ,"Message Not Display");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
