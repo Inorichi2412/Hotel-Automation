@@ -52,10 +52,10 @@ public class GeneralPage {
 
     // Selector getmessage not found bookingid
     By getBookingIdnotFoundMessage =  By.xpath("//h1[@class='mmb-blc-title']");
-
-    // Selector menu cua roomsDetails
-    By isLocationSelector = By.xpath("//*[@id='link3']");
     By menuRoomDetailsPage = By.xpath("//div[@class='col-lg-9 col-md-12']");
+
+    // Selector date popup
+    By datePopupSelector = By.id("ui-datepicker-div");
 
     public void openLogoPage() {
         driver.findElement(logoLinkSelector).click();
@@ -169,5 +169,10 @@ public class GeneralPage {
         DriverUtils.scrollToElement(driver, element);
         By menuSelector = By.xpath("//*[@id='"+ menuName +"']");
         driver.findElement(menuSelector).click();
+    }
+
+    // Phương thức show date selection pupup
+    public boolean showDatePopup() {
+        return driver.findElement(datePopupSelector).isDisplayed();
     }
 }

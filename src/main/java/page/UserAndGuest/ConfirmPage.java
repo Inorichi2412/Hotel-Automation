@@ -13,10 +13,8 @@ public class ConfirmPage extends GeneralPage {
     }
 
     // Selector thông tin phòng booking
-     //By bookingConfirmationIdSelector = By.xpath("//span[@class='green_text1 float-right']");
     By bookingConfirmationIdSelector = By.xpath("//span[starts-with(@class, 'green_text1') and contains(text(), 'Id:')]");
-    By roomNameSelector = By.xpath("/html/body/section[2]/div/div[2]/div[2]/div/div[1]/div[1]/div[2]/h5");
-    By roomInfoSelector = By.xpath("//span[@class='float-left']");
+    By messageConfirmSelector = By.xpath("//div[@class='alert alert-success']");
 
     // Phương thức get booking id
     public String getBookingId() {
@@ -32,6 +30,10 @@ public class ConfirmPage extends GeneralPage {
             // Nếu văn bản ngắn hơn 14 ký tự, trả về toàn bộ văn bản
             return bookingIdText;
         }
+    }
+
+    public String getMessageConfirm() {
+        return driver.findElement(messageConfirmSelector).getText();
     }
 
 }
