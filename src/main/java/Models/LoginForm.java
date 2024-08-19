@@ -1,5 +1,7 @@
 package Models;
 
+import utils.CreditCard;
+
 public class LoginForm {
     private String email;
     private String password;
@@ -26,5 +28,9 @@ public class LoginForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static LoginForm getLoginAdmin() {
+        return new LoginForm("admin", "123456");
     }
 }

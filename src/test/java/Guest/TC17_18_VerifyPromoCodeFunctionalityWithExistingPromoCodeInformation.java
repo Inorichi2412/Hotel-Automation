@@ -1,31 +1,32 @@
 package Guest;
 
 import Config.SetUp;
+import Models.LoginForm;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import page.admin.AdminPage;
 import page.common.*;
 import utils.BookingDataGenerator;
-import utils.CreditCard;
 
-public class TC21_VerifyTheDisplayOfTheCreditCardArea {
+public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformation {
     WebDriver driver;
     String url;
     SetUp setUp;
+    LoginPage loginPage;
     HomePage homePage;
     RoomsPage roomsPage;
     CheckOutPage checkOutPage;
     GeneralPage generalPage;
-
     RoomDetailsPage roomDetailsPage;
+    SearchRoomsPage searchRoomsPage;
     BookNowPage bookNowPage;
+    AdminPage adminPage;
     BookingDataGenerator bookingDataGenerator;
-    CreditCard creditCard;
     SoftAssert softAssert;
-
+    LoginForm loginForm;
     // Các biến để lưu dữ liệu đặt phòng
     String checkInDate;
     String checkOutDate;
@@ -35,6 +36,7 @@ public class TC21_VerifyTheDisplayOfTheCreditCardArea {
     String email;
     String phone;
     String address;
+
 
     @BeforeMethod
     public void setUp() {
@@ -49,16 +51,17 @@ public class TC21_VerifyTheDisplayOfTheCreditCardArea {
         // Tối ưu hóa cửa sổ trình duyệt
         driver.manage().window().maximize();
         // Khởi tạo đối tượng
+        loginPage = new LoginPage(driver);
         homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
         checkOutPage = new CheckOutPage(driver);
         generalPage = new GeneralPage(driver);
         roomDetailsPage = new RoomDetailsPage(driver);
+        searchRoomsPage = new SearchRoomsPage(driver);
         bookNowPage = new BookNowPage(driver);
+        adminPage = new AdminPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
-        // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
-        creditCard = CreditCard.getSampleCreditCard();
         // information search
         checkInDate = bookingDataGenerator.generateCheckInDate();
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
@@ -69,35 +72,30 @@ public class TC21_VerifyTheDisplayOfTheCreditCardArea {
         email = bookingDataGenerator.generateEmail();
         phone = bookingDataGenerator.generatePhone();
         address = bookingDataGenerator.generateAddress();
+        // Khởi tạo đối tượng admin
+        loginForm = LoginForm.getLoginAdmin();
     }
 
     @Test
-    public void TC21() {
-        //Sử dụng dữ liệu đặt phòng để tìm kiếm
-        homePage.searchRoom(checkInDate, checkOutDate, adults, children);
+    public void TC17andTC18() {
+        //Phương thức click login và đăng nhặp admin
+        loginPage.clickButtonLogin();
+        loginPage.loginAdmin(loginForm);
+        homePage.goToAdmin();
 
-        // phương thức cuộn tới phần tử và nhấn nút View Details
-        roomsPage.openDetailsView();
+        // admin thực hiện get code promation
+        adminPage.getCodePromotion();
 
-        // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
-        roomDetailsPage.openBookNow();
-
-        // Phương thức nhập thông tin bổ sung và gửi
-        bookNowPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
-
-        // display thông tin credit card
-        softAssert.assertTrue(checkOutPage.getCardNumberLabel(), "Card Number Not Display");
-        softAssert.assertTrue(checkOutPage.getNameOnCardLabel(),"Name on Card Not Display");
-        softAssert.assertTrue(checkOutPage.getExpiryDateLabel(),"Expiry Date Not Display");
-        softAssert.assertTrue(checkOutPage.getCvvNumberLabel(), "CVV Number Not Display");
-        softAssert.assertTrue(checkOutPage.getMessageNote(), "Message Not Display");
+//        //Sử dụng dữ liệu đặt phòng để tìm kiếm
+//        homePage.searchRoom(checkInDate, checkOutDate, adults, children);
+//
+//        // phương thức cuộn tới phần tử và nhấn nút View Details
+//        roomsPage.openDetailsView();
+//
+//        // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
+//        roomDetailsPage.openBookNow();
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
-    }
-
-    @AfterMethod
-    public void cleanUp() {
-        driver.quit();
     }
 }

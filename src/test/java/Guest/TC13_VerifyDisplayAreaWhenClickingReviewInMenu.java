@@ -7,10 +7,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.UserAndGuest.BookNowPage;
-import page.UserAndGuest.HomePage;
-import page.UserAndGuest.RoomDetailsPage;
-import page.UserAndGuest.RoomsPage;
+import page.common.BookNowPage;
+import page.common.HomePage;
+import page.common.RoomDetailsPage;
+import page.common.RoomsPage;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 

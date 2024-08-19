@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.UserAndGuest.HomePage;
+import page.common.HomePage;
 import utils.BookingDataGenerator;
 
 public class TC8_VerifyTheInformationDisplayedWhenPerformingTheHotelRoomSearchFunctionIsMissingInformationInTheTextBoxesOnTheHomePage {
@@ -57,7 +57,6 @@ public class TC8_VerifyTheInformationDisplayedWhenPerformingTheHotelRoomSearchFu
         homePage.enterCheckInTime(checkInDate);
         homePage.clickSearchButton();
         softAssert.assertTrue(homePage.showDatePopup(),"No Popup date Check Out");
-
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

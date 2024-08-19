@@ -10,21 +10,16 @@ import org.testng.asserts.SoftAssert;
 import page.common.*;
 import utils.BookingDataGenerator;
 
-public class TC7_VerifyThatTheRoomsPageDoesNotShowEmptyRoomsWhenTheUserSearchCriteriaAreInvalid {
+public class TC16_VerifyTheInformationDisplayedWhenPerformingTheBookingFunctionIsMissingInformationOnTheRoomDetaillPage {
     WebDriver driver;
     String url;
     SetUp setUp;
-    HomePage homePage;
     RoomsPage roomsPage;
+    RoomDetailsPage roomDetailsPage;
     BookingDataGenerator bookingDataGenerator;
     SoftAssert softAssert;
-
-    // Các biến để lưu dữ liệu đặt phòng
     String checkInDate;
     String checkOutDate;
-    int adults;
-    int children;
-
 
     @BeforeMethod
     public void setUp() {
@@ -39,23 +34,32 @@ public class TC7_VerifyThatTheRoomsPageDoesNotShowEmptyRoomsWhenTheUserSearchCri
         // Tối ưu hóa cửa sổ trình duyệt
         driver.manage().window().maximize();
         // Khởi tạo đối tượng
-        homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
+        roomDetailsPage = new RoomDetailsPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // information search
         checkInDate = bookingDataGenerator.generateCheckInDate();
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
-        adults = bookingDataGenerator.generateLargeNumberOfAdults();
-        children = bookingDataGenerator.generateLargeNumberOfChildren();
     }
 
+
     @Test
-    public void TC7() {
-        //Sử dụng dữ liệu đặt phòng để tìm kiếm
-        homePage.searchRoom(checkInDate, checkOutDate, adults, children);
-        //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
-        softAssert.assertFalse(roomsPage.isItemDescriptionsDisplayed(),"Have available room");
+    public void TC8() {
+
+        // Phương thức open RoomsPage
+        roomsPage.openRoomsPage();
+        // phương thức cuộn tới phần tử và nhấn nút View Details
+        roomsPage.openDetailsView();
+        // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
+        roomDetailsPage.openBookNow();
+        softAssert.assertTrue(roomDetailsPage.showDatePopup(),"No Popup date Check In");
+
+        // Trường hợp nhập checkin
+        roomDetailsPage.enterCheckInTime(checkInDate);
+        roomDetailsPage.clickBookNowButton();
+        softAssert.assertTrue(roomDetailsPage.showDatePopup(),"No Popup date Check Out");
+
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
     }
