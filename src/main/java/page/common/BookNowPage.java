@@ -29,6 +29,10 @@ public class BookNowPage extends GeneralPage {
     // selector Your Reservation
     By yourReservationDisplaySelector = By.xpath("//div[@class='col-12 reserv_detail_contant']");
 
+    // Selector promotion
+    By regionPromotionSelector = By.id("code");
+    By messagePromotionErrorSelector = By.xpath("//p[@style='color: red; text-align: center;']");
+
     public void clickNameInput() {
         driver.findElement(nameInputSelector).click();
     }
@@ -117,5 +121,20 @@ public class BookNowPage extends GeneralPage {
     // Phương thưc display Your Reservation
     public boolean isYourReservationDisplay() {
         return driver.findElement(yourReservationDisplaySelector).isDisplayed();
+    }
+
+    public void tickPromotion() {
+        WebElement checkBox = driver.findElement(regionPromotionSelector);
+        if (!checkBox.isSelected()) {
+            checkBox.click();
+        }
+    }
+
+    public String messagePromotionError() {
+        return driver.findElement(messagePromotionErrorSelector).getText();
+    }
+
+    public boolean messagePromotionExits() {
+        return driver.findElement(messagePromotionErrorSelector).isDisplayed();
     }
 }
