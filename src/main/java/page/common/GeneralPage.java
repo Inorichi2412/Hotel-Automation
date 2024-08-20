@@ -58,6 +58,10 @@ public class GeneralPage {
     // Selector date popup
     By datePopupSelector = By.id("ui-datepicker-div");
 
+    // Selector promotion
+    By regionPromotionSelector = By.id("code");
+    By buttonApplySelector = By.xpath("//button[text()='Apply']");
+
     public void openLogoPage() {
         driver.findElement(logoLinkSelector).click();
     }
@@ -179,5 +183,11 @@ public class GeneralPage {
 
     public void clickSearchButton() {
         driver.findElement(searchButtonSelector).click();
+    }
+
+    public void submitPromotion(String promotionCode) {
+        WebElement enterPromotion = driver.findElement(regionPromotionSelector);
+        enterPromotion.sendKeys(promotionCode);
+        driver.findElement(buttonApplySelector).click();
     }
 }

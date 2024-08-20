@@ -1,8 +1,6 @@
 package page.common;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,6 +11,7 @@ import java.util.List;
 public class HomePage extends GeneralPage {
     Actions actions;
     Wait<WebDriver> wait;
+    String originalTab;
 
     // Selector
     By loginSelector = By.id("NavebarProfileDrop");
@@ -49,6 +48,7 @@ public class HomePage extends GeneralPage {
     // Constructor của lớp HomePage
     public HomePage(WebDriver driver) {
         super(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
 
@@ -117,6 +117,10 @@ public class HomePage extends GeneralPage {
         driver.findElement(childrenSelector).sendKeys(childrenText);
     }
 
+    public void clickSearchButton() {
+        driver.findElement(searchButtonSelector).click();
+    }
+
     public void searchRoom(String checkIn, String checkOut, int adult, int children) {
         enterCheckInTime(checkIn);
         enterCheckOutTime(checkOut);
@@ -178,10 +182,44 @@ public class HomePage extends GeneralPage {
         wait.until(e -> e.findElement(pageHomeTitleSelector).isDisplayed());
     }
 
-    // Phương thức di chuyển đến admin
-    public void goToAdmin() {
-        openLoginForm();
-        driver.findElement(buttonGoToAdmin).click();
+    public void openAdminTab() {
+        // Lưu trữ tab gốc
+        originalTab = driver.getWindowHandle();
+
+        // Sử dụng JavaScript để mở tab mới
+        ((JavascriptExecutor) driver).executeScript("window.open(arguments[0], '_blank');", "http://14.176.232.213:8084/admin");
+
+        // Chờ cho tab mới được mở
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(driver -> driver.getWindowHandles().size() > 1);
+
+        // Chuyển đến tab mới
+        for (String tabHandle : driver.getWindowHandles()) {
+            if (!tabHandle.equals(originalTab)) {
+                driver.switchTo().window(tabHandle);
+                break;
+            }
+        }
+
+        // Kiểm tra nếu tab mới đã được chuyển thành công
+        if (driver.getWindowHandles().size() <= 1) {
+            throw new RuntimeException("Không thể mở tab mới.");
+        }
+
+    }
+
+    // Phương thức quay trở lại tab gốc nếu cần
+    public void switchToOriginalTab() {
+        // Kiểm tra nếu tab hiện tại là tab gốc
+        if (driver.getWindowHandle().equals(originalTab)) {
+            throw new RuntimeException("Đã ở tab gốc.");
+        }
+
+        // Đóng tab hiện tại (tab admin)
+        driver.close();
+
+        // Chuyển về tab gốc
+        driver.switchTo().window(originalTab);
     }
 
 }

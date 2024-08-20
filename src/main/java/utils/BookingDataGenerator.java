@@ -93,6 +93,11 @@ public class BookingDataGenerator {
         return faker.address().fullAddress();
     }
 
+    public String generatePromotionCode() {
+        // Tạo chuỗi ngẫu nhiên gồm 8 ký tự chữ và số
+        return faker.lorem().characters(8, true, true).toUpperCase();
+    }
+
     public static void main(String[] args) {
         BookingDataGenerator generator = new BookingDataGenerator();
         // Thông tin tìm kiếm
