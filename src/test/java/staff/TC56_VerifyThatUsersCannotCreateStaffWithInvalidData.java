@@ -53,6 +53,7 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         addStaffPage.selectValueOfGender("Male");
 //        softAssert.assertEquals(addStaffPage.getPageTitle(),"Add Staff","Page title is not Add Staff");
 
+        softAssert
         softAssert.assertAll();
 
     }
