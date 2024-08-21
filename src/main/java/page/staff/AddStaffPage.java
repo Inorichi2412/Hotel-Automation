@@ -57,4 +57,62 @@ public class AddStaffPage extends GeneralStaffPage{
         driver.findElement(genderInputSelector).click();
     }
 
+    public void enterFullName(String fullName) {
+        clickFullName();
+        driver.findElement(fullNameInputSelector).sendKeys(fullName);
+    }
+
+    public void chooseGender(String gender) {
+        clickGender();
+        driver.findElement(fullNameInputSelector).sendKeys(gender);
+    }
+
+    public void chooseBirthday(String birthday) {
+        clickBirthday();
+        driver.findElement(fullNameInputSelector).sendKeys(birthday);
+    }
+
+    public void enterMobileNumber(String mobileNumber) {
+        clickMobileNumber();
+        driver.findElement(mobileNumberInputSelector).sendKeys(mobileNumber);
+    }
+
+    public void choosePosition(String position) {
+        clickPosition();
+        driver.findElement(positionInputSelector).sendKeys(position);
+    }
+
+    public void enterUserName(String userName) {
+        clickUserName();
+        driver.findElement(userNameInputSelector).sendKeys(userName);
+    }
+
+    public void enterPassword(String password) {
+        clickPassword();
+        driver.findElement(passwordInputSelector).sendKeys(password);
+    }
+
+    public void enterConfirmPassword(String confirmPassword) {
+        clickConfirmPassword();
+        driver.findElement(confirmPasswordInputSelector).sendKeys(confirmPassword);
+    }
+
+    public void enterAddress(String address) {
+        clickAddress();
+        driver.findElement(addressInputSelector).sendKeys(address);
+    }
+
+    public void addStaff(String fullName, String gender, String birthday, String mobileNumber,
+    String position,String userName, String password, String confirmPassword, String address ) {
+        enterFullName(fullName);
+        chooseGender(gender);
+        chooseBirthday(birthday);
+        enterMobileNumber(mobileNumber);
+        choosePosition(position);
+        enterUserName(userName);
+        enterPassword(password);
+        enterConfirmPassword(confirmPassword);
+        enterAddress(address);
+    }
+
 }
