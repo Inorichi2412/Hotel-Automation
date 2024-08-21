@@ -1,20 +1,6 @@
 package Models;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import utils.Gender;
-import utils.Position;
-
-import java.awt.*;
-
 public class AddStaffForm {
-
-    Select select;
-    WebDriver driver;
-
-
 
     private String fullName;
     private String birthDate;
@@ -25,10 +11,6 @@ public class AddStaffForm {
     private String password;
     private String confirmPassword;
     private String address;
-
-    public AddStaffForm(String gender) {
-        this.gender = gender;
-    }
 
     public AddStaffForm() {
 
