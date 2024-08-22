@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -8,23 +8,20 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.common.*;
-import utils.BookingDataGenerator;
 
-public class TC6_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUseSearchCriteria {
+import java.util.Random;
+
+public class TC10_VerifyThatWhenTheUserClicksOnTheViewDetailButtonForARoomItJumpsToTheRoomsDetailPageCorrespondingToThatRoom {
     WebDriver driver;
     String url;
     SetUp setUp;
-    HomePage homePage;
     RoomsPage roomsPage;
-    BookingDataGenerator bookingDataGenerator;
+    RoomDetailsPage roomDetailsPage;
+    Random random;
     SoftAssert softAssert;
-
-    // Các biến để lưu dữ liệu đặt phòng
-    String checkInDate;
-    String checkOutDate;
-    int adults;
-    int children;
-
+    String nameInRoomPage;
+    String nameInRoomDetailPage;
+    int roomIndex;
 
     @BeforeMethod
     public void setUp() {
@@ -39,29 +36,29 @@ public class TC6_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUseSearch
         // Tối ưu hóa cửa sổ trình duyệt
         driver.manage().window().maximize();
         // Khởi tạo đối tượng
-        homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
-        bookingDataGenerator = new BookingDataGenerator();
+        roomDetailsPage = new RoomDetailsPage(driver);
         softAssert = new SoftAssert();
-        // information search
-        checkInDate = bookingDataGenerator.generateCheckInDate();
-        checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
-        adults = bookingDataGenerator.generateAdults();
-        children = bookingDataGenerator.generateChildren();
+        random = new Random();
+        roomIndex = random.nextInt(12)+1;
     }
 
     @Test
-    public void TC6() {
-        //Sử dụng dữ liệu đặt phòng để tìm kiếm
-        homePage.searchRoom(checkInDate, checkOutDate, adults, children);
-        //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
-        softAssert.assertTrue(roomsPage.isItemDescriptionsDisplayed(),"Don't have any available room");
+    public void TC10() {
+        // Phương thư open RoomsPage
+        roomsPage.openRoomsPage();
+
+        nameInRoomPage = roomsPage.openRoomByIndex(roomIndex);
+        nameInRoomDetailPage = roomDetailsPage.getRoomName();
+        softAssert.assertEquals(nameInRoomPage, nameInRoomDetailPage,"Name of room is not same");
+
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
+
     }
 
     @AfterMethod
-    public void cleanUp() {
+    public void CleanUp() {
         driver.quit();
     }
 }

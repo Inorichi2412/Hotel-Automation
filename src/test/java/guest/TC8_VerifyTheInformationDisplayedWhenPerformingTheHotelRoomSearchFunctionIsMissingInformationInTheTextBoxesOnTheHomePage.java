@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -7,26 +7,16 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.common.BookNowPage;
 import page.common.HomePage;
-import page.common.RoomDetailsPage;
-import page.common.RoomsPage;
 import utils.BookingDataGenerator;
-import utils.CreditCard;
 
-public class TC13_VerifyDisplayAreaWhenClickingReviewInMenu {
+public class TC8_VerifyTheInformationDisplayedWhenPerformingTheHotelRoomSearchFunctionIsMissingInformationInTheTextBoxesOnTheHomePage {
     WebDriver driver;
     String url;
     SetUp setUp;
     HomePage homePage;
-    RoomsPage roomsPage;
-    RoomDetailsPage roomDetailsPage;
-    BookNowPage bookNowPage;
     BookingDataGenerator bookingDataGenerator;
-    CreditCard creditCard;
     SoftAssert softAssert;
-
-    // Các biến để lưu dữ liệu đặt phòng
     String checkInDate;
     String checkOutDate;
     int adults;
@@ -46,13 +36,8 @@ public class TC13_VerifyDisplayAreaWhenClickingReviewInMenu {
         driver.manage().window().maximize();
         // Khởi tạo đối tượng
         homePage = new HomePage(driver);
-        roomsPage = new RoomsPage(driver);
-        roomDetailsPage = new RoomDetailsPage(driver);
-        bookNowPage = new BookNowPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
-        // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
-        creditCard = CreditCard.getSampleCreditCard();
         // information search
         checkInDate = bookingDataGenerator.generateCheckInDate();
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
@@ -60,17 +45,18 @@ public class TC13_VerifyDisplayAreaWhenClickingReviewInMenu {
         children = bookingDataGenerator.generateChildren();
     }
 
+
     @Test
-    public void TC13() {
-        //Sử dụng dữ liệu đặt phòng để tìm kiếm
-        homePage.searchRoom(checkInDate, checkOutDate, adults, children);
+    public void TC8() {
 
-        // phương thức cuộn tới phần tử và nhấn nút View Details
-        roomsPage.openDetailsView();
+        // Trường hợp không nhập data
+        homePage.clickSearchButton();
+        softAssert.assertTrue(homePage.showDatePopup(),"No Popup date Check In");
 
-        // phương thức điều hướng tại menu roomDetailsPage
-        roomDetailsPage.navigateToSpecificMenu("review");
-        softAssert.assertEquals(roomDetailsPage.getTitleReview(), "Review", "This area does not exist!");
+        // Trường hợp nhập checkin
+        homePage.enterCheckInTime(checkInDate);
+        homePage.clickSearchButton();
+        softAssert.assertTrue(homePage.showDatePopup(),"No Popup date Check Out");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

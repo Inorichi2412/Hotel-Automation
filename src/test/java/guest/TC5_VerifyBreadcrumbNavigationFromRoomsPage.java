@@ -1,70 +1,72 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.common.*;
 
-public class TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu {
+public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
     WebDriver driver;
+    String url;
+    SetUp setUp;
     HomePage homePage;
     RoomsPage roomsPage;
     AboutPage aboutPage;
     BlogsPage blogsPage;
     ContactUsPage contactUsPage;
-    FAQsPage faqsPage;
-    GeneralPage generalPage;
+    FAQsPage faQsPage;
     SoftAssert softAssert;
-    SetUp setUp;
+
+    // Tiêu đề mong đợi của trang Home
+    String expectedHomeTitle = "Best Hotel to stay";
 
     @BeforeMethod
     public void setUp() {
         driver = new ChromeDriver();
         setUp = new SetUp();
-        driver.get(setUp.getUrl());
+        url = setUp.getUrl();
+        driver.get(url);
         driver.manage().window().maximize();
-        // Khởi tạo đối tượng
         homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
         aboutPage = new AboutPage(driver);
         blogsPage = new BlogsPage(driver);
         contactUsPage = new ContactUsPage(driver);
-        faqsPage = new FAQsPage(driver);
-        generalPage = new GeneralPage(driver);
+        faQsPage = new FAQsPage(driver);
         softAssert = new SoftAssert();
     }
 
     @Test
-    public void TC1() {
-
-        // Kiểm tra tiêu đề trang Home
-        homePage.navigateToHomePage();
-        Assert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
+    public void TC5() {
 
         // Kiểm tra tiêu đề trang Rooms
         roomsPage.navigateToRoomsPage();
-        softAssert.assertEquals(roomsPage.getPageTitleText(), "Rooms", "The Rooms page title does not match!");
+        roomsPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang About
         aboutPage.navigateToAboutPage();
-        softAssert.assertEquals(aboutPage.getPageTitleText(), "About Us", "The About page title does not match!");
+        aboutPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang Blogs
         blogsPage.navigateToBlogsPage();
-        softAssert.assertEquals(blogsPage.getPageTitleText(), "Our Blogs", "The Blogs page title does not match!");
+        blogsPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang Contact
         contactUsPage.navigateToContactPage();
-        softAssert.assertEquals(contactUsPage.getPageTitleText(), "Contact Us", "The Contact page title does not match!");
+        contactUsPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang FAQs
-        faqsPage.navigateToFaqsPage();
-        softAssert.assertEquals(faqsPage.getPageTitleText(), "FAQ", "The FAQs page title does not match!");
+        faQsPage.navigateToFaqsPage();
+        faQsPage.navigateToHomePageFromBreadcrumb();
+        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

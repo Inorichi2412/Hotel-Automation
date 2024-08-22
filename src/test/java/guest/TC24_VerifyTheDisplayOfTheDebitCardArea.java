@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -11,15 +11,16 @@ import page.common.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
-public class TC19_VerifyTheSubmitInformationFunctionWhenClickingTheSubmitButtonInTheAddYourInformationsAreaSuccessfully {
+public class TC24_VerifyTheDisplayOfTheDebitCardArea {
     WebDriver driver;
     String url;
     SetUp setUp;
     HomePage homePage;
     RoomsPage roomsPage;
-    RoomDetailsPage roomDetailsPage;
     CheckOutPage checkOutPage;
     GeneralPage generalPage;
+
+    RoomDetailsPage roomDetailsPage;
     BookNowPage bookNowPage;
     BookingDataGenerator bookingDataGenerator;
     CreditCard creditCard;
@@ -34,8 +35,6 @@ public class TC19_VerifyTheSubmitInformationFunctionWhenClickingTheSubmitButtonI
     String email;
     String phone;
     String address;
-    String bookingId;
-    String resultBookingId;
 
     @BeforeMethod
     public void setUp() {
@@ -54,8 +53,8 @@ public class TC19_VerifyTheSubmitInformationFunctionWhenClickingTheSubmitButtonI
         roomsPage = new RoomsPage(driver);
         checkOutPage = new CheckOutPage(driver);
         generalPage = new GeneralPage(driver);
-        bookNowPage = new BookNowPage(driver);
         roomDetailsPage = new RoomDetailsPage(driver);
+        bookNowPage = new BookNowPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
@@ -73,7 +72,7 @@ public class TC19_VerifyTheSubmitInformationFunctionWhenClickingTheSubmitButtonI
     }
 
     @Test
-    public void TC19() {
+    public void TC24() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
@@ -86,8 +85,14 @@ public class TC19_VerifyTheSubmitInformationFunctionWhenClickingTheSubmitButtonI
         // Phương thức nhập thông tin bổ sung và gửi
         bookNowPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
 
-        // Xác nhận di chuyển đến CheckoutPage
-        softAssert.assertEquals(checkOutPage.getPageTitleText(),"Checkout","The Checkout page title does not match!");
+        // thông tin debit card
+        checkOutPage.openDebitCard();
+
+        softAssert.assertEquals(checkOutPage.getCardNumberDebitLabel(), "Card Number", "Card Number Not Display");
+        softAssert.assertEquals(checkOutPage.getNameOnCardDebitLabel(),"Name on Card","Name on Card Not Display");
+        softAssert.assertEquals(checkOutPage.getExpiryDateDebitLabel(),"Expiry Date","Expiry Date Not Display");
+        softAssert.assertEquals(checkOutPage.getCvvNumberDebitLabel(),"CVV Number" ,"CVV Number Not Display");
+        softAssert.assertEquals(checkOutPage.getMessageNoteDebit(),"Note: In the next step you will be redirected to your bank's website to verify yourself." ,"Message Not Display");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

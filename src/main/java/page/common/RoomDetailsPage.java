@@ -107,9 +107,6 @@ public class RoomDetailsPage extends GeneralPage {
     }
 
     public String getTitleReview() {
-        return driver.findElement(displayTitleLocationSelector).getText();
+        return driver.findElement(displayTitleReviewSelector).getText();
     }
-
-
-
 }

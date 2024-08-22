@@ -18,6 +18,8 @@ public class LoginPage {
     By submitButtonSelector = By.xpath("//input[@value='Sign In']");
     By loginErrorSelector = By.id("loginError");
     By loginFormSelector = By.xpath("//form[@name='login-form']");
+    By messageErrorLoginSelector = By.id("loginError");
+    By adminSelector = By.xpath("//*[@id='NavebarProfileDrop']/img");
 
     public void clickEmailInput() {
         driver.findElement(usernameInputSelector).click();
@@ -63,5 +65,13 @@ public class LoginPage {
         driver.findElement(usernameInputSelector).sendKeys(loginForm.getEmail());
         driver.findElement(passwordInputSelector).sendKeys(loginForm.getPassword());
         clickSubmitButton();
+    }
+
+    public boolean isLoginErrorMessageDisplayed() {
+        return driver.findElement(messageErrorLoginSelector).isDisplayed();
+    }
+
+    public boolean isAdminPageDisplayed() {
+        return driver.findElement(adminSelector).isDisplayed();
     }
 }
