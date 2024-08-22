@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -8,20 +8,18 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import page.common.*;
+import utils.BookingDataGenerator;
 
-import java.util.Random;
-
-public class TC10_VerifyThatWhenTheUserClicksOnTheViewDetailButtonForARoomItJumpsToTheRoomsDetailPageCorrespondingToThatRoom {
+public class TC16_VerifyTheInformationDisplayedWhenPerformingTheBookingFunctionIsMissingInformationOnTheRoomDetaillPage {
     WebDriver driver;
     String url;
     SetUp setUp;
     RoomsPage roomsPage;
     RoomDetailsPage roomDetailsPage;
-    Random random;
+    BookingDataGenerator bookingDataGenerator;
     SoftAssert softAssert;
-    String nameInRoomPage;
-    String nameInRoomDetailPage;
-    int roomIndex;
+    String checkInDate;
+    String checkOutDate;
 
     @BeforeMethod
     public void setUp() {
@@ -38,27 +36,36 @@ public class TC10_VerifyThatWhenTheUserClicksOnTheViewDetailButtonForARoomItJump
         // Khởi tạo đối tượng
         roomsPage = new RoomsPage(driver);
         roomDetailsPage = new RoomDetailsPage(driver);
+        bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
-        random = new Random();
-        roomIndex = random.nextInt(12)+1;
+        // information search
+        checkInDate = bookingDataGenerator.generateCheckInDate();
+        checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
     }
 
-    @Test
-    public void TC10() {
-        // Phương thư open RoomsPage
-        roomsPage.openRoomsPage();
 
-        nameInRoomPage = roomsPage.openRoomByIndex(roomIndex);
-        nameInRoomDetailPage = roomDetailsPage.getRoomName();
-        softAssert.assertEquals(nameInRoomPage, nameInRoomDetailPage,"Name of room is not same");
+    @Test
+    public void TC16() {
+
+        // Phương thức open RoomsPage
+        roomsPage.openRoomsPage();
+        // phương thức cuộn tới phần tử và nhấn nút View Details
+        roomsPage.openDetailsView();
+        // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
+        roomDetailsPage.openBookNow();
+        softAssert.assertTrue(roomDetailsPage.showDatePopup(),"No Popup date Check In");
+
+        // Trường hợp nhập checkin
+        roomDetailsPage.enterCheckInTime(checkInDate);
+        roomDetailsPage.clickBookNowButton();
+        softAssert.assertTrue(roomDetailsPage.showDatePopup(),"No Popup date Check Out");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
-
     }
 
     @AfterMethod
-    public void CleanUp() {
+    public void cleanUp() {
         driver.quit();
     }
 }

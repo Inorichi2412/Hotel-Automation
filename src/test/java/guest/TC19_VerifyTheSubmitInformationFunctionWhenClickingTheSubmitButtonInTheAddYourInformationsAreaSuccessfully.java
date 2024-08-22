@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -11,13 +11,15 @@ import page.common.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
-public class TC11_VerifyTheDisplayAreaWhenClickingAdditionalInformationInTheMenu {
+public class TC19_VerifyTheSubmitInformationFunctionWhenClickingTheSubmitButtonInTheAddYourInformationsAreaSuccessfully {
     WebDriver driver;
     String url;
     SetUp setUp;
     HomePage homePage;
     RoomsPage roomsPage;
     RoomDetailsPage roomDetailsPage;
+    CheckOutPage checkOutPage;
+    GeneralPage generalPage;
     BookNowPage bookNowPage;
     BookingDataGenerator bookingDataGenerator;
     CreditCard creditCard;
@@ -28,6 +30,12 @@ public class TC11_VerifyTheDisplayAreaWhenClickingAdditionalInformationInTheMenu
     String checkOutDate;
     int adults;
     int children;
+    String fullName;
+    String email;
+    String phone;
+    String address;
+    String bookingId;
+    String resultBookingId;
 
     @BeforeMethod
     public void setUp() {
@@ -44,8 +52,10 @@ public class TC11_VerifyTheDisplayAreaWhenClickingAdditionalInformationInTheMenu
         // Khởi tạo đối tượng
         homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
-        roomDetailsPage = new RoomDetailsPage(driver);
+        checkOutPage = new CheckOutPage(driver);
+        generalPage = new GeneralPage(driver);
         bookNowPage = new BookNowPage(driver);
+        roomDetailsPage = new RoomDetailsPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
@@ -55,10 +65,15 @@ public class TC11_VerifyTheDisplayAreaWhenClickingAdditionalInformationInTheMenu
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
         adults = bookingDataGenerator.generateAdults();
         children = bookingDataGenerator.generateChildren();
+        // information guest
+        fullName = bookingDataGenerator.generateFullName();
+        email = bookingDataGenerator.generateEmail();
+        phone = bookingDataGenerator.generatePhone();
+        address = bookingDataGenerator.generateAddress();
     }
 
     @Test
-    public void TC11() {
+    public void TC19() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
@@ -68,11 +83,11 @@ public class TC11_VerifyTheDisplayAreaWhenClickingAdditionalInformationInTheMenu
         // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
         roomDetailsPage.openBookNow();
 
-        // Phương thưc display information
-        bookNowPage.isInformationDisplay();
+        // Phương thức nhập thông tin bổ sung và gửi
+        bookNowPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
 
-        //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
-        softAssert.assertTrue(bookNowPage.isInformationDisplay(),"No information for user to enter");
+        // Xác nhận di chuyển đến CheckoutPage
+        softAssert.assertEquals(checkOutPage.getPageTitleText(),"Checkout","The Checkout page title does not match!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

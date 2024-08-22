@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ import page.common.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
-public class TC21_VerifyTheDisplayOfTheCreditCardArea {
+public class TC22_VerifyCreditCardPaymentFunctionVerificationSuccessful {
     WebDriver driver;
     String url;
     SetUp setUp;
@@ -19,9 +19,9 @@ public class TC21_VerifyTheDisplayOfTheCreditCardArea {
     RoomsPage roomsPage;
     CheckOutPage checkOutPage;
     GeneralPage generalPage;
-
     RoomDetailsPage roomDetailsPage;
     BookNowPage bookNowPage;
+    ConfirmPage confirmPage;
     BookingDataGenerator bookingDataGenerator;
     CreditCard creditCard;
     SoftAssert softAssert;
@@ -35,6 +35,7 @@ public class TC21_VerifyTheDisplayOfTheCreditCardArea {
     String email;
     String phone;
     String address;
+    String bookingId;
 
     @BeforeMethod
     public void setUp() {
@@ -55,6 +56,7 @@ public class TC21_VerifyTheDisplayOfTheCreditCardArea {
         generalPage = new GeneralPage(driver);
         roomDetailsPage = new RoomDetailsPage(driver);
         bookNowPage = new BookNowPage(driver);
+        confirmPage = new ConfirmPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
@@ -72,7 +74,7 @@ public class TC21_VerifyTheDisplayOfTheCreditCardArea {
     }
 
     @Test
-    public void TC21() {
+    public void TC22() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
@@ -85,12 +87,12 @@ public class TC21_VerifyTheDisplayOfTheCreditCardArea {
         // Phương thức nhập thông tin bổ sung và gửi
         bookNowPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
 
-        // display thông tin credit card
-        softAssert.assertTrue(checkOutPage.getCardNumberLabel(), "Card Number Not Display");
-        softAssert.assertTrue(checkOutPage.getNameOnCardLabel(),"Name on Card Not Display");
-        softAssert.assertTrue(checkOutPage.getExpiryDateLabel(),"Expiry Date Not Display");
-        softAssert.assertTrue(checkOutPage.getCvvNumberLabel(), "CVV Number Not Display");
-        softAssert.assertTrue(checkOutPage.getMessageNote(), "Message Not Display");
+        //Phương thức nhập thông tin thẻ tín dụng và enter "Pay Now"
+        checkOutPage.enterCreditCardDetails(creditCard);
+
+        // Xác nhận message confirm, di chuyển đến confirmPage
+        softAssert.assertEquals(confirmPage.getPageTitleText(),"Confirm", "The Confirm page title does not match!");
+        softAssert.assertEquals(confirmPage.getMessageConfirm(),"Thank you! Your booking has been placed. We will contact you to confirm about the booking soon.", "Message does not exist ");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

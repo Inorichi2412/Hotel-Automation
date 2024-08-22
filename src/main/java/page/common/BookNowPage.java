@@ -4,7 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DriverUtils;
+
+import java.time.Duration;
 
 public class BookNowPage extends GeneralPage {
     WebDriver driver;
@@ -31,7 +35,9 @@ public class BookNowPage extends GeneralPage {
 
     // Selector promotion
     By regionPromotionSelector = By.id("code");
+    By tickPromotionSelector = By.xpath("//label[@class='custom-control custom-radio m-0']");
     By messagePromotionErrorSelector = By.xpath("//p[@style='color: red; text-align: center;']");
+    By grandTotalSelector = By.xpath("/html/body/section[3]/div/div/div/table/tbody/tr[5]/td[2]");
 
     public void clickNameInput() {
         driver.findElement(nameInputSelector).click();
@@ -124,7 +130,7 @@ public class BookNowPage extends GeneralPage {
     }
 
     public void tickPromotion() {
-        WebElement checkBox = driver.findElement(regionPromotionSelector);
+        WebElement checkBox = driver.findElement(tickPromotionSelector);
         if (!checkBox.isSelected()) {
             checkBox.click();
         }
@@ -134,7 +140,8 @@ public class BookNowPage extends GeneralPage {
         return driver.findElement(messagePromotionErrorSelector).getText();
     }
 
-    public boolean messagePromotionExits() {
-        return driver.findElement(messagePromotionErrorSelector).isDisplayed();
+    public String getGrandTotal() {
+        return driver.findElement(grandTotalSelector).getText();
     }
+
 }

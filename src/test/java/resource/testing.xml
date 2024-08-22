@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Hotel" parallel="classes" thread-count="1">
+<!--    <test name="Common">-->
+<!--        <classes>-->
+<!--            <class name="guest.TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu"></class>-->
+<!--            <class name="guest.TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsSuccessful"></class>-->
+<!--            <class name="guest.TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsNoSuccessful"></class>-->
+<!--            <class name="guest.TC4_VerifyFunctionalityOfScrollToTopButton"></class>-->
+<!--            <class name="guest.TC5_VerifyBreadcrumbNavigationFromRoomsPage"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Home">-->
+<!--        <classes>-->
+<!--            <class name="guest.TC6_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUseSearchCriteria"></class>-->
+<!--            <class name="guest.TC7_VerifyThatTheRoomsPageDoesNotShowEmptyRoomsWhenTheUserSearchCriteriaAreInvalid"></class>-->
+<!--            <class name="guest.TC8_VerifyTheInformationDisplayedWhenPerformingTheHotelRoomSearchFunctionIsMissingInformationInTheTextBoxesOnTheHomePage"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Rooms and Rooms Details">-->
+<!--        <classes>-->
+<!--            <class name="guest.TC10_VerifyThatWhenTheUserClicksOnTheViewDetailButtonForARoomItJumpsToTheRoomsDetailPageCorrespondingToThatRoom"></class>-->
+<!--            <class name="guest.TC11_VerifyTheDisplayAreaWhenClickingAdditionalInformationInTheMenu"></class>-->
+<!--            <class name="guest.TC12_VerifyDisplayAreaWhenClickingLocationInMenu"></class>-->
+<!--            <class name="guest.TC13_VerifyDisplayAreaWhenClickingReviewInMenu"></class>-->
+<!--            <class name="guest.TC14_VerifyBookingFunctionWithValidConditions"></class>-->
+<!--            <class name="guest.TC15_VerifyBookingFunctionWithInvalidConditions"></class>-->
+<!--            <class name="guest.TC16_VerifyTheInformationDisplayedWhenPerformingTheBookingFunctionIsMissingInformationOnTheRoomDetaillPage"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="BookNow">-->
+<!--        <classes>-->
+<!--            <class name="guest.TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformation"></class>-->
+<!--            <class name="guest.TC19_VerifyTheSubmitInformationFunctionWhenClickingTheSubmitButtonInTheAddYourInformationsAreaSuccessfully"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="CheckOut">-->
+<!--        <classes>-->
+<!--            <class name="guest.TC21_VerifyTheDisplayOfTheCreditCardArea"></class>-->
+<!--            <class name="guest.TC22_VerifyCreditCardPaymentFunctionVerificationSuccessful"></class>-->
+<!--            <class name="guest.TC23_VerifyCreditCardPaymentFunctionInformationFailed"></class>-->
+<!--            <class name="guest.TC24_VerifyTheDisplayOfTheDebitCardArea"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="Admin">
+        <classes>
+            <class name="admin.TC25_26_VerifySuccessfulAndFailedAdminAccountLogins"></class>
+            <class name="admin.TC27_VerifySpecifyStaffDetailsInformationInMenu"></class>
+            <class name="admin.TC30_31_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPage"></class>
+        </classes>
+    </test>
+</suite>

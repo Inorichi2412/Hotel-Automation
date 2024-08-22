@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -7,11 +7,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.common.*;
+import page.common.BookNowPage;
+import page.common.HomePage;
+import page.common.RoomDetailsPage;
+import page.common.RoomsPage;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
-public class TC14_VerifyBookingFunctionWithValidConditions {
+public class TC13_VerifyDisplayAreaWhenClickingReviewInMenu {
     WebDriver driver;
     String url;
     SetUp setUp;
@@ -28,10 +31,6 @@ public class TC14_VerifyBookingFunctionWithValidConditions {
     String checkOutDate;
     int adults;
     int children;
-    String fullName;
-    String email;
-    String phone;
-    String address;
 
     @BeforeMethod
     public void setUp() {
@@ -59,24 +58,19 @@ public class TC14_VerifyBookingFunctionWithValidConditions {
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
         adults = bookingDataGenerator.generateAdults();
         children = bookingDataGenerator.generateChildren();
-        // information guest
-        fullName = bookingDataGenerator.generateFullName();
-        email = bookingDataGenerator.generateEmail();
-        phone = bookingDataGenerator.generatePhone();
-        address = bookingDataGenerator.generateAddress();
     }
 
     @Test
-    public void TC14() {
+    public void TC13() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
         // phương thức cuộn tới phần tử và nhấn nút View Details
         roomsPage.openDetailsView();
 
-        // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
-        roomDetailsPage.openBookNow();
-        softAssert.assertTrue(bookNowPage.isYourReservationDisplay(),"Don't have any available room");
+        // phương thức điều hướng tại menu roomDetailsPage
+        roomDetailsPage.navigateToSpecificMenu("review");
+        softAssert.assertEquals(roomDetailsPage.getTitleReview(), "Review", "This area does not exist!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -11,17 +11,14 @@ import page.common.*;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
-public class TC22_VerifyCreditCardPaymentFunctionVerificationSuccessful {
+public class TC11_VerifyTheDisplayAreaWhenClickingAdditionalInformationInTheMenu {
     WebDriver driver;
     String url;
     SetUp setUp;
     HomePage homePage;
     RoomsPage roomsPage;
-    CheckOutPage checkOutPage;
-    GeneralPage generalPage;
     RoomDetailsPage roomDetailsPage;
     BookNowPage bookNowPage;
-    ConfirmPage confirmPage;
     BookingDataGenerator bookingDataGenerator;
     CreditCard creditCard;
     SoftAssert softAssert;
@@ -31,11 +28,6 @@ public class TC22_VerifyCreditCardPaymentFunctionVerificationSuccessful {
     String checkOutDate;
     int adults;
     int children;
-    String fullName;
-    String email;
-    String phone;
-    String address;
-    String bookingId;
 
     @BeforeMethod
     public void setUp() {
@@ -52,11 +44,8 @@ public class TC22_VerifyCreditCardPaymentFunctionVerificationSuccessful {
         // Khởi tạo đối tượng
         homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
-        checkOutPage = new CheckOutPage(driver);
-        generalPage = new GeneralPage(driver);
         roomDetailsPage = new RoomDetailsPage(driver);
         bookNowPage = new BookNowPage(driver);
-        confirmPage = new ConfirmPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
@@ -66,15 +55,10 @@ public class TC22_VerifyCreditCardPaymentFunctionVerificationSuccessful {
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
         adults = bookingDataGenerator.generateAdults();
         children = bookingDataGenerator.generateChildren();
-        // information guest
-        fullName = bookingDataGenerator.generateFullName();
-        email = bookingDataGenerator.generateEmail();
-        phone = bookingDataGenerator.generatePhone();
-        address = bookingDataGenerator.generateAddress();
     }
 
     @Test
-    public void TC22() {
+    public void TC11() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
@@ -84,15 +68,11 @@ public class TC22_VerifyCreditCardPaymentFunctionVerificationSuccessful {
         // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
         roomDetailsPage.openBookNow();
 
-        // Phương thức nhập thông tin bổ sung và gửi
-        bookNowPage.fillAndSubmitAdditionalInformation(fullName, email, phone, address);
+        // Phương thưc display information
+        bookNowPage.isInformationDisplay();
 
-        //Phương thức nhập thông tin thẻ tín dụng và enter "Pay Now"
-        checkOutPage.enterCreditCardDetails(creditCard);
-
-        // Xác nhận message confirm, di chuyển đến confirmPage
-        softAssert.assertEquals(confirmPage.getPageTitleText(),"Confirm", "The Confirm page title does not match!");
-        softAssert.assertEquals(confirmPage.getMessageConfirm(),"Thank you! Your booking has been placed. We will contact you to confirm about the booking soon.", "Message does not exist ");
+        //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
+        softAssert.assertTrue(bookNowPage.isInformationDisplay(),"No information for user to enter");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

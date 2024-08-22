@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +14,7 @@ import page.common.RoomsPage;
 import utils.BookingDataGenerator;
 import utils.CreditCard;
 
-public class TC15_VerifyBookingFunctionWithInvalidConditions {
+public class TC12_VerifyDisplayAreaWhenClickingLocationInMenu {
     WebDriver driver;
     String url;
     SetUp setUp;
@@ -30,12 +30,7 @@ public class TC15_VerifyBookingFunctionWithInvalidConditions {
     String checkInDate;
     String checkOutDate;
     int adults;
-    int adultError;
     int children;
-    String fullName;
-    String email;
-    String phone;
-    String address;
 
     @BeforeMethod
     public void setUp() {
@@ -62,27 +57,20 @@ public class TC15_VerifyBookingFunctionWithInvalidConditions {
         checkInDate = bookingDataGenerator.generateCheckInDate();
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
         adults = bookingDataGenerator.generateAdults();
-        adultError = bookingDataGenerator.generateLargeNumberOfAdults();
         children = bookingDataGenerator.generateChildren();
-        // information guest
-        fullName = bookingDataGenerator.generateFullName();
-        email = bookingDataGenerator.generateEmail();
-        phone = bookingDataGenerator.generatePhone();
-        address = bookingDataGenerator.generateAddress();
     }
 
     @Test
-    public void TC14() {
+    public void TC12() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
         // phương thức cuộn tới phần tử và nhấn nút View Details
         roomsPage.openDetailsView();
 
-        // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
-        roomDetailsPage.enterAdultNumber(adultError);
-        roomDetailsPage.openBookNow();
-        softAssert.assertEquals(roomDetailsPage.isMessageRooms(),"Opps ! Not enough rooms available during this time !","Message does not exist: Oops ! Not enough rooms available during this time !");
+        // phương thức điều hướng tại menu roomDetailsPage
+        roomDetailsPage.navigateToSpecificMenu("location");
+        softAssert.assertEquals(roomDetailsPage.getTitleLoacation(), "Location", "This area does not exist!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

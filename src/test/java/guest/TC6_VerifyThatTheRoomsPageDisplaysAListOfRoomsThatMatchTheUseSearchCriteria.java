@@ -1,4 +1,4 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
 import org.openqa.selenium.WebDriver;
@@ -7,20 +7,24 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.common.HomePage;
+import page.common.*;
 import utils.BookingDataGenerator;
 
-public class TC8_VerifyTheInformationDisplayedWhenPerformingTheHotelRoomSearchFunctionIsMissingInformationInTheTextBoxesOnTheHomePage {
+public class TC6_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUseSearchCriteria {
     WebDriver driver;
     String url;
     SetUp setUp;
     HomePage homePage;
+    RoomsPage roomsPage;
     BookingDataGenerator bookingDataGenerator;
     SoftAssert softAssert;
+
+    // Các biến để lưu dữ liệu đặt phòng
     String checkInDate;
     String checkOutDate;
     int adults;
     int children;
+
 
     @BeforeMethod
     public void setUp() {
@@ -36,6 +40,7 @@ public class TC8_VerifyTheInformationDisplayedWhenPerformingTheHotelRoomSearchFu
         driver.manage().window().maximize();
         // Khởi tạo đối tượng
         homePage = new HomePage(driver);
+        roomsPage = new RoomsPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
         // information search
@@ -45,19 +50,12 @@ public class TC8_VerifyTheInformationDisplayedWhenPerformingTheHotelRoomSearchFu
         children = bookingDataGenerator.generateChildren();
     }
 
-
     @Test
-    public void TC8() {
-
-        // Trường hợp không nhập data
-        homePage.clickSearchButton();
-        softAssert.assertTrue(homePage.showDatePopup(),"No Popup date Check In");
-
-        // Trường hợp nhập checkin
-        homePage.enterCheckInTime(checkInDate);
-        homePage.clickSearchButton();
-        softAssert.assertTrue(homePage.showDatePopup(),"No Popup date Check Out");
-
+    public void TC6() {
+        //Sử dụng dữ liệu đặt phòng để tìm kiếm
+        homePage.searchRoom(checkInDate, checkOutDate, adults, children);
+        //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
+        softAssert.assertTrue(roomsPage.isItemDescriptionsDisplayed(),"Don't have any available room");
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
     }

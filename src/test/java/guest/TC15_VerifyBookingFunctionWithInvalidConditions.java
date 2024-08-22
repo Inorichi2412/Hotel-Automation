@@ -1,45 +1,41 @@
-package Guest;
+package guest;
 
 import Config.SetUp;
-import Models.LoginForm;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import page.admin.AdminPage;
-import page.common.*;
+import page.common.BookNowPage;
+import page.common.HomePage;
+import page.common.RoomDetailsPage;
+import page.common.RoomsPage;
 import utils.BookingDataGenerator;
+import utils.CreditCard;
 
-public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformation {
+public class TC15_VerifyBookingFunctionWithInvalidConditions {
     WebDriver driver;
     String url;
     SetUp setUp;
-    LoginPage loginPage;
     HomePage homePage;
     RoomsPage roomsPage;
-    CheckOutPage checkOutPage;
-    GeneralPage generalPage;
     RoomDetailsPage roomDetailsPage;
-    SearchRoomsPage searchRoomsPage;
     BookNowPage bookNowPage;
-    AdminPage adminPage;
     BookingDataGenerator bookingDataGenerator;
+    CreditCard creditCard;
     SoftAssert softAssert;
-    LoginForm loginForm;
+
     // Các biến để lưu dữ liệu đặt phòng
     String checkInDate;
     String checkOutDate;
     int adults;
+    int adultError;
     int children;
     String fullName;
     String email;
     String phone;
     String address;
-    String promoCode;
-    String promoCodeError;
-
 
     @BeforeMethod
     public void setUp() {
@@ -54,53 +50,29 @@ public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformatio
         // Tối ưu hóa cửa sổ trình duyệt
         driver.manage().window().maximize();
         // Khởi tạo đối tượng
-        loginPage = new LoginPage(driver);
         homePage = new HomePage(driver);
         roomsPage = new RoomsPage(driver);
-        checkOutPage = new CheckOutPage(driver);
-        generalPage = new GeneralPage(driver);
         roomDetailsPage = new RoomDetailsPage(driver);
-        searchRoomsPage = new SearchRoomsPage(driver);
         bookNowPage = new BookNowPage(driver);
-        adminPage = new AdminPage(driver);
         bookingDataGenerator = new BookingDataGenerator();
         softAssert = new SoftAssert();
+        // Khởi tạo đối tượng CreditCard bằng phương thức getSampleCreditCard
+        creditCard = CreditCard.getSampleCreditCard();
         // information search
         checkInDate = bookingDataGenerator.generateCheckInDate();
         checkOutDate = bookingDataGenerator.generateCheckOutDate(checkInDate);
         adults = bookingDataGenerator.generateAdults();
+        adultError = bookingDataGenerator.generateLargeNumber();
         children = bookingDataGenerator.generateChildren();
         // information guest
         fullName = bookingDataGenerator.generateFullName();
         email = bookingDataGenerator.generateEmail();
         phone = bookingDataGenerator.generatePhone();
         address = bookingDataGenerator.generateAddress();
-        // Khởi tạo đối tượng admin
-        loginForm = LoginForm.getLoginAdmin();
-        // promotion
-        promoCodeError = bookingDataGenerator.generatePromotionCode();
     }
 
     @Test
-    public void TC17andTC18() {
-        // Phương thức click login và đăng nhặp admin
-        loginPage.clickButtonLogin();
-
-        // Phương thức login
-        loginPage.loginAdmin(loginForm);
-
-        // Phương thức open tab
-        homePage.openAdminTab();
-
-        // Phương thức get promotion
-        adminPage.openPromotionMenu();
-        adminPage.openViewPromotion();
-        adminPage.getCodePromotion();
-        promoCode = adminPage.getCodePromotion();
-
-        // Phương thức close tab new, back tab old
-        homePage.switchToOriginalTab();
-
+    public void TC14() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
@@ -108,19 +80,9 @@ public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformatio
         roomsPage.openDetailsView();
 
         // Phương thức cuộn tới phần tử và nhấn nút BookNow tại trang Room Details
+        roomDetailsPage.enterAdultNumber(adultError);
         roomDetailsPage.openBookNow();
-
-        // Phương thức show, click radio promotion khong ton tai
-        bookNowPage.tickPromotion();
-        bookNowPage.submitPromotion(promoCodeError);
-
-        //kiem tra
-        softAssert.assertEquals(bookNowPage.messagePromotionError(),"Error: Promotion Code not exists !!!", "Error: Promotion Code not exists !!!");
-
-        // Phương thức show, click radio promotion  ton tai
-        bookNowPage.tickPromotion();
-        bookNowPage.submitPromotion(promoCode);
-        softAssert.assertFalse(bookNowPage.messagePromotionExits(),"The following message exists: Error: Promotion Code not exists !!!");
+        softAssert.assertEquals(roomDetailsPage.isMessageRooms(),"Opps ! Not enough rooms available during this time !","Message does not exist: Oops ! Not enough rooms available during this time !");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

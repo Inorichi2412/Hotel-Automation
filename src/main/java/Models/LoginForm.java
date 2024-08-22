@@ -1,7 +1,5 @@
 package Models;
 
-import utils.CreditCard;
-
 public class LoginForm {
     private String email;
     private String password;
@@ -30,7 +28,21 @@ public class LoginForm {
         this.password = password;
     }
 
+    // Tạo đối tượng LoginForm với thông tin đăng nhập hợp lệ
     public static LoginForm getLoginAdmin() {
         return new LoginForm("admin", "123456");
+    }
+
+    // Tạo đối tượng LoginForm với email không hợp lệ
+    public static LoginForm getLoginAdminEmpty() {
+        return new LoginForm("", ""); // empty
+    }
+
+    public static LoginForm getLoginAdminUserError() {
+        return new LoginForm("admin1234", "123456"); // Email không hợp lệ
+    }
+
+    public static LoginForm getLoginAdminPassError() {
+        return new LoginForm("admin", "123456789"); // Password không hợp lệ
     }
 }
