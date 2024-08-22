@@ -11,11 +11,12 @@ import org.testng.asserts.SoftAssert;
 import page.staff.AddStaffPage;
 import page.staff.DashboardPage;
 import page.staff.LoginPage;
+import page.staff.ViewAllStaffPage;
 import utils.ConfigReader;
 
 import java.time.Duration;
 
-public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
+public class TC59_VerifyThatTheNewlyCreatedStaffAppearsInTheStaffList {
     WebDriver driver;
     ConfigReader configReader;
     page.staff.LoginPage loginPage;
@@ -23,6 +24,7 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
     AddStaffPage addStaffPage;
     SoftAssert softAssert;
     AddStaffForm addStaffForm;
+    ViewAllStaffPage viewAllStaffPage;
 
     @BeforeMethod
     public void SetUp() {
@@ -31,6 +33,7 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
         loginPage=new LoginPage(driver);
         dashboardPage=new DashboardPage(driver);
         addStaffPage=new AddStaffPage(driver);
+        viewAllStaffPage=new ViewAllStaffPage(driver);
 
         softAssert=new SoftAssert();
 
@@ -54,6 +57,11 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
         dashboardPage.openAddStaffCard();
 
 //        addStaffPage.addStaff(addStaffForm);
+
+        addStaffPage.openStaffNav();
+        addStaffPage.openViewAllStaffCard();
+
+        viewAllStaffPage.clickLastPageItem();
 
         softAssert.assertAll();
 

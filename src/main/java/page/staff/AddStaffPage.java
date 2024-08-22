@@ -3,7 +3,6 @@ package page.staff;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 public class AddStaffPage extends GeneralStaffPage{
     By fullNameInputSelector =By.xpath("//input[@name=\"empName\"]");
@@ -16,13 +15,24 @@ public class AddStaffPage extends GeneralStaffPage{
     By confirmPasswordInputSelector =By.xpath("//input[@name=\"gender\"]");
     By addressInputSelector =By.xpath("//input[@name=\"gender\"]");
 
+    By submitButtonSelector=By.id("submitBtn");
+    String chooseGender ="//li[@class=\"mdl-menu__item\" and text()=\"%s\"]";
+    String choosePosition ="//li[@class=\"mdl-menu__item\" and text()=\"%s\"]";
+    String chooseBirthday="//td[@data-date=\"%s\"]";
+
+    By pageItem=By.xpath("//a[@aria-controls=\"example4\"]");
+    String choosePageItem="//a[@aria-controls=\"example4\" and text()=\"%s\"]";
 
     public AddStaffPage(WebDriver driver) {
         super(driver);
     }
 
+    public void clickSubmitButton() {
+        driver.findElement(submitButtonSelector).click();
+    }
+
     public void clickFullName() {
-        driver.findElement(genderInputSelector).click();
+        driver.findElement(fullNameInputSelector).click();
     }
 
     public void clickGender() {
@@ -30,31 +40,31 @@ public class AddStaffPage extends GeneralStaffPage{
     }
 
     public void clickBirthday() {
-        driver.findElement(genderInputSelector).click();
+        driver.findElement(birthdayInputSelector).click();
     }
 
     public void clickMobileNumber() {
-        driver.findElement(genderInputSelector).click();
+        driver.findElement(mobileNumberInputSelector).click();
     }
 
     public void clickPosition() {
-        driver.findElement(genderInputSelector).click();
+        driver.findElement(positionInputSelector).click();
     }
 
     public void clickUserName() {
-        driver.findElement(genderInputSelector).click();
+        driver.findElement(userNameInputSelector).click();
     }
 
     public void clickPassword() {
-        driver.findElement(genderInputSelector).click();
+        driver.findElement(passwordInputSelector).click();
     }
 
     public void clickConfirmPassword() {
-        driver.findElement(genderInputSelector).click();
+        driver.findElement(confirmPasswordInputSelector).click();
     }
 
     public void clickAddress() {
-        driver.findElement(genderInputSelector).click();
+        driver.findElement(addressInputSelector).click();
     }
 
     public void enterFullName(String fullName) {
@@ -64,12 +74,14 @@ public class AddStaffPage extends GeneralStaffPage{
 
     public void chooseGender(String gender) {
         clickGender();
-        driver.findElement(fullNameInputSelector).sendKeys(gender);
+        By genderName=By.xpath(String.format(chooseGender,gender));
+        driver.findElement(genderName).click();
     }
 
     public void chooseBirthday(String birthday) {
         clickBirthday();
-        driver.findElement(fullNameInputSelector).sendKeys(birthday);
+        By birthDayTime=By.xpath(String.format(chooseBirthday,birthday));
+        driver.findElement(birthDayTime).click();
     }
 
     public void enterMobileNumber(String mobileNumber) {
@@ -79,7 +91,8 @@ public class AddStaffPage extends GeneralStaffPage{
 
     public void choosePosition(String position) {
         clickPosition();
-        driver.findElement(positionInputSelector).sendKeys(position);
+        By positionName=By.xpath(String.format(choosePosition,position));
+        driver.findElement(positionName).click();
     }
 
     public void enterUserName(String userName) {
@@ -113,6 +126,14 @@ public class AddStaffPage extends GeneralStaffPage{
         enterPassword(password);
         enterConfirmPassword(confirmPassword);
         enterAddress(address);
+
+        clickSubmitButton();
+    }
+
+    public void clickLastPageItem() {
+        int maxPageItem= driver.findElements(pageItem).size();
+        By pageItemNumber=By.xpath(String.format(choosePageItem,maxPageItem-1));
+        driver.findElement(pageItemNumber).click();
     }
 
 }

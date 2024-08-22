@@ -15,6 +15,9 @@ public class GeneralStaffPage {
 
     By staffNavSelector = By.xpath("//span[@class='title' and text()='Staff']");
     By addStaffCardSelector=By.xpath("//span[@class='title' and text()='Add Staff']");
+    By viewAllStaffCardSelector=By.xpath("//span[@class='title' and text()='View\n" +
+            "\t\t\t\t\t\t\t\t\t\tAll Staffs']");
+
 
     public void openStaffNav() {
         driver.findElement(staffNavSelector).click();
@@ -22,6 +25,10 @@ public class GeneralStaffPage {
 
     public void openAddStaffCard() {
         driver.findElement(addStaffCardSelector).click();
+    }
+
+    public void openViewAllStaffCard() {
+        driver.findElement(viewAllStaffCardSelector).click();
     }
 
     public GeneralStaffPage(WebDriver driver) {
