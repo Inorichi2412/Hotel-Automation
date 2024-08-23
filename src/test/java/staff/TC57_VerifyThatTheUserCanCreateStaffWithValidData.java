@@ -16,7 +16,6 @@ import page.staff.ViewAllStaffPage;
 import utils.ConfigReader;
 
 import java.time.Duration;
-import java.util.Random;
 
 public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
     WebDriver driver;
@@ -40,7 +39,7 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
 
         softAssert=new SoftAssert();
 
-        driver.get(configReader.getUrl2());
+        driver.get(configReader.getUrlAdmin());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 

@@ -37,7 +37,7 @@ public class TC59_VerifyThatTheNewlyCreatedStaffAppearsInTheStaffList {
 
         softAssert=new SoftAssert();
 
-        driver.get(configReader.getUrl2());
+        driver.get(configReader.getUrlAdmin());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 

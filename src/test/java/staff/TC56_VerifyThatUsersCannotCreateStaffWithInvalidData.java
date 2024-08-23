@@ -33,13 +33,15 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
 
         softAssert=new SoftAssert();
 
-        driver.get(configReader.getUrl2());
+        driver.get(configReader.getUrlAdmin());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         addStaffForm=new AddStaffForm("","Female","20","09996677","Manager","vietanh","123456","123456","vietnam");
 
     }
+
+
 
     @Test
     public void VerifyThatUsersCannotCreateStaffWithInvalidData() {
@@ -49,7 +51,10 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         dashboardPage.openStaffNav();
         dashboardPage.openAddStaffCard();
 
+        addStaffForm.setAddress("");
         addStaffPage.addStaff(addStaffForm);
+
+//        addStaffForm.set();
 
         softAssert.assertTrue(addStaffPage.isAddStaffFormDisplayed(),"add staff form not display");
 
