@@ -11,7 +11,6 @@ import page.staff.AddStaffPage;
 import page.staff.DashboardPage;
 import page.staff.LoginPage;
 import utils.ConfigReader;
-import utils.Gender;
 
 import java.time.Duration;
 
@@ -38,7 +37,7 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        addStaffForm=new AddStaffForm("vietanh","Male","20","09996677","Manager","vietanh","123456","123456","vietnam");
+        addStaffForm=new AddStaffForm("","Female","20","09996677","Manager","vietanh","123456","123456","vietnam");
 
     }
 
@@ -50,8 +49,9 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         dashboardPage.openStaffNav();
         dashboardPage.openAddStaffCard();
 
+        addStaffPage.addStaff(addStaffForm);
 
-
+        softAssert.assertTrue(addStaffPage.isAddStaffFormDisplayed(),"add staff form not display");
 
         softAssert.assertAll();
 

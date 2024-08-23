@@ -1,6 +1,7 @@
 package staff;
 
 import Models.AddStaffForm;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -11,9 +12,11 @@ import org.testng.asserts.SoftAssert;
 import page.staff.AddStaffPage;
 import page.staff.DashboardPage;
 import page.staff.LoginPage;
+import page.staff.ViewAllStaffPage;
 import utils.ConfigReader;
 
 import java.time.Duration;
+import java.util.Random;
 
 public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
     WebDriver driver;
@@ -23,6 +26,8 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
     AddStaffPage addStaffPage;
     SoftAssert softAssert;
     AddStaffForm addStaffForm;
+    RandomStringUtils randomStringUtils;
+    ViewAllStaffPage viewAllStaffPage;
 
     @BeforeMethod
     public void SetUp() {
@@ -31,6 +36,7 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
         loginPage=new LoginPage(driver);
         dashboardPage=new DashboardPage(driver);
         addStaffPage=new AddStaffPage(driver);
+        randomStringUtils=new RandomStringUtils();
 
         softAssert=new SoftAssert();
 
@@ -42,7 +48,7 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
 
     @BeforeTest
     public void beforeTest() {
-        addStaffForm=new AddStaffForm("vietanh","Male","20","09996677","Manager","vietanh","123456","123456","vietnam");
+        addStaffForm=new AddStaffForm("vietanh","Male","20","09996677","Manager","anhviet123","123456","123456","vietnam");
     }
 
     @Test
@@ -53,7 +59,9 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
         dashboardPage.openStaffNav();
         dashboardPage.openAddStaffCard();
 
-//        addStaffPage.addStaff(addStaffForm);
+        addStaffPage.addStaff(addStaffForm);
+
+        softAssert.assertFalse(addStaffPage.isAddStaffFormDisplayed(),"add staff form still display");
 
         softAssert.assertAll();
 

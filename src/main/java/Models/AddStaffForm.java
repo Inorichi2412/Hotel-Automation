@@ -16,7 +16,7 @@ public class AddStaffForm {
 
     }
 
-    public AddStaffForm(String fullName, String birthDate, String position, String gender, String mobileNumber, String username, String password, String confirmPassword, String address) {
+    public AddStaffForm(String fullName, String gender,  String birthDate, String mobileNumber,String position, String username, String password, String confirmPassword, String address) {
         this.fullName = fullName;
         this.birthDate = birthDate;
         this.position = position;
