@@ -17,8 +17,8 @@ public class ConfigReader {
         return properties.getProperty("url");
     }
 
-    public String getUrl2() {
-        return properties.getProperty("url2");
+    public String getUrlAdmin() {
+        return properties.getProperty("urlAdmin");
     }
     public Duration getTimeOut() {
         return Duration.ofSeconds(

@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 import page.common.HomePage;
 import page.common.LoginPage;
 import page.common.SelectRoomPage;
+import utils.BookingDataGenerator;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -20,6 +21,8 @@ public class TC45_VerifyThatTheRoomsPageDisplaysAnEmptyListWhenTheUserSearcInfor
     LoginPage loginPage;
     SelectRoomPage selectRoomPage;
     SoftAssert softAssert;
+    BookingDataGenerator bookingDataGenerator;
+    String checkInDate;
 
     @BeforeMethod
     public void SetUp() {
@@ -28,12 +31,15 @@ public class TC45_VerifyThatTheRoomsPageDisplaysAnEmptyListWhenTheUserSearcInfor
         homePage=new HomePage(driver);
         loginPage=new LoginPage(driver);
         selectRoomPage=new SelectRoomPage(driver);
+        bookingDataGenerator=new BookingDataGenerator();
 
         softAssert=new SoftAssert();
 
         driver.get(configReader.getUrl());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        checkInDate= bookingDataGenerator.generateCheckInDate();
     }
 
     @Test
@@ -42,7 +48,7 @@ public class TC45_VerifyThatTheRoomsPageDisplaysAnEmptyListWhenTheUserSearcInfor
         homePage.openLoginForm();
         loginPage.login("vyvanviet","abc123");
 
-        homePage.searchRoom("2024/08/09","2024/08/10",200,200);
+        homePage.searchRoom(checkInDate, bookingDataGenerator.generateCheckOutDate(checkInDate), 200,200);
         softAssert.assertFalse(selectRoomPage.isItemDescriptionsDisplayed(),"Have available room");
 
         softAssert.assertAll();

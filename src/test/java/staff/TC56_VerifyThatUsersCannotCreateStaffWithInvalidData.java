@@ -10,8 +10,8 @@ import org.testng.asserts.SoftAssert;
 import page.staff.AddStaffPage;
 import page.staff.DashboardPage;
 import page.staff.LoginPage;
+import utils.BookingDataGenerator;
 import utils.ConfigReader;
-import utils.Gender;
 
 import java.time.Duration;
 
@@ -23,6 +23,7 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
     AddStaffPage addStaffPage;
     SoftAssert softAssert;
     AddStaffForm addStaffForm;
+    BookingDataGenerator bookingDataGenerator;
 
     @BeforeMethod
     public void SetUp() {
@@ -31,15 +32,18 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         loginPage=new LoginPage(driver);
         dashboardPage=new DashboardPage(driver);
         addStaffPage=new AddStaffPage(driver);
-        addStaffForm = new AddStaffForm();
 
         softAssert=new SoftAssert();
 
-        driver.get(configReader.getUrl2());
+        driver.get(configReader.getUrlAdmin());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
+        addStaffForm=new AddStaffForm("","","","","","","","","");
+
     }
+
+
 
     @Test
     public void VerifyThatUsersCannotCreateStaffWithInvalidData() {
@@ -50,8 +54,19 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         dashboardPage.openAddStaffCard();
 
 
-        addStaffPage.selectValueOfGender("Male");
-//        softAssert.assertEquals(addStaffPage.getPageTitle(),"Add Staff","Page title is not Add Staff");
+        addStaffForm.setFullName(bookingDataGenerator.generateFullName());
+        addStaffPage.addStaff(addStaffForm);
+        softAssert.assertTrue(addStaffPage.isAddStaffFormDisplayed(),"add staff form not display");
+
+        addStaffForm.setAddress(bookingDataGenerator.generateAddress());
+        addStaffPage.addStaff(addStaffForm);
+        softAssert.assertTrue(addStaffPage.isAddStaffFormDisplayed(),"add staff form not display");
+
+        addStaffForm.setMobileNumber(bookingDataGenerator.generatePhone());
+        addStaffPage.addStaff(addStaffForm);
+        softAssert.assertTrue(addStaffPage.isAddStaffFormDisplayed(),"add staff form not display");
+
+
 
         softAssert.assertAll();
 

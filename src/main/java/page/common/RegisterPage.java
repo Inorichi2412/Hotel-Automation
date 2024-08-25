@@ -15,7 +15,7 @@ public class RegisterPage {
     By emailInputSelector=By.xpath("//input[@name=\"Reg-Email\"]");
     By passwordInputSelector=By.xpath("//input[@name=\"Reg-Password\"]");
     By confirmPasswordInputSelector=By.xpath("//input[@name=\"Confirm Password\"]");
-    By termConfirmSelector=By.xpath("(//span[@class=\"custom-control-description\"])[2]");
+    By termConfirmSelector=By.xpath("(//label[@class=\"custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0\"])[2]");
     By singUpButtonSelector=By.xpath("//input[@value=\"Sign Up\"]");
     By registerFormSelector =By.xpath("//form[@action=\"register\"]");
     By registerErrorSelector=By.id("registerError");

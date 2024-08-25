@@ -28,7 +28,7 @@ public class TC54_VerifyThatTheAdminLoginSuccessfulWithValidInformation {
 
         softAssert=new SoftAssert();
 
-        driver.get(configReader.getUrl2());
+        driver.get(configReader.getUrlAdmin());
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }

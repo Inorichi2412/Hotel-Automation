@@ -1,0 +1,1 @@
+{"uuid":"e98d23d5-922f-4ef2-9e60-7d60d8ce7bee","name":"at-project-template","children":["260c0ab5-9a4b-47b7-b0b9-523660e08f4d"],"befores":[{"name":"beforeTest","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1724412718547,"stop":1724412718578}],"afters":[],"start":1724412718484,"stop":1724412737266}
