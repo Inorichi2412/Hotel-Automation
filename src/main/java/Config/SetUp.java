@@ -21,4 +21,5 @@ public class SetUp {
     public String getUrl() {
         return properties.getProperty("url");
     }
+
 }

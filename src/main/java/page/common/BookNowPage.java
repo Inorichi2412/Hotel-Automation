@@ -136,6 +136,13 @@ public class BookNowPage extends GeneralPage {
         }
     }
 
+    public void submitPromotion(String promotionCode) {
+        tickPromotion();
+        WebElement enterPromotion = driver.findElement(regionPromotionSelector);
+        enterPromotion.sendKeys(promotionCode);
+        driver.findElement(buttonApplySelector).click();
+    }
+
     public String messagePromotionError() {
         return driver.findElement(messagePromotionErrorSelector).getText();
     }
@@ -143,5 +150,4 @@ public class BookNowPage extends GeneralPage {
     public String getGrandTotal() {
         return driver.findElement(grandTotalSelector).getText();
     }
-
 }

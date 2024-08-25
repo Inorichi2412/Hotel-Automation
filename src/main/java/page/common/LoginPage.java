@@ -4,15 +4,15 @@ import Models.LoginForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage {
+public class LoginPage extends GeneralPage {
     WebDriver driver;
 
     public LoginPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
     //Selector login
-    By buttonLoginSelector = By.xpath("//a[text()='Login']");
     By usernameInputSelector = By.xpath("//input[@name='email']");
     By passwordInputSelector = By.xpath("//input[@name='password']");
     By submitButtonSelector = By.xpath("//input[@value='Sign In']");
@@ -25,12 +25,12 @@ public class LoginPage {
         driver.findElement(usernameInputSelector).click();
     }
 
-    public void clickPasswordInput() {
-        driver.findElement(passwordInputSelector).click();
-    }
-
     public void clickSubmitButton() {
         driver.findElement(submitButtonSelector).click();
+    }
+
+    public void clickPasswordInput() {
+        driver.findElement(passwordInputSelector).click();
     }
 
     public void enterEmail(String email) {
@@ -41,9 +41,6 @@ public class LoginPage {
         driver.findElement(passwordInputSelector).sendKeys(password);
     }
 
-    public void clickButtonLogin() {
-        driver.findElement(buttonLoginSelector).click();
-    }
 
     public void login(String username, String password) {
         clickEmailInput();
@@ -59,12 +56,6 @@ public class LoginPage {
 
     public boolean isLoginFormDisplayed() {
         return driver.findElement(loginFormSelector).isDisplayed();
-    }
-
-    public void loginAdmin(LoginForm loginForm) {
-        driver.findElement(usernameInputSelector).sendKeys(loginForm.getEmail());
-        driver.findElement(passwordInputSelector).sendKeys(loginForm.getPassword());
-        clickSubmitButton();
     }
 
     public boolean isLoginErrorMessageDisplayed() {

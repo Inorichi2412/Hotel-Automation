@@ -50,10 +50,6 @@ public class BookingDataGenerator {
         return faker.name().fullName();
     }
 
-    public String generateUserName() {
-        return faker.name().username();
-    }
-
     // Sinh địa chỉ email
     public String generateEmail() {
         return faker.internet().emailAddress();
@@ -70,6 +66,14 @@ public class BookingDataGenerator {
             phoneNumber = phoneNumber.substring(phoneNumber.length() - 10);
         }
         return "0" + phoneNumber;
+    }
+
+    public String generateUserName() {
+        return faker.name().username();
+    }
+
+    public String generatePassword() {
+        return faker.internet().password();
     }
 
     // Sinh Booking ID với format XXXX-XXXXXXXXX
@@ -95,27 +99,5 @@ public class BookingDataGenerator {
     public String generatePromotionCode() {
         // Tạo chuỗi ngẫu nhiên gồm 8 ký tự chữ và số
         return faker.lorem().characters(8, true, true).toUpperCase();
-    }
-
-    public static void main(String[] args) {
-        BookingDataGenerator generator = new BookingDataGenerator();
-        // Thông tin tìm kiếm
-        String checkInDate = generator.generateCheckInDate();
-        String checkOutDate = generator.generateCheckOutDate(checkInDate);
-        int adults = generator.generateAdults();
-        int children = generator.generateChildren();
-        System.out.println("Check In: " + checkInDate);
-        System.out.println("Check Out: " + checkOutDate);
-        System.out.println("Adults: " + adults);
-        System.out.println("Children: " + children);
-        // Thông tin guest
-        String fullName = generator.generateFullName();
-        String email = generator.generateEmail();
-        String phone = generator.generatePhone();
-        String address = generator.generateAddress();
-        System.out.println("Full Name: " + fullName);
-        System.out.println("Email: " + email);
-        System.out.println("Phone: " + phone);
-        System.out.println("Address: " + address);
     }
 }
