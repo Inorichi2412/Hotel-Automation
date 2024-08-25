@@ -31,6 +31,7 @@ public class TC28_VerifyAddUserFunctionInMenuIsSuccessful {
     String password;
     String confirmPassword;
     String address;
+    String searchResultEmail;
 
     @BeforeMethod
     public void setUp() {
@@ -69,8 +70,10 @@ public class TC28_VerifyAddUserFunctionInMenuIsSuccessful {
         userPage.clickUserMenu();
         userPage.clickAddUser();
         userPage.enterInforUser(fullName, email, phone, userName, password, confirmPassword, address);
-        userPage.clickViewUser();
-        //userPage.searchUserName(userName);
+        userPage.searchUserName(email);
+        // Lấy kết quả tìm kiếm và so sánh với email đã nhập
+        searchResultEmail = userPage.getEmailFromSearchResults();
+        softAssert.assertEquals(searchResultEmail, email, "Email do not match!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
