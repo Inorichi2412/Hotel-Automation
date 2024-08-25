@@ -18,6 +18,11 @@ public class GeneralStaffPage {
     By viewAllStaffCardSelector=By.xpath("//span[@class='title' and text()='View\n" +
             "\t\t\t\t\t\t\t\t\t\tAll Staffs']");
 
+    By logOutButtonSelector=By.xpath("//a[@data-original-title=\"Logout\"]");
+
+    public void doLogOutAction() {
+        driver.findElement(logOutButtonSelector).click();
+    }
 
     public void openStaffNav() {
         driver.findElement(staffNavSelector).click();

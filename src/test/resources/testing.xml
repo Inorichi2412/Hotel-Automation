@@ -8,6 +8,8 @@
 <!--            <class name="guest.TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsNoSuccessful"></class>-->
 <!--            <class name="guest.TC4_VerifyFunctionalityOfScrollToTopButton"></class>-->
 <!--            <class name="guest.TC5_VerifyBreadcrumbNavigationFromRoomsPage"></class>-->
+<!--            <class name="user.TC47_VerifyThatUsersCanNavigateToDifferentPagesSuccessfullyByClickingOnTabsOnTheMenu"></class>-->
+<!--            <class name="user.TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcrumbs"></class>-->
 <!--        </classes>-->
 <!--    </test>-->
 
@@ -16,6 +18,8 @@
 <!--            <class name="guest.TC6_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUseSearchCriteria"></class>-->
 <!--            <class name="guest.TC7_VerifyThatTheRoomsPageDoesNotShowEmptyRoomsWhenTheUserSearchCriteriaAreInvalid"></class>-->
 <!--            <class name="guest.TC8_VerifyTheInformationDisplayedWhenPerformingTheHotelRoomSearchFunctionIsMissingInformationInTheTextBoxesOnTheHomePage"></class>-->
+<!--            <class name="user.TC41_VerifyThatUsersCanCheckTheNumberOfHotelsForEachLocationByHovering"></class>-->
+<!--            <class name="user.TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickingOnTheSiteLogo"></class>-->
 <!--        </classes>-->
 <!--    </test>-->
 
@@ -28,6 +32,11 @@
 <!--            <class name="guest.TC14_VerifyBookingFunctionWithValidConditions"></class>-->
 <!--            <class name="guest.TC15_VerifyBookingFunctionWithInvalidConditions"></class>-->
 <!--            <class name="guest.TC16_VerifyTheInformationDisplayedWhenPerformingTheBookingFunctionIsMissingInformationOnTheRoomDetaillPage"></class>-->
+<!--            <class name="user.TC44_VerifyThatTheRoomsPageDisplaysAListOfRoomsThatMatchTheUserSearchCriteria"></class>-->
+<!--            <class name="user.TC45_VerifyThatTheRoomsPageDisplaysAnEmptyListWhenTheUserSearcInforAreInvalid"></class>-->
+<!--            <class name="user.TC50_VerifyThatTheRoomListIsDisplayedInTheRoomsPage"></class>-->
+<!--            <class name="user.TC51_VerifyThatForEachRoomOnTheRoomsPageThereIsAViewDetailButton"></class>-->
+<!--            <class name="user.TC52_VerifyThatWhenTheUserClicksOnTheViewDetailButtonForARoomItJumpsToTheRoomsDetailPageCorrespondingToThatRoom"></class>-->
 <!--        </classes>-->
 <!--    </test>-->
 
@@ -47,11 +56,31 @@
 <!--        </classes>-->
 <!--    </test>-->
 
-    <test name="Admin">
+<!--    <test name="Admin">-->
+<!--        <classes>-->
+<!--            <class name="staff.TC54_VerifyThatTheAdminLoginSuccessfulWithValidInformation"></class>-->
+<!--            <class name="admin.TC25_26_VerifySuccessfulAndFailedAdminAccountLogins"></class>-->
+<!--            <class name="admin.TC27_VerifySpecifyStaffDetailsInformationInMenu"></class>-->
+<!--            <class name="admin.TC30_31_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPage"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="User">
         <classes>
-            <class name="admin.TC25_26_VerifySuccessfulAndFailedAdminAccountLogins"></class>
-            <class name="admin.TC27_VerifySpecifyStaffDetailsInformationInMenu"></class>
-            <class name="admin.TC30_31_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPage"></class>
+            <class name="user.TC39_VerifyThatTheUserCanRegisterSuccessfullyWithValidInformation"></class>
+            <class name="user.TC38_VerifyThatUsersCanFailToRegisterWithInvalidInformation"></class>
+            <class name="user.TC42_VerifyThatTheUserLoginFailedWithInvalidInformation"></class>
+            <class name="user.TC43_VerifyThatTheUserLoggedInSuccessfullyWithValidInformation"></class>
         </classes>
     </test>
+
+<!--    <test name="Staff">-->
+<!--        <classes>-->
+<!--            <class name="staff.TC55_VerifyThatUsersCanClickOnTheAddStaffTabToGoToTheAddStaffPage"></class>-->
+<!--            <class name="staff.TC56_VerifyThatUsersCannotCreateStaffWithInvalidData"></class>-->
+<!--            <class name="staff.TC57_VerifyThatTheUserCanCreateStaffWithValidData"></class>-->
+<!--            <class name="staff.TC58_VerifyThatUsersCanClickOnTheListAllStaffCardToGoToTheAllStaffPage"></class>-->
+<!--            <class name="staff.TC59_VerifyThatTheUserCanLogInWithTheNewlyCreatedStaffAccount"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

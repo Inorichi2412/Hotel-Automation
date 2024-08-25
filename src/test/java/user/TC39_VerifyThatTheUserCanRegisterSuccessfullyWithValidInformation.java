@@ -9,6 +9,7 @@ import org.testng.asserts.SoftAssert;
 import page.common.HomePage;
 import page.common.LoginPage;
 import page.common.RegisterPage;
+import utils.BookingDataGenerator;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -20,6 +21,9 @@ public class TC39_VerifyThatTheUserCanRegisterSuccessfullyWithValidInformation {
     LoginPage loginPage;
     RegisterPage registerPage;
     SoftAssert softAssert;
+    BookingDataGenerator bookingDataGenerator;
+    String userName;
+    String email;
 
     @BeforeMethod
     public void SetUp() {
@@ -28,6 +32,10 @@ public class TC39_VerifyThatTheUserCanRegisterSuccessfullyWithValidInformation {
         homePage=new HomePage(driver);
         loginPage=new LoginPage(driver);
         registerPage=new RegisterPage(driver);
+        bookingDataGenerator=new BookingDataGenerator();
+
+        userName=bookingDataGenerator.generateUserName();
+        email=bookingDataGenerator.generateEmail();
 
         softAssert=new SoftAssert();
 
@@ -41,7 +49,7 @@ public class TC39_VerifyThatTheUserCanRegisterSuccessfullyWithValidInformation {
 
         homePage.openRegisterForm();
 
-        registerPage.register("","","","");
+        registerPage.register(userName,email,"123456","123456");
         softAssert.assertFalse(registerPage.isRegisterFormDisplayed(),"Form still display");
 
         softAssert.assertAll();

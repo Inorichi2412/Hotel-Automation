@@ -10,6 +10,7 @@ import org.testng.asserts.SoftAssert;
 import page.staff.AddStaffPage;
 import page.staff.DashboardPage;
 import page.staff.LoginPage;
+import utils.BookingDataGenerator;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -22,6 +23,7 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
     AddStaffPage addStaffPage;
     SoftAssert softAssert;
     AddStaffForm addStaffForm;
+    BookingDataGenerator bookingDataGenerator;
 
     @BeforeMethod
     public void SetUp() {
@@ -37,7 +39,7 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        addStaffForm=new AddStaffForm("","Female","20","09996677","Manager","vietanh","123456","123456","vietnam");
+        addStaffForm=new AddStaffForm("","","","","","","","","");
 
     }
 
@@ -51,12 +53,20 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         dashboardPage.openStaffNav();
         dashboardPage.openAddStaffCard();
 
-        addStaffForm.setAddress("");
+
+        addStaffForm.setFullName(bookingDataGenerator.generateFullName());
         addStaffPage.addStaff(addStaffForm);
-
-//        addStaffForm.set();
-
         softAssert.assertTrue(addStaffPage.isAddStaffFormDisplayed(),"add staff form not display");
+
+        addStaffForm.setAddress(bookingDataGenerator.generateAddress());
+        addStaffPage.addStaff(addStaffForm);
+        softAssert.assertTrue(addStaffPage.isAddStaffFormDisplayed(),"add staff form not display");
+
+        addStaffForm.setMobileNumber(bookingDataGenerator.generatePhone());
+        addStaffPage.addStaff(addStaffForm);
+        softAssert.assertTrue(addStaffPage.isAddStaffFormDisplayed(),"add staff form not display");
+
+
 
         softAssert.assertAll();
 

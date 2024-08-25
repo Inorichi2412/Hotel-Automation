@@ -13,6 +13,7 @@ import page.staff.AddStaffPage;
 import page.staff.DashboardPage;
 import page.staff.LoginPage;
 import page.staff.ViewAllStaffPage;
+import utils.BookingDataGenerator;
 import utils.ConfigReader;
 
 import java.time.Duration;
@@ -25,8 +26,11 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
     AddStaffPage addStaffPage;
     SoftAssert softAssert;
     AddStaffForm addStaffForm;
-    RandomStringUtils randomStringUtils;
     ViewAllStaffPage viewAllStaffPage;
+    BookingDataGenerator bookingDataGenerator;
+    String userName;
+    String fullName;
+    String mobilePhone;
 
     @BeforeMethod
     public void SetUp() {
@@ -35,7 +39,10 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
         loginPage=new LoginPage(driver);
         dashboardPage=new DashboardPage(driver);
         addStaffPage=new AddStaffPage(driver);
-        randomStringUtils=new RandomStringUtils();
+        bookingDataGenerator=new BookingDataGenerator();
+
+        userName= bookingDataGenerator.generateUserName();
+        mobilePhone= bookingDataGenerator.generatePhone();
 
         softAssert=new SoftAssert();
 
@@ -43,12 +50,11 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
+        addStaffForm=new AddStaffForm("anhviet","Male","20",mobilePhone,"Manager",userName,"123456","123456","vietnam");
+
+
     }
 
-    @BeforeTest
-    public void beforeTest() {
-        addStaffForm=new AddStaffForm("vietanh","Male","20","09996677","Manager","anhviet123","123456","123456","vietnam");
-    }
 
     @Test
     public void VerifyThatTheUserCanCreateStaffWithValidData() {
@@ -60,7 +66,10 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
 
         addStaffPage.addStaff(addStaffForm);
 
-        softAssert.assertFalse(addStaffPage.isAddStaffFormDisplayed(),"add staff form still display");
+
+        viewAllStaffPage.enterSearchInput(mobilePhone);
+
+        softAssert.assertEquals(viewAllStaffPage.checkPhoneNumberDisplay(mobilePhone),mobilePhone,"Staff not display");
 
         softAssert.assertAll();
 

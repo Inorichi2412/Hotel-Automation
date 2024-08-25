@@ -50,6 +50,10 @@ public class BookingDataGenerator {
         return faker.name().fullName();
     }
 
+    public String generateUserName() {
+        return faker.name().username();
+    }
+
     // Sinh địa chỉ email
     public String generateEmail() {
         return faker.internet().emailAddress();

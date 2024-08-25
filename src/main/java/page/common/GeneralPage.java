@@ -19,6 +19,8 @@ public class GeneralPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+
+
     // Selector
     By logoLinkSelector=By.xpath("(//a[@href='/'])[1]");
     By homeLinkSelector=By.xpath("(//a[@href='/'])[2]");
@@ -61,6 +63,14 @@ public class GeneralPage {
     // Selector promotion
     By regionPromotionSelector = By.id("code");
     By buttonApplySelector = By.xpath("//button[text()='Apply']");
+
+    public void openLoginForm() {
+        driver.findElement(loginSelector).click();
+    }
+
+    public void openRegisterForm() {
+        driver.findElement(registerSelector).click();
+    }
 
     public void openLogoPage() {
         driver.findElement(logoLinkSelector).click();
