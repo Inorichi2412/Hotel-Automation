@@ -2,6 +2,7 @@ package guest;
 
 import Config.SetUp;
 import Models.LoginForm;
+import Models.Promotion;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -12,6 +13,8 @@ import page.admin.AdminPage;
 import page.admin.PromotionPage;
 import page.common.*;
 import utils.BookingDataGenerator;
+import utils.DriverUtils;
+import utils.PromotionCalculate;
 
 public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformation {
     WebDriver driver;
@@ -39,10 +42,14 @@ public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformatio
     String email;
     String phone;
     String address;
+    Promotion promotion;
     String promoCode;
-    String promoCodeError;
-    String grandTotal;
-    String grandTotalPromotion;
+    String promoValue;
+    String promoType;
+    String promoCodeNotExits;
+    float grandTotal;
+    float grandTotalPromotion;
+    float grandTotalAfterApplyPromotion;
 
 
     @BeforeMethod
@@ -83,29 +90,26 @@ public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformatio
         // Khởi tạo đối tượng admin
         loginForm = LoginForm.getLoginAdmin();
         // promotion
-        promoCodeError = bookingDataGenerator.generatePromotionCode();
+        promoCodeNotExits = bookingDataGenerator.generatePromotionCode();
     }
 
     @Test
     public void TC17andTC18() {
         // Phương thức click login và đăng nhặp admin
-        loginPage.clickButtonLogin();
+        loginPage.openLoginForm();
 
         // Phương thức login
-        loginPage.loginAdmin(loginForm);
-
-        // Phương thức open tab
-        homePage.openAdminTab();
+        homePage.loginAdmin(loginForm);
+        homePage.clickButtonGoToAdmin();
 
         // Phương thức get promotion
         adminPage.openPromotionMenu();
         promotionPage.openViewPromotion();
-        promotionPage.getCodePromotion();
         promoCode = promotionPage.getCodePromotion();
+        promoValue = promotionPage.getValuePromotion();
+        promoType = promotionPage.getTypePromotion();
 
-        // Phương thức close tab new, back tab old
-        homePage.switchToOriginalTab();
-
+        driver.get(url);
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
@@ -116,17 +120,27 @@ public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformatio
         roomDetailsPage.openBookNow();
 
         // Phương thức show, click radio promotion khong ton tai
-        grandTotal = bookNowPage.getGrandTotal();
-        bookNowPage.tickPromotion();
-        bookNowPage.submitPromotion(promoCodeError);
-        //kiem tra
+        bookNowPage.submitPromotion(promoCodeNotExits);
+        //kiem tra có ton tại message error
         softAssert.assertEquals(bookNowPage.messagePromotionError(),"Error: Promotion Code not exists !!!", "Error: Promotion Code not exists !!!");
 
-        // Phương thức show, click radio promotion  ton tai
-        bookNowPage.tickPromotion();
+        // Tạo đối tượng Promotion
+        promotion = new Promotion(promoCode, Float.parseFloat(promoValue), promoType);
+
+        // Tính toán tổng giá trị trước khi áp dụng giảm giá
+        grandTotal = DriverUtils.parseCurrency(bookNowPage.getGrandTotal());
+        grandTotalPromotion = PromotionCalculate.calculate(grandTotal, promotion);
+        System.out.println("Grand Total before promotion: " + grandTotalPromotion);
+
+        // Áp dụng mã giảm giá tồn tại
         bookNowPage.submitPromotion(promoCode);
-        grandTotalPromotion = bookNowPage.getGrandTotal();
-        softAssert.assertNotEquals(grandTotal, grandTotalPromotion, "Unexpected Error Message: Promotion Code exists");
+
+        // Lấy giá trị tổng sau khi áp dụng giảm giá
+        grandTotalAfterApplyPromotion = DriverUtils.parseCurrency(bookNowPage.getGrandTotal());
+        System.out.println("Calculated discount: " + grandTotalAfterApplyPromotion);
+
+        // Kiểm tra xem giá trị tính toán có khớp với giá trị hiển thị không
+        softAssert.assertEquals(grandTotalPromotion, grandTotalAfterApplyPromotion, "Promotion calculation error!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();

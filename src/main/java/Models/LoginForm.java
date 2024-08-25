@@ -33,16 +33,4 @@ public class LoginForm {
         return new LoginForm("admin", "123456");
     }
 
-    // Tạo đối tượng LoginForm với email không hợp lệ
-    public static LoginForm getLoginAdminEmpty() {
-        return new LoginForm("", ""); // empty
-    }
-
-    public static LoginForm getLoginAdminUserError() {
-        return new LoginForm("admin1234", "123456"); // Email không hợp lệ
-    }
-
-    public static LoginForm getLoginAdminPassError() {
-        return new LoginForm("admin", "123456789"); // Password không hợp lệ
-    }
 }

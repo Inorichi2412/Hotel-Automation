@@ -8,8 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class PromotionPage extends BasePage {
-    WebDriver driver;
+public class PromotionPage extends GeneralPage {
     WebDriverWait wait;
 
     public PromotionPage(WebDriver driver) {
@@ -18,19 +17,36 @@ public class PromotionPage extends BasePage {
     }
 
     //selector
-
     By openViewPromotionSelector = By.xpath("//*[@id='remove-scroll']/ul/li[13]/ul/li[2]/a");
-    By getCodePromotionSelector = By.xpath("//*[@id='example4']/tbody//td[contains(text(),'Happy')]/following-sibling::td[1]");
-
+    By getCodePromotionSelector = By.xpath("//*[@id='example4']/tbody/tr[1]/td[2]");
+    By getValuePromotionSelector = By.xpath("//*[@id='example4']/tbody/tr[1]/td[6]");
+    By getTypePromotionSelector = By.xpath("//*[@id='example4']/tbody/tr[1]/td[5]");
+    By sortPeriodEndDateSelector = By.xpath("//*[@id='example4_wrapper']/div[2]/div/div/div[1]/div/table/thead/tr/th[4]");
 
     public void openViewPromotion() {
         WebElement openViewPromotionElement = wait.until(ExpectedConditions.elementToBeClickable(openViewPromotionSelector));
         openViewPromotionElement.click();
+        sortPeriodEndDate();
+    }
+
+    public void sortPeriodEndDate() {
+        driver.findElement(sortPeriodEndDateSelector).click();
+        driver.findElement(sortPeriodEndDateSelector).click();
     }
 
     public String getCodePromotion() {
         WebElement codePromotionElement = wait.until(ExpectedConditions.visibilityOfElementLocated(getCodePromotionSelector));
         return codePromotionElement.getText();
+    }
+
+    public String getValuePromotion() {
+        WebElement valePromotionElement = wait.until(ExpectedConditions.visibilityOfElementLocated(getValuePromotionSelector));
+        return valePromotionElement.getText();
+    }
+
+    public String getTypePromotion() {
+        WebElement valePromotionElement = wait.until(ExpectedConditions.visibilityOfElementLocated(getTypePromotionSelector));
+        return valePromotionElement.getText();
     }
 
 }

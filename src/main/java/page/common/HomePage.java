@@ -1,5 +1,6 @@
 package page.common;
 
+import Models.LoginForm;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Wait;
@@ -11,7 +12,6 @@ import java.util.List;
 public class HomePage extends GeneralPage {
     Actions actions;
     Wait<WebDriver> wait;
-    String originalTab;
 
     // Selector
     By loginSelector = By.id("NavebarProfileDrop");
@@ -40,10 +40,13 @@ public class HomePage extends GeneralPage {
     By pageHomeTitleSelector = By.xpath("/html/body/section[1]/div/div/div/div/h1");
 
     // Selector cho các trường trong phần tìm kiếm
-    By checkinSelector = By.name("arrival");
-    By checkoutSelector = By.name("depature");
     By adultSelector = By.name("adult");
     By childrenSelector = By.name("children");
+
+    // selector login
+    By usernameInputSelector = By.xpath("//input[@name='email']");
+    By passwordInputSelector = By.xpath("//input[@name='password']");
+    By submitButtonSelector = By.xpath("//input[@value='Sign In']");
 
     // Constructor của lớp HomePage
     public HomePage(WebDriver driver) {
@@ -73,7 +76,6 @@ public class HomePage extends GeneralPage {
             return "Header not found"; // Hoặc trả về giá trị mặc định khác
         }
     }
-
 
     public void clickCheckIn() {
         driver.findElement(checkInInputSelector).click();
@@ -129,11 +131,6 @@ public class HomePage extends GeneralPage {
         clickSearchButton();
     }
 
-
-    public void openLoginForm() {
-        driver.findElement(loginSelector).click();
-    }
-
     public void openRegisterForm() {
         driver.findElement(registerSelector).click();
     }
@@ -182,44 +179,14 @@ public class HomePage extends GeneralPage {
         wait.until(e -> e.findElement(pageHomeTitleSelector).isDisplayed());
     }
 
-    public void openAdminTab() {
-        // Lưu trữ tab gốc
-        originalTab = driver.getWindowHandle();
-
-        // Sử dụng JavaScript để mở tab mới
-        ((JavascriptExecutor) driver).executeScript("window.open(arguments[0], '_blank');", "http://14.176.232.213:8084/admin");
-
-        // Chờ cho tab mới được mở
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(driver -> driver.getWindowHandles().size() > 1);
-
-        // Chuyển đến tab mới
-        for (String tabHandle : driver.getWindowHandles()) {
-            if (!tabHandle.equals(originalTab)) {
-                driver.switchTo().window(tabHandle);
-                break;
-            }
-        }
-
-        // Kiểm tra nếu tab mới đã được chuyển thành công
-        if (driver.getWindowHandles().size() <= 1) {
-            throw new RuntimeException("Không thể mở tab mới.");
-        }
-
+    public void clickSubmitButton() {
+        driver.findElement(submitButtonSelector).click();
     }
 
-    // Phương thức quay trở lại tab gốc nếu cần
-    public void switchToOriginalTab() {
-        // Kiểm tra nếu tab hiện tại là tab gốc
-        if (driver.getWindowHandle().equals(originalTab)) {
-            throw new RuntimeException("Đã ở tab gốc.");
-        }
-
-        // Đóng tab hiện tại (tab admin)
-        driver.close();
-
-        // Chuyển về tab gốc
-        driver.switchTo().window(originalTab);
+    public void loginAdmin(LoginForm loginForm) {
+        driver.findElement(usernameInputSelector).sendKeys(loginForm.getEmail());
+        driver.findElement(passwordInputSelector).sendKeys(loginForm.getPassword());
+        clickSubmitButton();
     }
 
     // Phương thức click button go to admin
