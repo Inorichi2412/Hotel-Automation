@@ -17,8 +17,4 @@ public class DriverUtils {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", element);
     }
-
-    public static float parseCurrency(String amount) {
-        return Float.parseFloat(amount.replace("$", "").replace(",", ""));
-    }
 }

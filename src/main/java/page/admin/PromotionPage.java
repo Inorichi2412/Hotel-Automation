@@ -39,9 +39,11 @@ public class PromotionPage extends GeneralPage {
         return codePromotionElement.getText();
     }
 
-    public String getValuePromotion() {
-        WebElement valePromotionElement = wait.until(ExpectedConditions.visibilityOfElementLocated(getValuePromotionSelector));
-        return valePromotionElement.getText();
+    public Float getValuePromotion() {
+        WebElement valuePromotionElement = wait.until(ExpectedConditions.visibilityOfElementLocated(getValuePromotionSelector));
+        String valueText = valuePromotionElement.getText();
+        // Chuyển đổi chuỗi thành float
+        return Float.parseFloat(valueText);
     }
 
     public String getTypePromotion() {

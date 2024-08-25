@@ -11,18 +11,10 @@ public class FAQsPage extends GeneralPage{
     }
 
     String faqsPage = "/faqs";
-    // Tiêu đề của trang Rooms
-    By faqsPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");
 
     // Phương thức điều hướng đến trang Faqs
     public void navigateToFaqsPage() {
         super.navigateToPage(faqsPage);
-    }
-
-    // Phương thức lấy title
-    public String getFaqsPageTitleText() {
-        driver.findElement(faqsPageTitleSelector).click();
-        return getPageTitleText();
     }
 
     // Phương thức Breadcrumb
