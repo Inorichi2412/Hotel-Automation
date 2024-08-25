@@ -11,7 +11,6 @@ public class ContactUsPage extends GeneralPage{
     }
 
     // Selector cho nút điều hướng đến trang Contact
-    //By contactPageLink = By.xpath("//a[@href='/contact']");
     String contactPage = "/contact";
     // Tiêu đề của trang Rooms
     By contactPageTitleSelector = By.xpath("//h2[@class='page_title white-text']");

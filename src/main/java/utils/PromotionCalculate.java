@@ -8,4 +8,8 @@ public class PromotionCalculate {
         float discount = promotion.calculateDiscount(total);
         return total - discount;
     }
+
+    public static float parseCurrency(String amount) {
+        return Float.parseFloat(amount.replace("$", "").replace(",", ""));
+    }
 }

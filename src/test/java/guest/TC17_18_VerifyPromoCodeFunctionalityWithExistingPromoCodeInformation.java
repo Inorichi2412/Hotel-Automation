@@ -13,7 +13,6 @@ import page.admin.AdminPage;
 import page.admin.PromotionPage;
 import page.common.*;
 import utils.BookingDataGenerator;
-import utils.DriverUtils;
 import utils.PromotionCalculate;
 
 public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformation {
@@ -44,7 +43,7 @@ public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformatio
     String address;
     Promotion promotion;
     String promoCode;
-    String promoValue;
+    float promoValue;
     String promoType;
     String promoCodeNotExits;
     float grandTotal;
@@ -125,19 +124,17 @@ public class TC17_18_VerifyPromoCodeFunctionalityWithExistingPromoCodeInformatio
         softAssert.assertEquals(bookNowPage.messagePromotionError(),"Error: Promotion Code not exists !!!", "Error: Promotion Code not exists !!!");
 
         // Tạo đối tượng Promotion
-        promotion = new Promotion(promoCode, Float.parseFloat(promoValue), promoType);
+        promotion = new Promotion(promoCode, promoValue, promoType);
 
         // Tính toán tổng giá trị trước khi áp dụng giảm giá
-        grandTotal = DriverUtils.parseCurrency(bookNowPage.getGrandTotal());
+        grandTotal = PromotionCalculate.parseCurrency(bookNowPage.getGrandTotal());
         grandTotalPromotion = PromotionCalculate.calculate(grandTotal, promotion);
-        System.out.println("Grand Total before promotion: " + grandTotalPromotion);
 
         // Áp dụng mã giảm giá tồn tại
         bookNowPage.submitPromotion(promoCode);
 
         // Lấy giá trị tổng sau khi áp dụng giảm giá
-        grandTotalAfterApplyPromotion = DriverUtils.parseCurrency(bookNowPage.getGrandTotal());
-        System.out.println("Calculated discount: " + grandTotalAfterApplyPromotion);
+        grandTotalAfterApplyPromotion = PromotionCalculate.parseCurrency(bookNowPage.getGrandTotal());
 
         // Kiểm tra xem giá trị tính toán có khớp với giá trị hiển thị không
         softAssert.assertEquals(grandTotalPromotion, grandTotalAfterApplyPromotion, "Promotion calculation error!");

@@ -40,7 +40,7 @@ public class UserPage extends GeneralPage{
     By enterAddressSelector = By.id("text7");
     By clickSubmitButtonSelector = By.xpath("//span[@class='mdl-button__ripple-container']");
     By enterSearchTextboxSelector = By.xpath("//input[@class='form-control form-control-sm']");
-    By emailSearchResultsSelector = By.xpath("//*[@id='example4']/tbody/tr[1]/td[3]");
+    By emailSearchResultsSelector = By.cssSelector("#example4 tbody tr:first-child td:nth-child(3) a");
 
     public void clickUserMenu() {
         driver.findElement(userMenuSelector).click();

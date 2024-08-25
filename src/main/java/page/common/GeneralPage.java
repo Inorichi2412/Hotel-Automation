@@ -192,6 +192,4 @@ public class GeneralPage {
     public void openLoginForm() {
         driver.findElement(clickLoginButtonSelector).click();
     }
-
-
 }

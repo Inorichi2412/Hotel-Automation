@@ -35,5 +35,4 @@ public class ConfirmPage extends GeneralPage {
     public String getMessageConfirm() {
         return driver.findElement(messageConfirmSelector).getText();
     }
-
 }
