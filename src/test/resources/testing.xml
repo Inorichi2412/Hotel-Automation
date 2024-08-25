@@ -61,6 +61,7 @@
 <!--            <class name="staff.TC54_VerifyThatTheAdminLoginSuccessfulWithValidInformation"></class>-->
 <!--            <class name="admin.TC25_26_VerifySuccessfulAndFailedAdminAccountLogins"></class>-->
 <!--            <class name="admin.TC27_VerifySpecifyStaffDetailsInformationInMenu"></class>-->
+<!--                 <class name="admin.TC28_VerifyAddUserFunctionInMenuIsSuccessful"></class>-->
 <!--            <class name="admin.TC30_31_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPage"></class>-->
 <!--        </classes>-->
 <!--    </test>-->

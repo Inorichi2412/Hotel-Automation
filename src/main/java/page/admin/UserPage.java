@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -39,6 +40,7 @@ public class UserPage extends GeneralPage{
     By enterAddressSelector = By.id("text7");
     By clickSubmitButtonSelector = By.xpath("//span[@class='mdl-button__ripple-container']");
     By enterSearchTextboxSelector = By.xpath("//input[@class='form-control form-control-sm']");
+    By emailSearchResultsSelector = By.xpath("//*[@id='example4']/tbody/tr[1]/td[3]");
 
     public void clickUserMenu() {
         driver.findElement(userMenuSelector).click();
@@ -149,6 +151,12 @@ public class UserPage extends GeneralPage{
     }
 
     public void searchUserName(String userName) {
+        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        wait.until(e -> e.findElement(enterSearchTextboxSelector).isDisplayed());
         driver.findElement(enterSearchTextboxSelector).sendKeys(userName);
+    }
+
+    public String getEmailFromSearchResults() {
+        return driver.findElement(emailSearchResultsSelector).getText();
     }
 }
