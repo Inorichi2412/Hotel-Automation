@@ -36,7 +36,7 @@ public class TC42_VerifyThatTheUserLoginFailedWithInvalidInformation {
     @Test
     public void VerifyThatTheUserLoginFailedWithInvalidInformation() {
 
-        homePage.openLoginForm();
+        homePage.openLoginTrueForm();
         loginPage.login("","");
         softAssert.assertTrue(loginPage.isLoginErrorDisplayed(),"Error message appear");
 

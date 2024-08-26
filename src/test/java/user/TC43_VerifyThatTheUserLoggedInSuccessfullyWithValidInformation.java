@@ -36,7 +36,7 @@ public class TC43_VerifyThatTheUserLoggedInSuccessfullyWithValidInformation {
     @Test
     public void VerifyThatTheUserLoggedInSuccessfullyWithValidInformation() {
 
-        homePage.openLoginForm();
+        homePage.openLoginTrueForm();
         loginPage.login("vyvanviet","abc123");
         softAssert.assertFalse(loginPage.isLoginFormDisplayed(),"Login form still display");
 
