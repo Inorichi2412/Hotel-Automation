@@ -14,19 +14,21 @@ public class HomePage extends GeneralPage {
     String originalTab;
 
     // Selector
-    By loginSelector = By.id("NavebarProfileDrop");
+    By mainNavi = By.id("NavebarProfileDrop");
     By buttonGoToAdmin = By.xpath("//a[@class='dropdown-item clearfix']");
+
+    By loginSelector = By.xpath("//a[@href='#Login_tab'][1]");
     By registerSelector = By.xpath("//a[@href='#Register_tab'][1]");
     By roomsPageSelector = By.xpath("//a[@href='/rooms']");
 
     By h1HeaderSelector = By.xpath("//h1");
 
     By badgeSuccessSelector = By.xpath("//label[@class='badge-success']");
-    By location1Selector = By.xpath("(//div[@class='yemm_desti_inner'])[1]");
-    By location2Selector = By.xpath("(//div[@class='yemm_desti_inner'])[2]");
-    By location3Selector = By.xpath("(//div[@class='yemm_desti_inner'])[3]");
-    By location4Selector = By.xpath("(//div[@class='yemm_desti_inner'])[4]");
-    By location5Selector = By.xpath("(//div[@class='yemm_desti_inner'])[5]");
+    By location1Selector = By.xpath("//h3[text()=\"Australia\"]");
+    By location2Selector = By.xpath("//h3[text()=\"Paris\"]");
+    By location3Selector = By.xpath("//h3[text()=\"Russia\"]");
+    By location4Selector = By.xpath("//h3[text()=\"China\"]");
+    By location5Selector = By.xpath("//h3[text()=\"Singapore\"]");
 
     By checkInInputSelector = By.id("check-in");
     By checkOutInputSelector = By.id("check-out");
@@ -224,7 +226,7 @@ public class HomePage extends GeneralPage {
 
     // Phương thức click button go to admin
     public void clickButtonGoToAdmin() {
-        driver.findElement(loginSelector).click();;
+        driver.findElement(mainNavi).click();;
         driver.findElement(buttonGoToAdmin).click();
     }
 }

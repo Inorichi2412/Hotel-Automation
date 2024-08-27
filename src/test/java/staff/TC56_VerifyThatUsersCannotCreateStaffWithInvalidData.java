@@ -32,6 +32,7 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         loginPage=new LoginPage(driver);
         dashboardPage=new DashboardPage(driver);
         addStaffPage=new AddStaffPage(driver);
+        bookingDataGenerator=new BookingDataGenerator();
 
         softAssert=new SoftAssert();
 
@@ -39,7 +40,7 @@ public class TC56_VerifyThatUsersCannotCreateStaffWithInvalidData {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-        addStaffForm=new AddStaffForm("","","","","","","","","");
+        addStaffForm=new AddStaffForm("","Male","20","","Manager","","","","");
 
     }
 

@@ -36,7 +36,12 @@ public class SelectRoomPage {
     }
 
     public boolean isItemDescriptionsDisplayed() {
-        return driver.findElement(itemDescriptionsSelector).isDisplayed();
+        if (driver.findElements(itemDescriptionsSelector).size()>0){
+            return driver.findElement(itemDescriptionsSelector).isDisplayed();
+        }
+        else {
+            return false;
+        }
     }
 
     public SelectRoomPage(WebDriver driver) {

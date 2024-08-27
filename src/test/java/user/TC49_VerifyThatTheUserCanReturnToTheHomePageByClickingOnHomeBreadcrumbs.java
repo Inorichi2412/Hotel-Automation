@@ -58,19 +58,19 @@ public class TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcr
 
         generalPage.openAboutPage();
         aboutPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(aboutPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         generalPage.openBlogsPage();
         blogsPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(blogsPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         generalPage.openContactPage();
         contactUsPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(contactUsPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         generalPage.openFAQsPage();
         faQsPage.clickHomeBreadCrumb();
-        softAssert.assertEquals(faQsPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         softAssert.assertAll();
 

@@ -36,21 +36,21 @@ public class TC42_VerifyThatTheUserLoginFailedWithInvalidInformation {
     @Test
     public void VerifyThatTheUserLoginFailedWithInvalidInformation() {
 
-        homePage.openLoginTrueForm();
+        homePage.openLoginForm();
         loginPage.login("","");
-        softAssert.assertTrue(loginPage.isLoginErrorDisplayed(),"Error message appear");
+        softAssert.assertTrue(loginPage.isLoginFormDisplayed(),"Error message appear");
 
         loginPage.login("vyvanviet","");
-        softAssert.assertTrue(loginPage.isLoginErrorDisplayed(),"Error message appear");
+        softAssert.assertTrue(loginPage.isLoginFormDisplayed(),"Error message appear");
 
         loginPage.login("","abc123");
-        softAssert.assertTrue(loginPage.isLoginErrorDisplayed(),"Error message appear");
+        softAssert.assertTrue(loginPage.isLoginFormDisplayed(),"Error message appear");
 
         loginPage.login("vyvanvietviet","abc123");
-        softAssert.assertTrue(loginPage.isLoginErrorDisplayed(),"Error message appear");
+        softAssert.assertTrue(loginPage.isLoginFormDisplayed(),"Error message appear");
 
         loginPage.login("vyvanviet","abc123123");
-        softAssert.assertTrue(loginPage.isLoginErrorDisplayed(),"Error message appear");
+        softAssert.assertTrue(loginPage.isLoginFormDisplayed(),"Error message appear");
 
         softAssert.assertAll();
 

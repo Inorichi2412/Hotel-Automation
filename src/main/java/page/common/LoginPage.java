@@ -3,18 +3,26 @@ package page.common;
 import Models.LoginForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
     WebDriver driver;
+    Wait<WebDriver> wait;
+
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
     }
 
     //Selector login
     By buttonLoginSelector = By.xpath("//a[text()='Login']");
-    By usernameInputSelector = By.xpath("//input[@name='email']");
-    By passwordInputSelector = By.xpath("//input[@name='password']");
+    By usernameInputSelector = By.xpath("//input[@name=\"email\"]");
+    By passwordInputSelector = By.xpath("//input[@name=\"password\"]");
     By submitButtonSelector = By.xpath("//input[@value='Sign In']");
     By loginErrorSelector = By.id("loginError");
     By loginFormSelector = By.xpath("//form[@name='login-form']");
@@ -33,11 +41,13 @@ public class LoginPage {
         driver.findElement(submitButtonSelector).click();
     }
 
-    public void enterEmail(String email) {
-        driver.findElement(usernameInputSelector).sendKeys(email);
+    public void enterUserName(String userName) {
+        driver.findElement(usernameInputSelector).clear();
+        driver.findElement(usernameInputSelector).sendKeys(userName);
     }
 
     public void enterPassword(String password) {
+        driver.findElement(passwordInputSelector).clear();
         driver.findElement(passwordInputSelector).sendKeys(password);
     }
 
@@ -47,7 +57,7 @@ public class LoginPage {
 
     public void login(String username, String password) {
         clickEmailInput();
-        enterEmail(username);
+        enterUserName(username);
         clickPasswordInput();
         enterPassword(password);
         clickSubmitButton();
