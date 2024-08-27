@@ -8,9 +8,9 @@
 <!--            <class name="guest.TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsNoSuccessful"></class>-->
 <!--            <class name="guest.TC4_VerifyFunctionalityOfScrollToTopButton"></class>-->
 <!--            <class name="guest.TC5_VerifyBreadcrumbNavigationFromRoomsPage"></class>-->
-            <class name="user.TC47_VerifyThatUsersCanNavigateToDifferentPagesSuccessfullyByClickingOnTabsOnTheMenu"></class>
-            <class name="user.TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickingOnTheSiteLogo"></class>
-            <class name="user.TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcrumbs"></class>
+<!--             <class name="user.TC47_VerifyThatUsersCanNavigateToDifferentPagesSuccessfullyByClickingOnTabsOnTheMenu"></class> -->
+<!--             <class name="user.TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickingOnTheSiteLogo"></class> -->
+<!--             <class name="user.TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcrumbs"></class> -->
         </classes>
     </test>
 

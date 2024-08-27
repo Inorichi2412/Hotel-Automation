@@ -3,6 +3,7 @@ package page.common;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DriverUtils;
@@ -18,8 +19,6 @@ public class GeneralPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
-
-
 
     // Selector
     By logoLinkSelector=By.xpath("(//a[@href='/'])[1]");
@@ -66,13 +65,8 @@ public class GeneralPage {
     By regionPromotionSelector = By.id("code");
     By buttonApplySelector = By.xpath("//button[text()='Apply']");
 
-    public void openLoginForm() {
-        driver.findElement(loginSelector).click();
-    }
-
-    public void openRegisterForm() {
-        driver.findElement(registerSelector).click();
-    }
+    // selector login
+    By clickLoginButtonSelector = By.xpath("//a[text()='Login']");
 
     public void openLogoPage() {
         driver.findElement(logoLinkSelector).click();
@@ -197,9 +191,7 @@ public class GeneralPage {
         driver.findElement(searchButtonSelector).click();
     }
 
-    public void submitPromotion(String promotionCode) {
-        WebElement enterPromotion = driver.findElement(regionPromotionSelector);
-        enterPromotion.sendKeys(promotionCode);
-        driver.findElement(buttonApplySelector).click();
+    public void openLoginForm() {
+        driver.findElement(clickLoginButtonSelector).click();
     }
 }

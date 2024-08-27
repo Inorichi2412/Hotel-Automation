@@ -38,9 +38,9 @@ public class TC27_VerifySpecifyStaffDetailsInformationInMenu {
     @Test
     public void TC27() {
         // Phương thức click login và đăng nhặp admin
-        loginPage.clickButtonLogin();
+        homePage.openLoginForm();
         // Phương thức login
-        loginPage.loginAdmin(loginForm);
+        homePage.loginAdmin(loginForm);
 
         // phương thức go to admin
         homePage.clickButtonGoToAdmin();

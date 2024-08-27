@@ -13,7 +13,7 @@ import page.admin.UserPage;
 import page.common.HomePage;
 import page.common.LoginPage;
 
-public class TC30_31_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPage {
+public class TC29_30_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPage {
     WebDriver driver;
     HomePage homePage;
     AdminPage adminPage;
@@ -40,11 +40,11 @@ public class TC30_31_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPa
     }
 
     @Test
-    public void TC30And31() {
+    public void TC29And30() {
         // Phương thức click login và đăng nhặp admin
-        loginPage.clickButtonLogin();
+        homePage.openLoginForm();
         // Phương thức login
-        loginPage.loginAdmin(loginForm);
+        homePage.loginAdmin(loginForm);
         // phương thức go to admin
         homePage.clickButtonGoToAdmin();
 

@@ -17,9 +17,6 @@ public class TC25_26_VerifySuccessfulAndFailedAdminAccountLogins {
     AdminPage adminPage;
     LoginPage loginPage;
     LoginForm loginForm;
-    LoginForm loginFormUserError;
-    LoginForm loginFormPassError;
-    LoginForm loginAdminEmpty;
     SoftAssert softAssert;
     SetUp setUp;
 
@@ -34,31 +31,29 @@ public class TC25_26_VerifySuccessfulAndFailedAdminAccountLogins {
         loginPage = new LoginPage(driver);
         softAssert = new SoftAssert();
         // Khởi tạo đối tượng
-        loginForm = LoginForm.getLoginAdmin();
-        loginFormUserError = LoginForm.getLoginAdminUserError();
-        loginFormPassError = LoginForm.getLoginAdminPassError();
-        loginAdminEmpty = LoginForm.getLoginAdminEmpty();
-
+        loginForm = new LoginForm("","");
     }
 
     @Test
     public void TC25And26() {
         // Phương thức click login và đăng nhặp admin
-        loginPage.clickButtonLogin();
+        loginPage.openLoginForm();
         // Phương thức login vs empty
-        loginPage.loginAdmin(loginAdminEmpty);
+        homePage.loginAdmin(loginForm);
         softAssert.assertTrue(loginPage.isLoginErrorMessageDisplayed(), "Error message for invalid not displayed");
 
         // Phương thức login user khong hợp lệ
-        loginPage.loginAdmin(loginFormUserError);
+        loginForm = new LoginForm("admin1234", "123456");
+        homePage.loginAdmin(loginForm);
         softAssert.assertTrue(loginPage.isLoginErrorMessageDisplayed(), "Error message user for invalid not displayed");
 
         // Phương thức login passs khong hợp lệ
-        loginPage.loginAdmin(loginFormPassError);
+        loginForm = new LoginForm("admin", "123456abc");
+        homePage.loginAdmin(loginForm);
         softAssert.assertTrue(loginPage.isLoginErrorMessageDisplayed(), "Error message pass for invalid not displayed");
 
         // Phương thức login thành công
-        loginPage.loginAdmin(loginForm);
+        homePage.loginAdmin(LoginForm.getLoginAdmin());
         softAssert.assertTrue(loginPage.isAdminPageDisplayed(), "Admin page is not displayed after successful login");
 
         // Kiểm tra tất cả các xác nhận

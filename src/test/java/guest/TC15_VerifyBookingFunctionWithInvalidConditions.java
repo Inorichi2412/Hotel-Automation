@@ -72,7 +72,7 @@ public class TC15_VerifyBookingFunctionWithInvalidConditions {
     }
 
     @Test
-    public void TC14() {
+    public void TC15() {
         //Sử dụng dữ liệu đặt phòng để tìm kiếm
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
 
