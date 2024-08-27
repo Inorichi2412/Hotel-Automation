@@ -55,27 +55,27 @@ public class TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickin
 
         generalPage.openHomePage();
         homePage.openLogoPage();
-        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         generalPage.openRoomsPage();
         roomsPage.openLogoPage();
-        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         generalPage.openAboutPage();
         aboutPage.openLogoPage();
-        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         generalPage.openBlogsPage();
         blogsPage.openLogoPage();
-        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         generalPage.openContactPage();
         contactUsPage.openLogoPage();
-        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         generalPage.openFAQsPage();
         faQsPage.openLogoPage();
-        softAssert.assertEquals(generalPage.getTitle(),"Best Hotel to stay","Wrong H1 header");
+        softAssert.assertEquals(homePage.getTitle(),"Best Hotel to stay","Wrong H1 header");
 
         softAssert.assertAll();
 

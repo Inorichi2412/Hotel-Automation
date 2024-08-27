@@ -28,6 +28,8 @@ public class GeneralPage {
     By blogsLinkSelector=By.xpath("//a[@href='/blogs']");
     By contactLinkSelector=By.xpath("//a[@href='/contact']");
     By faqsLinkSelector=By.xpath("//a[@href='/faqs']");
+    By loginSelector = By.xpath("//a[@href='#Login_tab'][1]");
+    By registerSelector = By.xpath("//a[@href='#Register_tab'][1]");
 
     By h1HeaderSelector=By.xpath("//h1");
     By h2HeaderSelector=By.xpath("//h2[@class='page_title white-text']");

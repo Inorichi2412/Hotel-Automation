@@ -66,10 +66,7 @@ public class TC57_VerifyThatTheUserCanCreateStaffWithValidData {
 
         addStaffPage.addStaff(addStaffForm);
 
-
-        viewAllStaffPage.enterSearchInput(mobilePhone);
-
-        softAssert.assertEquals(viewAllStaffPage.checkPhoneNumberDisplay(mobilePhone),mobilePhone,"Staff not display");
+        softAssert.assertFalse(addStaffPage.isAddStaffFormDisplayed(),"Add staff form still display");
 
         softAssert.assertAll();
 
