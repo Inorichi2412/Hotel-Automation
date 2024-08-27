@@ -19,7 +19,7 @@ public class BookingDataGenerator {
 
     // Sinh ngày nhận phòng
     public String generateCheckInDate() {
-        LocalDate checkInDate = LocalDate.now().plusDays(faker.number().numberBetween(1, 30)).plusYears(2);
+        LocalDate checkInDate = LocalDate.now().plusDays(faker.number().numberBetween(1, 30)).plusYears(3);
         return checkInDate.format(dateFormatter);
     }
 
