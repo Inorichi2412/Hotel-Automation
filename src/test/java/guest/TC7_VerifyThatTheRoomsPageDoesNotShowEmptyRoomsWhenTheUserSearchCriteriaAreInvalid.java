@@ -56,6 +56,7 @@ public class TC7_VerifyThatTheRoomsPageDoesNotShowEmptyRoomsWhenTheUserSearchCri
         homePage.searchRoom(checkInDate, checkOutDate, adults, children);
         //Xác minh rằng các có phòng đang được hiển thị trên trang Rooms.
         softAssert.assertFalse(roomsPage.isItemDescriptionsDisplayed(),"Have available room");
+
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
     }

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Hotel" parallel="classes" thread-count="1">
-    <test name="Common">
-        <classes>
+<!--    <test name="Common">-->
+<!--        <classes>-->
 <!--            <class name="guest.TC1_VerifyGuestRedirectsToCorrespondingPagesOnTheAreaMenu"></class>-->
 <!--            <class name="guest.TC2_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsSuccessful"></class>-->
 <!--            <class name="guest.TC3_VerifyThatTheSearchFunctionOfTheSearchTextboxOnTheHomeRoomAboutBlogsContactUsBlogsScreensIsNoSuccessful"></class>-->
 <!--            <class name="guest.TC4_VerifyFunctionalityOfScrollToTopButton"></class>-->
 <!--            <class name="guest.TC5_VerifyBreadcrumbNavigationFromRoomsPage"></class>-->
-<!--             <class name="user.TC47_VerifyThatUsersCanNavigateToDifferentPagesSuccessfullyByClickingOnTabsOnTheMenu"></class> -->
-<!--             <class name="user.TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickingOnTheSiteLogo"></class> -->
-<!--             <class name="user.TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcrumbs"></class> -->
-        </classes>
-    </test>
+<!--            <class name="user.TC47_VerifyThatUsersCanNavigateToDifferentPagesSuccessfullyByClickingOnTabsOnTheMenu"></class>-->
+<!--            <class name="user.TC48_VerifyThatUsersCanReturnToTheHomePageFromAnyOtherPageByClickingOnTheSiteLogo"></class>-->
+<!--            <class name="user.TC49_VerifyThatTheUserCanReturnToTheHomePageByClickingOnHomeBreadcrumbs"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
 <!--    <test name="Home">-->
 <!--        <classes>-->
@@ -56,13 +56,13 @@
 <!--        </classes>-->
 <!--    </test>-->
 
-<!--    <test name="Admin">-->
-<!--        <classes>-->
-<!--            <class name="admin.TC25_26_VerifySuccessfulAndFailedAdminAccountLogins"></class>-->
-<!--            <class name="admin.TC27_VerifySpecifyStaffDetailsInformationInMenu"></class>-->
-<!--            <class name="admin.TC30_31_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPage"></class>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <test name="Admin">
+        <classes>
+            <class name="admin.TC25_26_VerifySuccessfulAndFailedAdminAccountLogins"></class>
+            <class name="admin.TC27_VerifySpecifyStaffDetailsInformationInMenu"></class>
+            <class name="admin.TC29_30_VerifyDisplayOfUserInformationAndNumberOfRecordsOnAllUserPage"></class>
+        </classes>
+    </test>
 
 <!--    <test name="User">-->
 <!--        <classes>-->

@@ -8,15 +8,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoginPage {
+public class LoginPage extends GeneralPage {
     WebDriver driver;
     Wait<WebDriver> wait;
 
 
     public LoginPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
     }
 
     //Selector login
@@ -49,10 +49,6 @@ public class LoginPage {
     public void enterPassword(String password) {
         driver.findElement(passwordInputSelector).clear();
         driver.findElement(passwordInputSelector).sendKeys(password);
-    }
-
-    public void clickButtonLogin() {
-        driver.findElement(buttonLoginSelector).click();
     }
 
     public void login(String username, String password) {

@@ -19,17 +19,4 @@ public class ContactUsPage extends GeneralPage{
     public void navigateToContactPage() {
         super.navigateToPage(contactPage);
     }
-
-    // Phương thức lấy title
-    public String getContactPageTitleText() {
-        driver.findElement(contactPageTitleSelector).click();
-        return getPageTitleText();
-    }
-
-    // Phương thức Breadcrumb
-    @Override
-    public void navigateToHomePageFromBreadcrumb() {
-        //Breadcrumb về Home Page
-        super.navigateToHomePageFromBreadcrumb();
-    }
 }
