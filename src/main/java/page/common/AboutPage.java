@@ -1,6 +1,5 @@
 package page.common;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class AboutPage extends GeneralPage{
@@ -18,10 +17,4 @@ public class AboutPage extends GeneralPage{
         super.navigateToPage(aboutPage);
     }
 
-    // Phương thức Breadcrumb
-    @Override
-    public void navigateToHomePageFromBreadcrumb() {
-        //Breadcrumb về Home Page
-        super.navigateToHomePageFromBreadcrumb();
-    }
 }

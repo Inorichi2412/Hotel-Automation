@@ -62,13 +62,6 @@ public class HomePage extends GeneralPage {
         super.navigateToPage(homePage);
     }
 
-    // phương thưc lấy title
-    @Override
-    public String getPageTitleText() {
-        WebElement titleElement = driver.findElement(pageHomeTitleSelector);
-        return titleElement.getText();
-    }
-
     @Override
     public String getTitle() {
         List<WebElement> elements = driver.findElements(h1HeaderSelector);

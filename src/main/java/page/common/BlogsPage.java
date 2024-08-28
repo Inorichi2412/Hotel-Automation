@@ -1,6 +1,5 @@
 package page.common;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class BlogsPage extends GeneralPage{
@@ -15,12 +14,5 @@ public class BlogsPage extends GeneralPage{
     // Phương thức điều hướng đến trang Blogs
     public void navigateToBlogsPage() {
         super.navigateToPage(blogsPage);
-    }
-
-    // Phương thức Breadcrumb
-    @Override
-    public void navigateToHomePageFromBreadcrumb() {
-        //Breadcrumb về Home Page
-        super.navigateToHomePageFromBreadcrumb();
     }
 }

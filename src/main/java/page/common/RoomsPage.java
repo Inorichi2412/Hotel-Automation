@@ -1,6 +1,7 @@
 package page.common;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
@@ -74,16 +75,14 @@ public class RoomsPage extends GeneralPage {
         super.navigateToPage(pageName);
     }
 
-    // Phương thức Breadcrumb
-    @Override
-    public void navigateToHomePageFromBreadcrumb() {
-        //Breadcrumb về Home Page
-        super.navigateToHomePageFromBreadcrumb();
-    }
-
     // Phương thưc kiểm tra xem phần tử có đang được hiển thị trên trang không.
     public boolean isItemDescriptionsDisplayed() {
-        return driver.findElement(itemDescriptionsSelector).isDisplayed();
+        try {
+            return driver.findElement(itemDescriptionsSelector).isDisplayed();
+        } catch (NoSuchElementException e) {
+            System.out.println("ItemDescriptions element not found.");
+            return false;
+        }
     }
 
     // Phương thức cuộn tới phần tử và nhấn nút View Details

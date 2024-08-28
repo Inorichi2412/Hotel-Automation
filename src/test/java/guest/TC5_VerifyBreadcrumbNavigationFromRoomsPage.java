@@ -45,28 +45,28 @@ public class TC5_VerifyBreadcrumbNavigationFromRoomsPage {
 
         // Kiểm tra tiêu đề trang Rooms
         roomsPage.navigateToRoomsPage();
-        roomsPage.navigateToHomePageFromBreadcrumb();
-        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
+        roomsPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(), expectedHomeTitle, "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang About
         aboutPage.navigateToAboutPage();
-        aboutPage.navigateToHomePageFromBreadcrumb();
-        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
+        aboutPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(), expectedHomeTitle, "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang Blogs
         blogsPage.navigateToBlogsPage();
-        blogsPage.navigateToHomePageFromBreadcrumb();
-        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
+        blogsPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(), expectedHomeTitle, "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang Contact
         contactUsPage.navigateToContactPage();
-        contactUsPage.navigateToHomePageFromBreadcrumb();
-        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
+        contactUsPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(), expectedHomeTitle, "The Home page title does not match!");
 
         // Kiểm tra tiêu đề trang FAQs
         faQsPage.navigateToFaqsPage();
-        faQsPage.navigateToHomePageFromBreadcrumb();
-        softAssert.assertEquals(homePage.getPageTitleText(), "Best Hotel to stay", "The Home page title does not match!");
+        faQsPage.clickHomeBreadCrumb();
+        softAssert.assertEquals(homePage.getTitle(), expectedHomeTitle, "The Home page title does not match!");
 
         // Kiểm tra tất cả các xác nhận
         softAssert.assertAll();
